@@ -1,9 +1,8 @@
 from typing import List
-from random import randint
 
 from BaseClasses import Location, Item, ItemClassification
 from worlds.AutoWorld import World
-from .Options import LWNOptions
+from .Options import LWNOptions, NoArcane
 from .Items import lwn_items, attack_magics, boss_souls, useful_items, filler_items
 from .Locations import lwn_locations, shrine_start_locations, shrine_armor_locations, \
     shrine_secret_passage_locations, underground_start_locations, \
@@ -30,11 +29,6 @@ class LWNWorld(World):
     options_dataclass = LWNOptions
     options: LWNOptions
     topology_present = True
-
-    # ID of first item and location, could be hard-coded but code may be easier
-    # to read with this as a property.
-    base_id = 90000
-    # Instead of dynamic numbering, IDs could be part of data.
 
     # The following two dicts are required for the generation to know which
     # items exist. They could be generated from json or something else. They can
@@ -197,26 +191,42 @@ class LWNWorld(World):
         # Generate item pool
         item_pool: List[LWNItem] = []
         for item in attack_magics.keys():
-            # Generate 5 of all progressive items
-            for i in range(5):
+            # Generate 4 of all progressive items
+            for _ in range(4):
                 lwn_item = self.create_item(item)
                 item_pool.append(lwn_item)
+        
+        if self.options.no_arcane.value == NoArcane.option_true:
+            item_pool.append(self.create_item("Arcane"))
+        item_pool.append(self.create_item("Fire"))
+        item_pool.append(self.create_item("Ice"))
+        item_pool.append(self.create_item("Thunder"))
+
                 
         for item in useful_items.keys():
             # Generate 5 of all useful items
-            for i in range(5):
+            for _ in range(5):
                 lwn_item = self.create_item(item)
                 item_pool.append(lwn_item)
         
         # Generate remaining filler items
-        for i in range(17):
-            random_index = randint(0, 9)
-            item = self.create_item(list(filler_items.keys())[random_index])
-            item_pool.append(item)
-
+        empty_locations = len(self.multiworld.get_unfilled_locations(self.player))
+        remaining_items_needed = empty_locations - len(item_pool)
+        item_pool += [
+            self.create_item(self.get_filler_item_name())
+                for _ in range(remaining_items_needed)
+        ]
 
         self.multiworld.itempool += item_pool
+    
+    def get_filler_item_name(self) -> str:
+        return self.multiworld.random.choice(list(filler_items.keys()))
 
     def generate_basic(self):
         # place "Victory" at "Nonota" and set collection as win condition
         self.multiworld.get_location("Abyss - Nonota", self.player).place_locked_item(self.create_event("Victory"))
+
+        # give out starter items
+        self.multiworld.push_precollected(self.create_item("Teleport"))
+        if self.options.no_arcane.value == NoArcane.option_false:
+            self.multiworld.push_precollected(self.create_item("Arcane"))
