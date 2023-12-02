@@ -1,8 +1,8 @@
-from typing import List
+from typing import Any, Dict, List
 
 from BaseClasses import Location, Item, ItemClassification
 from worlds.AutoWorld import World
-from .Options import LWNOptions, NoArcane
+from .Options import LWNOptions, NoArcane, get_option_value
 from .Items import lwn_items, attack_magics, boss_souls, useful_items, filler_items
 from .Locations import lwn_locations, shrine_start_locations, shrine_armor_locations, \
     shrine_secret_passage_locations, underground_start_locations, \
@@ -230,3 +230,13 @@ class LWNWorld(World):
         self.multiworld.push_precollected(self.create_item("Teleport"))
         if self.options.no_arcane.value == NoArcane.option_false:
             self.multiworld.push_precollected(self.create_item("Arcane"))
+
+    def fill_slot_data(self) -> Dict[str, Any]:
+        slot_data = Dict[str, Any]
+
+        for option_name in LWNOptions.as_dict(LWNOptions).keys():
+            slot_data[option_name] = get_option_value(
+                self.multiworld, self.player, option_name
+            )
+
+        return slot_data

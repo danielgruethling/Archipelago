@@ -1,4 +1,6 @@
+from typing import Union
 from dataclasses import dataclass
+from BaseClasses import MultiWorld
 from Options import Choice, Toggle, Range, PerGameCommonOptions
 
 DefaultOffToggle = Toggle
@@ -22,6 +24,7 @@ class RandomizeBossSouls(DefaultOffToggle):
     This option will itemize killed bosses into soul items that are added to the item pool.
     Only relevant for Boss Hunt goal. Does nothing for other goals.
     """
+    display_name = "Randomize Boss Souls"
 
 class TrialKeys(Range):
     """
@@ -46,6 +49,17 @@ class EntranceRandomization(DefaultOffToggle):
     Randomizes the start level and the destinations of doors/post-custcene level changes.
     """
     display_name = "Entrance randomization"
+
+
+def get_option_value(world: MultiWorld, player: int, name: str) -> Union[bool, int]:
+    option = getattr(world, name, None)
+
+    if option is None:
+        return 0
+
+    if issubclass(LWNOptions[name], Toggle) or issubclass(LWNOptions[name], DefaultOffToggle):
+        return bool(option[player].value)
+    return option[player].value
 
 @dataclass
 class LWNOptions(PerGameCommonOptions):
