@@ -2,20 +2,20 @@ from typing import Dict
 
 base_id = 345600000
 
-attack_magics: Dict[str,int] = {
+attack_magics: Dict[str, int] = {
     "Arcane": base_id,
     "Ice": base_id + 1,
     "Fire": base_id + 2,
     "Thunder": base_id + 3,
 }
 
-useful_items: Dict[str,int] = {
+useful_items: Dict[str, int] = {
     "Wind": base_id + 4,
     "Mana Absorption": base_id + 5,
     "Progressive Bag Upgrade": base_id + 6,
 }
 
-boss_souls: Dict[str,int] = {
+boss_souls: Dict[str, int] = {
     "Specter Armor Soul": base_id + 7,
     "Tania Soul": base_id + 8,
     "Monica Soul": base_id + 9,
@@ -24,7 +24,7 @@ boss_souls: Dict[str,int] = {
     "Queen Vanessa V2 Soul": base_id + 12,
 }
 
-filler_items: Dict[str,int] = {
+filler_items: Dict[str, int] = {
     "HPCure": base_id + 13,
     "HPCureMiddle": base_id + 14,
     "HPCureBig": base_id + 15,

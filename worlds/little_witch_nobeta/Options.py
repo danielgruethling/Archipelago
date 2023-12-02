@@ -1,15 +1,16 @@
-from typing import Union
+from typing import Dict, Union
 from dataclasses import dataclass
 from BaseClasses import MultiWorld
 from Options import Choice, Toggle, Range, PerGameCommonOptions
 
 DefaultOffToggle = Toggle
 
+
 class Goal(Choice):
     """
     The Goal of the game.
     [Vanilla] Reaching and beating Nonota will end the game.
-    [Magic Master] All atack magics (arcane, ice, fire and thunder) must be level 5 before Nonota can be reached.
+    [Magic Master] All attack magics (arcane, ice, fire and thunder) must be level 5 before Nonota can be reached.
     [Boss Hunt] All bosses need to be killed before Nonota can be reached.
     """
     display_name = "Goal"
@@ -19,12 +20,14 @@ class Goal(Choice):
 
     default = option_vanilla
 
+
 class RandomizeBossSouls(DefaultOffToggle):
     """
     This option will itemize killed bosses into soul items that are added to the item pool.
     Only relevant for Boss Hunt goal. Does nothing for other goals.
     """
     display_name = "Randomize Boss Souls"
+
 
 class TrialKeys(Range):
     """
@@ -37,12 +40,14 @@ class TrialKeys(Range):
     range_end = 10
     default = 5
 
+
 class NoArcane(DefaultOffToggle):
     """
     Nobeta will not be able to fire arcane magic. Only melee attack are possible until some form of magic is found.
-    Arcane will still show up in the UI but it will be impossible to fire arcane shots.
+    Arcane will still show up in the UI, but it will be impossible to fire arcane shots.
     """
     display_name = "Start without magic"
+
 
 class EntranceRandomization(DefaultOffToggle):
     """
@@ -51,15 +56,25 @@ class EntranceRandomization(DefaultOffToggle):
     display_name = "Entrance randomization"
 
 
+lwn_options: Dict[str, type] = {
+    "goal": Goal,
+    "randomizebosssouls": RandomizeBossSouls,
+    "trialkeysamount": TrialKeys,
+    "noarcane": NoArcane,
+    "entrancerandomization": EntranceRandomization,
+}
+
+
 def get_option_value(world: MultiWorld, player: int, name: str) -> Union[bool, int]:
     option = getattr(world, name, None)
 
     if option is None:
         return 0
 
-    if issubclass(LWNOptions[name], Toggle) or issubclass(LWNOptions[name], DefaultOffToggle):
+    if issubclass(lwn_options[name], Toggle):
         return bool(option[player].value)
     return option[player].value
+
 
 @dataclass
 class LWNOptions(PerGameCommonOptions):
