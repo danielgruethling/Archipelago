@@ -1,6 +1,5 @@
-from typing import Dict, Union
 from dataclasses import dataclass
-from BaseClasses import MultiWorld
+
 from Options import Choice, Toggle, Range, PerGameCommonOptions
 
 DefaultOffToggle = Toggle
@@ -14,11 +13,25 @@ class Goal(Choice):
     [Boss Hunt] All bosses need to be killed before Nonota can be reached.
     """
     display_name = "Goal"
-    option_vanilla = 1
-    option_magic_master = 2
-    option_boss_hunt = 3
+    option_vanilla = 0
+    option_magic_master = 1
+    option_boss_hunt = 2
 
     default = option_vanilla
+
+
+class Difficulty(Choice):
+    """
+    The Difficulty of the game.
+    [Standard] This is the new default difficulty. Nobeta auto-regenerates life here and the game is easier in general.
+    [Advanced] This is the suggested difficulty to use by the developers. If you want
+    a challenge like in other soulslike games choose this difficulty.
+    """
+    display_name = "Difficulty"
+    option_standard = 0
+    option_advanced = 1
+
+    default = option_standard
 
 
 class RandomizeBossSouls(DefaultOffToggle):
@@ -29,15 +42,22 @@ class RandomizeBossSouls(DefaultOffToggle):
     display_name = "Randomize Boss Souls"
 
 
-class TrialKeys(Range):
+class TrialKeys(DefaultOffToggle):
     """
     This setting will add keys to the item pool which are needed to open the teleports to each trial.
     Opening a trial is done by dropping a key on a trial path.
     Three keys are needed to end the game. Putting more keys in the item pool will speed up progression.
     """
     display_name = "Trial keys"
+
+
+class TrialKeyAmount(Range):
+    """
+    Amount of trial keys added to the item pool. Suggested amount is 5.
+    """
+    display_name = "Trial key amount"
     range_start = 3
-    range_end = 10
+    range_end = 7
     default = 5
 
 
@@ -56,30 +76,12 @@ class EntranceRandomization(DefaultOffToggle):
     display_name = "Entrance randomization"
 
 
-lwn_options: Dict[str, type] = {
-    "goal": Goal,
-    "randomizebosssouls": RandomizeBossSouls,
-    "trialkeysamount": TrialKeys,
-    "noarcane": NoArcane,
-    "entrancerandomization": EntranceRandomization,
-}
-
-
-def get_option_value(world: MultiWorld, player: int, name: str) -> Union[bool, int]:
-    option = getattr(world, name, None)
-
-    if option is None:
-        return 0
-
-    if issubclass(lwn_options[name], Toggle):
-        return bool(option[player].value)
-    return option[player].value
-
-
 @dataclass
 class LWNOptions(PerGameCommonOptions):
     goal: Goal
+    difficulty: Difficulty
     randomize_boss_souls: RandomizeBossSouls
     trial_keys: TrialKeys
+    trial_key_amount: TrialKeyAmount
     no_arcane: NoArcane
     entrance_randomization: EntranceRandomization

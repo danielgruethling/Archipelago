@@ -1,8 +1,9 @@
+import dataclasses
 from typing import Any, Dict, List
 
 from BaseClasses import Location, Item, ItemClassification
 from worlds.AutoWorld import World
-from .Options import LWNOptions, lwn_options, get_option_value
+from .Options import PerGameCommonOptions, LWNOptions, Toggle, NoArcane
 from .Items import lwn_items, attack_magics, boss_souls, useful_items, filler_items
 from .Locations import lwn_locations, shrine_start_locations, shrine_armor_locations, \
     shrine_secret_passage_locations, underground_start_locations, \
@@ -145,13 +146,13 @@ class LWNWorld(World):
         menu_region.connect(shrine_start_region)
 
         shrine_start_region.add_exits({"Shrine - Armor Hall": "Shrine Arcane Barrier"}, \
-                                      {"Shrine - Armor Hall": lambda state: state.has("Arcane", self.player) or \
-                                                                            state.has("Thunder", self.player)})
+                                      {"Shrine - Armor Hall": lambda state: state.has("Arcane", self.player) \
+                                                                            or state.has("Thunder", self.player)})
 
         shrine_armor_region.connect(underground_start_region)
         shrine_armor_region.add_exits({"Shrine - Secret Passage": "Secret Passage Fire Barrier"}, \
-                                      {"Shrine - Secret Passage": lambda state: state.has("Fire", self.player) or \
-                                                                                state.has("Thunder", self.player)})
+                                      {"Shrine - Secret Passage": lambda state: state.has("Fire", self.player) \
+                                                                                or state.has("Thunder", self.player)})
 
         shrine_secret_passage_region.connect(dark_tunnel_start_region)
 
@@ -162,17 +163,15 @@ class LWNWorld(World):
         underground_tania_region.connect(lava_ruins_start_region)
 
         lava_ruins_start_region.add_exits({"Lava Ruins - After Fire Barrier": "Lava Ruins Fire Barrier"}, \
-                                          {"Lava Ruins - After Fire Barrier": lambda state: state.has("Fire",
-                                                                                                      self.player) or \
-                                                                                            state.has("Thunder",
-                                                                                                      self.player)})
+                                          {"Lava Ruins - After Fire Barrier": lambda state: \
+                                              state.has("Fire", self.player) or state.has("Thunder", self.player)})
 
         lava_ruins_after_fire_barrier_region.connect(underground_start_region)
         lava_ruins_after_fire_barrier_region.connect(dark_tunnel_start_region)
 
         dark_tunnel_start_region.add_exits({"Dark Tunnel - After Thunder": "Dark Tunnel Thunder Barrier"}, \
-                                           {"Dark Tunnel - After Thunder": lambda state: state.has("Thunder",
-                                                                                                   self.player)})
+                                           {"Dark Tunnel - After Thunder": lambda state: \
+                                               state.has("Thunder", self.player)})
 
         dark_tunnel_after_thunder_region.connect(shrine_start_region)
         dark_tunnel_after_thunder_region.connect(spirit_realm_start_region)
@@ -204,7 +203,7 @@ class LWNWorld(World):
                 lwn_item = self.create_item(item)
                 item_pool.append(lwn_item)
 
-        if self.options.no_arcane.value == get_option_value(self.multiworld, self.player, "noarcane"):
+        if self.options.no_arcane.value == NoArcane.option_true:
             item_pool.append(self.create_item("Arcane"))
         item_pool.append(self.create_item("Fire"))
         item_pool.append(self.create_item("Ice"))
@@ -235,15 +234,15 @@ class LWNWorld(World):
 
         # give out starter items
         self.multiworld.push_precollected(self.create_item("Teleport"))
-        if self.options.no_arcane.value == get_option_value(self.multiworld, self.player, "noarcane"):
+        if self.options.no_arcane.value == NoArcane.option_false:
             self.multiworld.push_precollected(self.create_item("Arcane"))
 
     def fill_slot_data(self) -> Dict[str, Any]:
         slot_data = dict()
 
-        for option_name in LWNOptions.as_dict(LWNOptions).keys():
-            slot_data[option_name] = get_option_value(
-                self.multiworld, self.player, option_name
-            )
+        for option_name in (attr.name for attr in dataclasses.fields(LWNOptions)
+                            if attr not in dataclasses.fields(PerGameCommonOptions)):
+            option = getattr(self.options, option_name)
+            slot_data[option_name] = bool(option.value) if isinstance(option, Toggle) else option.value
 
         return slot_data
