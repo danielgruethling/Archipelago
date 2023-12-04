@@ -43,6 +43,7 @@ lwn_items: Dict[str, int] = {
     **boss_souls,
     **filler_items,
     "Teleport": base_id + 23,
+    "Trial Key": base_id + 24,
 }
 
 lookup_id_to_name: Dict[int, str] = {id: name for name, id in lwn_items.items()}

@@ -3,7 +3,7 @@ from typing import Any, Dict, List
 
 from BaseClasses import Location, Item, ItemClassification
 from worlds.AutoWorld import World
-from .Options import PerGameCommonOptions, LWNOptions, Toggle, NoArcane
+from .Options import PerGameCommonOptions, LWNOptions, Toggle
 from .Items import lwn_items, attack_magics, boss_souls, useful_items, filler_items
 from .Locations import lwn_locations, shrine_start_locations, shrine_armor_locations, \
     shrine_secret_passage_locations, underground_start_locations, \
@@ -54,6 +54,8 @@ class LWNWorld(World):
         if item in attack_magics:
             item_class = ItemClassification.progression
         if item in boss_souls:
+            item_class = ItemClassification.progression
+        elif item == "Trial Key":
             item_class = ItemClassification.progression
         elif item in useful_items:
             item_class = ItemClassification.useful
@@ -145,74 +147,104 @@ class LWNWorld(World):
         # Connect regions
         menu_region.connect(shrine_start_region)
 
-        shrine_start_region.add_exits({"Shrine - Armor Hall": "Shrine Arcane Barrier"}, \
-                                      {"Shrine - Armor Hall": lambda state: state.has("Arcane", self.player) \
-                                                                            or state.has("Thunder", self.player)})
+        shrine_start_region.add_exits({"Shrine - Armor Hall": "Shrine Arcane Barrier"},
+            {"Shrine - Armor Hall": lambda state: state.has("Arcane", self.player)
+                or state.has("Thunder", self.player)})
 
         shrine_armor_region.connect(underground_start_region)
-        shrine_armor_region.add_exits({"Shrine - Secret Passage": "Secret Passage Fire Barrier"}, \
-                                      {"Shrine - Secret Passage": lambda state: state.has("Fire", self.player) \
-                                                                                or state.has("Thunder", self.player)})
+        shrine_armor_region.add_exits({"Shrine - Secret Passage": "Secret Passage Fire Barrier"},
+            {"Shrine - Secret Passage": lambda state: state.has("Fire", self.player)
+                or state.has("Thunder", self.player)})
 
         shrine_secret_passage_region.connect(dark_tunnel_start_region)
 
-        underground_start_region.add_exits({"Underground - Tania": "Underground Fire"}, \
-                                           {"Underground - Tania": lambda state: state.has("Ice", self.player)})
+        underground_start_region.add_exits({"Underground - Tania": "Underground Fire"},
+            {"Underground - Tania": lambda state: state.has("Ice", self.player)})
 
         underground_tania_region.connect(shrine_start_region)
         underground_tania_region.connect(lava_ruins_start_region)
 
-        lava_ruins_start_region.add_exits({"Lava Ruins - After Fire Barrier": "Lava Ruins Fire Barrier"}, \
-                                          {"Lava Ruins - After Fire Barrier": lambda state: \
-                                              state.has("Fire", self.player) or state.has("Thunder", self.player)})
+        lava_ruins_start_region.add_exits({"Lava Ruins - After Fire Barrier": "Lava Ruins Fire Barrier"},
+            {"Lava Ruins - After Fire Barrier": lambda state:
+                state.has("Fire", self.player) or state.has("Thunder", self.player)})
 
         lava_ruins_after_fire_barrier_region.connect(underground_start_region)
         lava_ruins_after_fire_barrier_region.connect(dark_tunnel_start_region)
 
-        dark_tunnel_start_region.add_exits({"Dark Tunnel - After Thunder": "Dark Tunnel Thunder Barrier"}, \
-                                           {"Dark Tunnel - After Thunder": lambda state: \
-                                               state.has("Thunder", self.player)})
+        dark_tunnel_start_region.add_exits({"Dark Tunnel - After Thunder": "Dark Tunnel Thunder Barrier"},
+            {"Dark Tunnel - After Thunder": lambda state: state.has("Thunder", self.player)})
 
         dark_tunnel_after_thunder_region.connect(shrine_start_region)
         dark_tunnel_after_thunder_region.connect(spirit_realm_start_region)
 
-        spirit_realm_start_region.add_exits( \
-            {"Spirit Realm - After Arcane Barrier": "Spirit Realm Arcane Barrier"}, \
+        spirit_realm_start_region.add_exits(
+            {"Spirit Realm - After Arcane Barrier": "Spirit Realm Arcane Barrier"},
             {"Spirit Realm - After Arcane Barrier": lambda state: state.has("Arcane", self.player)})
 
-        spirit_realm_after_arcane_barrier_region.add_exits( \
-            {"Spirit Realm - After Teleport": "Spirit Realm Teleport Switch"}, \
-            {"Spirit Realm - After Teleport": lambda state: state.has("Ice", self.player) and \
-                                                            state.has("Thunder", self.player)})
+        spirit_realm_after_arcane_barrier_region.add_exits(
+            {"Spirit Realm - After Teleport": "Spirit Realm Teleport Switch"},
+            {"Spirit Realm - After Teleport": lambda state: state.has("Ice", self.player) and
+                state.has("Thunder", self.player)})
 
         spirit_realm_after_teleport_region.connect(abyss_region)
 
-        abyss_region.add_exits({"Abyss Trials": "Abyss Trial Fire Barrier"}, \
-                               {"Abyss Trials": lambda state: state.has("Fire", self.player) or \
-                                                              state.has("Thunder", self.player)})
+        if self.options.trial_keys.option_true:
+            abyss_region.add_exits({"Abyss Trials": "Abyss Trial Fire Barrier"},
+                {"Abyss Trials": lambda state: (state.has("Fire", self.player) or state.has("Thunder", self.player))
+                    and state.has("Trial Key", self.player, 3)})
+        else:
+            abyss_region.add_exits({"Abyss Trials": "Abyss Trial Fire Barrier"},
+                {"Abyss Trials": lambda state: state.has("Fire", self.player) or state.has("Thunder", self.player)})
 
     def set_rules(self):
-        self.multiworld.completion_condition[self.player] = lambda state: state.has("Victory", self.player)
+        if self.options.goal.option_boss_hunt:
+            self.multiworld.completion_condition[self.player] = lambda state: state.has("Victory", self.player) \
+                and state.has("Specter Armor Soul", self.player) and state.has("Tania Soul", self.player) \
+                and state.has("Monica Soul", self.player) and state.has("Enraged Armor Soul", self.player) \
+                and state.has("Vanessa Soul", self.player) and state.has("Queen Vanessa V2 Soul", self.player)
+        elif self.options.goal.option_magic_master:
+            self.multiworld.completion_condition[self.player] = lambda state: state.has("Victory", self.player) \
+                and state.has("Arcane", self.player, 5) and state.has("Ice", self.player, 5) \
+                and state.has("Fire", self.player, 5) and state.has("Thunder", self.player, 5)
+        else:
+            self.multiworld.completion_condition[self.player] = lambda state: state.has("Victory", self.player)
 
     def create_items(self):
         # Generate item pool
         item_pool: List[LWNItem] = []
-        for item in attack_magics.keys():
-            # Generate 4 of all progressive items
-            for _ in range(4):
-                lwn_item = self.create_item(item)
-                item_pool.append(lwn_item)
 
-        if self.options.no_arcane.value == NoArcane.option_true:
+        # Generate base level for progressive items
+        if self.options.no_arcane.option_true:
             item_pool.append(self.create_item("Arcane"))
         item_pool.append(self.create_item("Fire"))
         item_pool.append(self.create_item("Ice"))
         item_pool.append(self.create_item("Thunder"))
 
-        for item in useful_items.keys():
-            # Generate 5 of all useful items
-            for _ in range(5):
+        # Generate base level for useful items
+        item_pool.append(self.create_item("Wind"))
+        item_pool.append(self.create_item("Mana Absorption"))
+
+        # Generate 4 extra of all progressive and useful items
+        for item in attack_magics.keys():
+            for _ in range(4):
                 lwn_item = self.create_item(item)
+                item_pool.append(lwn_item)
+
+        for item in useful_items.keys():
+            for _ in range(4):
+                lwn_item = self.create_item(item)
+                item_pool.append(lwn_item)
+
+        # Generate boss souls
+        if self.options.randomize_boss_souls.option_true:
+            for item in boss_souls.keys():
+                lwn_item = self.create_item(item)
+                item_pool.append(lwn_item)
+
+        # Generate trial keys
+        if self.options.trial_keys.option_true:
+            for _ in range(self.options.trial_key_amount.value):
+                lwn_item = self.create_item("Trial Key")
                 item_pool.append(lwn_item)
 
         # Generate remaining filler items
@@ -234,7 +266,7 @@ class LWNWorld(World):
 
         # give out starter items
         self.multiworld.push_precollected(self.create_item("Teleport"))
-        if self.options.no_arcane.value == NoArcane.option_false:
+        if self.options.no_arcane.option_false:
             self.multiworld.push_precollected(self.create_item("Arcane"))
 
     def fill_slot_data(self) -> Dict[str, Any]:

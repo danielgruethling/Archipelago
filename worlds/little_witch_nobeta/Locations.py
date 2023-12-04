@@ -3,10 +3,8 @@ from typing import Dict
 base_id = 345600000
 
 shrine_start_locations: Dict[str, int] = {
-    #"Shrine - Chest Room03_01": base_id,
-    #"Shrine - Chest Room03_02": base_id + 1,
-    "TreasureBox_Room03": base_id,
-    "TreasureBox02_Room03": base_id + 1,
+    "Shrine - Chest Room03_01": base_id,
+    "Shrine - Chest Room03_02": base_id + 1,
 }
 
 shrine_armor_locations: Dict[str, int] = {
