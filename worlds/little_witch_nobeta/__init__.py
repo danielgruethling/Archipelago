@@ -66,83 +66,59 @@ class LWNWorld(World):
     def create_event(self, event: str) -> LWNItem:
         return LWNItem(event, ItemClassification.progression, None, self.player)
 
+    def create_region(self, region_name: str, locations=None) -> LWNRegion:
+        region = LWNRegion(region_name, self.player, self.multiworld)
+        if locations != None:
+            region.add_locations(locations, LWNLocation)
+        self.multiworld.regions.append(region)
+        return region
+
     def create_regions(self):
         # Add regions to the multiworld. "Menu" is the required starting point.
         # Arguments to Region() are name, player, world, and optionally hint_text
-        menu_region = LWNRegion("Menu", self.player, self.multiworld)
-        self.multiworld.regions.append(menu_region)
+        menu_region = self.create_region("Menu")
 
         # Shrine start
-        shrine_start_region = LWNRegion("Shrine - Start", self.player, self.multiworld)
-        shrine_start_region.add_locations(shrine_start_locations, LWNLocation)
-        self.multiworld.regions.append(shrine_start_region)
+        shrine_start_region = self.create_region("Shrine - Start", shrine_start_locations)
 
         # Shrine armor hall
-        shrine_armor_region = LWNRegion("Shrine - Armor Hall", self.player, self.multiworld)
-        shrine_armor_region.add_locations(shrine_armor_locations, LWNLocation)
-        self.multiworld.regions.append(shrine_armor_region)
+        shrine_armor_region = self.create_region("Shrine - Armor Hall", shrine_armor_locations)
 
         # Shrine secret passage
-        shrine_secret_passage_region = LWNRegion("Shrine - Secret Passage", self.player, self.multiworld)
-        shrine_secret_passage_region.add_locations(shrine_secret_passage_locations, LWNLocation)
-        self.multiworld.regions.append(shrine_secret_passage_region)
+        shrine_secret_passage_region = self.create_region("Shrine - Secret Passage", shrine_secret_passage_locations)
 
         # Underground start
-        underground_start_region = LWNRegion("Underground - Start", self.player, self.multiworld)
-        underground_start_region.add_locations(underground_start_locations, LWNLocation)
-        self.multiworld.regions.append(underground_start_region)
+        underground_start_region = self.create_region("Underground - Start", underground_start_locations)
 
         # Underground tania
-        underground_tania_region = LWNRegion("Underground - Tania", self.player, self.multiworld)
-        underground_tania_region.add_locations(underground_tania_locations, LWNLocation)
-        self.multiworld.regions.append(underground_tania_region)
+        underground_tania_region = self.create_region("Underground - Tania", underground_tania_locations)
 
         # Lava ruins start
-        lava_ruins_start_region = LWNRegion("Lava Ruins - Start", self.player, self.multiworld)
-        lava_ruins_start_region.add_locations(lava_ruins_start_locations, LWNLocation)
-        self.multiworld.regions.append(lava_ruins_start_region)
+        lava_ruins_start_region = self.create_region("Lava Ruins - Start", lava_ruins_start_locations)
 
         # Lava ruins after fire barrier
-        lava_ruins_after_fire_barrier_region = LWNRegion("Lava Ruins - After Fire Barrier", self.player,
-                                                         self.multiworld)
-        lava_ruins_after_fire_barrier_region.add_locations(lava_ruins_after_fire_barrier_locations, LWNLocation)
-        self.multiworld.regions.append(lava_ruins_after_fire_barrier_region)
+        lava_ruins_after_fire_barrier_region = self.create_region("Lava Ruins - After Fire Barrier", lava_ruins_after_fire_barrier_locations)
 
         # Dark tunnel start
-        dark_tunnel_start_region = LWNRegion("Dark Tunnel - Start", self.player, self.multiworld)
-        dark_tunnel_start_region.add_locations(dark_tunnel_start_locations, LWNLocation)
-        self.multiworld.regions.append(dark_tunnel_start_region)
+        dark_tunnel_start_region = self.create_region("Dark Tunnel - Start", dark_tunnel_start_locations)
 
         # Dark tunnel after thunder
-        dark_tunnel_after_thunder_region = LWNRegion("Dark Tunnel - After Thunder", self.player, self.multiworld)
-        dark_tunnel_after_thunder_region.add_locations(dark_tunnel_after_thunder_locations, LWNLocation)
-        self.multiworld.regions.append(dark_tunnel_after_thunder_region)
+        dark_tunnel_after_thunder_region = self.create_region("Dark Tunnel - After Thunder", dark_tunnel_after_thunder_locations)
 
         # Spirit realm start
-        spirit_realm_start_region = LWNRegion("Spirit Realm - Start", self.player, self.multiworld)
-        spirit_realm_start_region.add_locations(spirit_realm_start_locations, LWNLocation)
-        self.multiworld.regions.append(spirit_realm_start_region)
+        spirit_realm_start_region = self.create_region("Spirit Realm - Start", spirit_realm_start_locations)
 
         # Spirit realm after arcane barrier
-        spirit_realm_after_arcane_barrier_region = LWNRegion("Spirit Realm - After Arcane Barrier", self.player,
-                                                             self.multiworld)
-        spirit_realm_after_arcane_barrier_region.add_locations(spirit_realm_after_arcane_barrier_locations, LWNLocation)
-        self.multiworld.regions.append(spirit_realm_after_arcane_barrier_region)
+        spirit_realm_after_arcane_barrier_region = self.create_region("Spirit Realm - After Arcane Barrier", spirit_realm_after_arcane_barrier_locations)
 
         # Spirit realm after teleport
-        spirit_realm_after_teleport_region = LWNRegion("Spirit Realm - After Teleport", self.player, self.multiworld)
-        spirit_realm_after_teleport_region.add_locations(spirit_realm_after_teleport_locations, LWNLocation)
-        self.multiworld.regions.append(spirit_realm_after_teleport_region)
+        spirit_realm_after_teleport_region = self.create_region("Spirit Realm - After Teleport", spirit_realm_after_teleport_locations)
 
         # Abyss
-        abyss_region = LWNRegion("Abyss", self.player, self.multiworld)
-        abyss_region.add_locations(abyss_locations, LWNLocation)
-        self.multiworld.regions.append(abyss_region)
+        abyss_region = self.create_region("Abyss", abyss_locations)
 
         # Abyss trials
-        abyss_trials_region = LWNRegion("Abyss Trials", self.player, self.multiworld)
-        abyss_trials_region.add_locations(abyss_trials_locations, LWNLocation)
-        self.multiworld.regions.append(abyss_trials_region)
+        abyss_trials_region = self.create_region("Abyss Trials", abyss_trials_locations)
 
         # Connect regions
         menu_region.connect(shrine_start_region)
@@ -221,15 +197,16 @@ class LWNWorld(World):
         item_pool.append(self.create_item("Thunder"))
 
         # Generate 4 extra of all progressive and useful items
-        for item in attack_magics.keys():
-            for _ in range(4):
-                lwn_item = self.create_item(item)
-                item_pool.append(lwn_item)
+        if self.options.accessibility.value != self.options.accessibility.option_minimal:
+            for item in attack_magics.keys():
+                for _ in range(4):
+                    lwn_item = self.create_item(item)
+                    item_pool.append(lwn_item)
 
-        for item in useful_items.keys():
-            for _ in range(4):
-                lwn_item = self.create_item(item)
-                item_pool.append(lwn_item)
+            for item in useful_items.keys():
+                for _ in range(4):
+                    lwn_item = self.create_item(item)
+                    item_pool.append(lwn_item)
 
         # Generate boss souls
         if self.options.randomize_boss_souls.value == Toggle.option_true:
