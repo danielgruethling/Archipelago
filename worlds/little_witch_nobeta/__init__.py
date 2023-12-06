@@ -188,7 +188,7 @@ class LWNWorld(World):
 
         spirit_realm_after_teleport_region.connect(abyss_region)
 
-        if self.options.trial_keys.option_true:
+        if self.options.trial_keys.value == Toggle.option_true:
             abyss_region.add_exits({"Abyss Trials": "Abyss Trial Fire Barrier"},
                 {"Abyss Trials": lambda state: (state.has("Fire", self.player) or state.has("Thunder", self.player))
                     and state.has("Trial Key", self.player, 3)})
@@ -197,12 +197,12 @@ class LWNWorld(World):
                 {"Abyss Trials": lambda state: state.has("Fire", self.player) or state.has("Thunder", self.player)})
 
     def set_rules(self):
-        if self.options.goal.option_boss_hunt:
+        if self.options.goal.value == self.options.goal.option_boss_hunt:
             self.multiworld.completion_condition[self.player] = lambda state: state.has("Victory", self.player) \
                 and state.has("Specter Armor Soul", self.player) and state.has("Tania Soul", self.player) \
                 and state.has("Monica Soul", self.player) and state.has("Enraged Armor Soul", self.player) \
                 and state.has("Vanessa Soul", self.player) and state.has("Queen Vanessa V2 Soul", self.player)
-        elif self.options.goal.option_magic_master:
+        elif self.options.goal.value == self.options.goal.option_magic_master:
             self.multiworld.completion_condition[self.player] = lambda state: state.has("Victory", self.player) \
                 and state.has("Arcane", self.player, 5) and state.has("Ice", self.player, 5) \
                 and state.has("Fire", self.player, 5) and state.has("Thunder", self.player, 5)
@@ -214,15 +214,11 @@ class LWNWorld(World):
         item_pool: List[LWNItem] = []
 
         # Generate base level for progressive items
-        if self.options.no_arcane.option_true:
+        if self.options.no_arcane.value == Toggle.option_true:
             item_pool.append(self.create_item("Arcane"))
         item_pool.append(self.create_item("Fire"))
         item_pool.append(self.create_item("Ice"))
         item_pool.append(self.create_item("Thunder"))
-
-        # Generate base level for useful items
-        item_pool.append(self.create_item("Wind"))
-        item_pool.append(self.create_item("Mana Absorption"))
 
         # Generate 4 extra of all progressive and useful items
         for item in attack_magics.keys():
@@ -236,13 +232,13 @@ class LWNWorld(World):
                 item_pool.append(lwn_item)
 
         # Generate boss souls
-        if self.options.randomize_boss_souls.option_true:
+        if self.options.randomize_boss_souls.value == Toggle.option_true:
             for item in boss_souls.keys():
                 lwn_item = self.create_item(item)
                 item_pool.append(lwn_item)
 
         # Generate trial keys
-        if self.options.trial_keys.option_true:
+        if self.options.trial_keys.value == Toggle.option_true:
             for _ in range(self.options.trial_key_amount.value):
                 lwn_item = self.create_item("Trial Key")
                 item_pool.append(lwn_item)
@@ -261,12 +257,34 @@ class LWNWorld(World):
         return self.multiworld.random.choice(list(filler_items.keys()))
 
     def generate_basic(self):
-        # place "Victory" at "Nonota" and set collection as win condition
+        # Place "Victory" at "Nonota" and set collection as win condition
         self.multiworld.get_location("Abyss - Nonota", self.player).place_locked_item(self.create_event("Victory"))
 
-        # give out starter items
+        # Place boss souls at bosses when not randomized
+        if self.options.randomize_boss_souls.value == Toggle.option_false:
+            (self.multiworld.get_location("Shrine - Specter Armor", self.player)
+                .place_locked_item(self.create_item("Specter Armor Soul")))
+
+            (self.multiworld.get_location("Secret Passage - Enraged Armor", self.player)
+                .place_locked_item(self.create_item("Enraged Armor Soul")))
+
+            (self.multiworld.get_location("Underground - Tania", self.player)
+                .place_locked_item(self.create_item("Tania Soul")))
+
+            (self.multiworld.get_location("Lava Ruins - Monica", self.player)
+                .place_locked_item(self.create_item("Monica Soul")))
+
+            (self.multiworld.get_location("Dark Tunnel - Vanessa", self.player)
+                .place_locked_item(self.create_item("Vanessa Soul")))
+
+            (self.multiworld.get_location("Spirit Realm - Queen Vanessa V2", self.player)
+                .place_locked_item(self.create_item("Queen Vanessa V2 Soul")))
+
+        # Give out starter items
+        self.multiworld.push_precollected(self.create_item("Mana Absorption"))
+        self.multiworld.push_precollected(self.create_item("Wind"))
         self.multiworld.push_precollected(self.create_item("Teleport"))
-        if self.options.no_arcane.option_false:
+        if self.options.no_arcane.value == Toggle.option_false:
             self.multiworld.push_precollected(self.create_item("Arcane"))
 
     def fill_slot_data(self) -> Dict[str, Any]:
