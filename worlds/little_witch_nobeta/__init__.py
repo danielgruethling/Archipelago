@@ -257,13 +257,6 @@ class LWNWorld(World):
             (self.multiworld.get_location("Spirit Realm - Queen Vanessa V2", self.player)
                 .place_locked_item(self.create_item("Queen Vanessa V2 Soul")))
 
-        # Give out starter items
-        self.multiworld.push_precollected(self.create_item("Mana Absorption"))
-        self.multiworld.push_precollected(self.create_item("Wind"))
-        self.multiworld.push_precollected(self.create_item("Teleport"))
-        if self.options.no_arcane.value == Toggle.option_false:
-            self.multiworld.push_precollected(self.create_item("Arcane"))
-
     def fill_slot_data(self) -> Dict[str, Any]:
         slot_data = dict()
 
