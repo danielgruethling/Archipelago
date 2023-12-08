@@ -1,8 +1,8 @@
 import dataclasses
 from typing import Any, Dict, List
 
-from BaseClasses import Location, Item, ItemClassification
-from worlds.AutoWorld import World
+from BaseClasses import Location, Item, ItemClassification, Tutorial
+from worlds.AutoWorld import World, WebWorld
 from .Options import PerGameCommonOptions, LWNOptions, Toggle
 from .Items import lwn_items, attack_magics, boss_souls, useful_items, filler_items
 from .Locations import lwn_locations, shrine_start_locations, shrine_armor_locations, \
@@ -14,6 +14,16 @@ from .Locations import lwn_locations, shrine_start_locations, shrine_armor_locat
     abyss_locations, abyss_trials_locations
 from .Regions import LWNRegion
 
+class LingoWebWorld(WebWorld):
+    theme = "grass"
+    tutorials = [Tutorial(
+        "Multiworld Setup Guide",
+        "A guide to playing Little Witch Nobeta with Archipelago.",
+        "English",
+        "setup_en.md",
+        "setup/en",
+        ["fragger"]
+    )]
 
 class LWNItem(Item):
     game: str = "Little Witch Nobeta"
