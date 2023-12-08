@@ -27,7 +27,7 @@ underground_start_locations: Dict[str, int] = {
     "Underground - Chest Room04": base_id + 12,
     "Underground - Chest Room05_01": base_id + 13,
     "Underground - Chest Room05_02": base_id + 14,
-    "Underground - Cat": base_id + 15,
+    #"Underground - Cat": base_id + 15, currently broken
 }
 
 underground_tania_locations: Dict[str, int] = {
@@ -71,11 +71,11 @@ dark_tunnel_after_thunder_locations: Dict[str, int] = {
 spirit_realm_start_locations: Dict[str, int] = {
     "Spirit Realm - Chest Room02": base_id + 39,
     "Spirit Realm - Chest Room03": base_id + 40,
-    "Spirit Realm - Chest Room04To01": base_id + 41,
+    "Spirit Realm - Chest Room04_01": base_id + 41,
 }
 
 spirit_realm_after_arcane_barrier_locations: Dict[str, int] = {
-    "Spirit Realm - Chest Room04To02": base_id + 42,
+    "Spirit Realm - Chest Room04_02": base_id + 42,
     "Spirit Realm - Chest Room06": base_id + 43,
     "Spirit Realm - Chest Room07": base_id + 44,
 }
