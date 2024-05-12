@@ -3,7 +3,7 @@
 ## Required Software
 
 - [Little Witch Nobeta] (https://store.steampowered.com/app/1049890/Little_Witch_Nobeta/) Steam version of Little Witch Nobeta at the current version.
-- [RandomizedWitchNobeta BepInEx mod](https://github.com/danielgruethling/RandomizedWitchNobeta/releases/tag/0.1.0-alpha) Download the LWNAP.zip from the github releases.
+- [RandomizedWitchNobeta BepInEx mod](https://github.com/danielgruethling/RandomizedWitchNobeta/releases) Download the LWNAP.zip from the github releases.
 
 ## Installation Procedures
 
@@ -11,7 +11,7 @@ This plugin modifies the game using [BepInEx](https://github.com/BepInEx/BepInEx
 - Find the installation directory of the game *(Usually in `steamapps/common`, you can find this from the game properties in steam -> local files -> browse...)*
 - **/!\ Do a copy of your game installation and rename it `Little Witch Nobeta - Randomizer`** *(The changes are reversible but a pain to do, furthermore it's easier to have two versions of the game, one with the randomizer and the base one)*
 - You should now have at least two folders in the `steamapps/common` directory: `Little Witch Nobeta` *(base game)* and `Little Witch Nobeta - Randomizer` *(will be modded with the Randomizer)*
-- Download the randomizer: [**`LWNAP.zip`**](https://github.com/danielgruethling/RandomizedWitchNobeta/releases/tag/0.1.0-alpha/download/LWNAP.zip)
+- Download the randomizer: [**`LWNAP.zip`**](https://github.com/danielgruethling/RandomizedWitchNobeta/releases)
 - Copy all the files from the archive inside the game directory *(Where there is `LittleWitchNobeta.exe`)*
 - Now you should see a file named `imgui.ini` just next to `LittleWitchNobeta.exe`
 - Create a shortcut to `LittleWitchNobeta.exe`, name it as you want, run the game and enjoy!
