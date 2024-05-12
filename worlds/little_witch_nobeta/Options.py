@@ -87,7 +87,7 @@ class ShortcutGateBehaviour(Choice):
     display_name = "Shortcut lever behaviour"
     option_vanilla = 0
     option_always_open = 1
-    option_randomized = 1
+    option_randomized = 2
 
     default = option_vanilla
 
@@ -103,7 +103,7 @@ class MagicPuzzleGateBehaviour(Choice):
     display_name = "Magic puzzle gate behaviour"
     option_vanilla = 0
     option_always_open = 1
-    option_randomized = 1
+    option_randomized = 2
 
     default = option_vanilla
 

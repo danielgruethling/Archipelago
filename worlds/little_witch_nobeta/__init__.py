@@ -232,7 +232,11 @@ class LWNWorld(World):
 
         # Generate remaining filler items
         empty_locations = len(self.multiworld.get_unfilled_locations(self.player))
-        remaining_items_needed = empty_locations - len(item_pool)
+        if self.options.randomize_boss_souls.value == Toggle.option_true:
+            remaining_items_needed = empty_locations - len(item_pool) - 1
+        else:
+            remaining_items_needed = empty_locations - len(item_pool) - 7
+
         item_pool += [
             self.create_item(self.get_filler_item_name())
             for _ in range(remaining_items_needed)
