@@ -3,11 +3,11 @@ from typing import Dict
 base_id = 345600000
 
 shrine_start_locations: Dict[str, int] = {
-    "Shrine - Chest Room03_01": base_id,
+    "Shrine - Chest Room03_01": base_id + 0,
     "Shrine - Chest Room03_02": base_id + 1,
 }
 
-shrine_armor_locations: Dict[str, int] = {
+shrine_armor_hall_locations: Dict[str, int] = {
     "Shrine - Chest Room05": base_id + 2,
     "Shrine - Specter Armor": base_id + 3,
 }
@@ -99,7 +99,7 @@ abyss_trials_locations: Dict[str, int] = {
 
 lwn_locations: Dict[str, int] = {
     **shrine_start_locations,
-    **shrine_armor_locations,
+    **shrine_armor_hall_locations,
     **shrine_secret_passage_locations,
     **underground_start_locations,
     **underground_tania_locations,
@@ -111,5 +111,5 @@ lwn_locations: Dict[str, int] = {
     **spirit_realm_after_arcane_barrier_locations,
     **spirit_realm_after_teleport_locations,
     **abyss_locations,
-    **abyss_trials_locations
+    **abyss_trials_locations,
 }

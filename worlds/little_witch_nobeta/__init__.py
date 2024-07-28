@@ -1,20 +1,22 @@
 import dataclasses
 from typing import Any, Dict, List
 
-from BaseClasses import Location, Item, ItemClassification, Tutorial
+from BaseClasses import Location, Item, ItemClassification, Tutorial, Region
 from worlds.AutoWorld import World, WebWorld
-from .Options import PerGameCommonOptions, LWNOptions, Toggle
-from .Items import lwn_items, attack_magics, boss_souls, useful_items, filler_items
-from .Locations import lwn_locations, shrine_start_locations, shrine_armor_locations, \
+from .options import PerGameCommonOptions, LWNOptions, Toggle
+from .items import lwn_items, attack_magics, boss_souls, useful_items, filler_items
+from .locations import lwn_locations, shrine_start_locations, shrine_armor_hall_locations, \
     shrine_secret_passage_locations, underground_start_locations, \
     underground_tania_locations, lava_ruins_start_locations, \
     lava_ruins_after_fire_barrier_locations, dark_tunnel_start_locations, \
     dark_tunnel_after_thunder_locations, spirit_realm_start_locations, \
     spirit_realm_after_arcane_barrier_locations, spirit_realm_after_teleport_locations, \
     abyss_locations, abyss_trials_locations
-from .Regions import LWNRegion
+from .regions import LWNRegion, lwn_regions
+from .rules import set_region_rules
 
-class LingoWebWorld(WebWorld):
+
+class LWNWebWorld(WebWorld):
     theme = "grass"
     tutorials = [Tutorial(
         "Multiworld Setup Guide",
@@ -24,6 +26,7 @@ class LingoWebWorld(WebWorld):
         "setup/en",
         ["fragger"]
     )]
+
 
 class LWNItem(Item):
     game: str = "Little Witch Nobeta"
@@ -78,111 +81,83 @@ class LWNWorld(World):
 
     def create_region(self, region_name: str, locations=None) -> LWNRegion:
         region = LWNRegion(region_name, self.player, self.multiworld)
-        if locations != None:
+        if locations is not None:
             region.add_locations(locations, LWNLocation)
         self.multiworld.regions.append(region)
         return region
 
     def create_regions(self):
-        # Add regions to the multiworld. "Menu" is the required starting point.
-        # Arguments to Region() are name, player, world, and optionally hint_text
-        menu_region = self.create_region("Menu")
 
-        # Shrine start
-        shrine_start_region = self.create_region("Shrine - Start", shrine_start_locations)
+        for region_name in lwn_regions:
+            region = Region(region_name, self.player, self.multiworld)
+            self.multiworld.regions.append(region)
 
-        # Shrine armor hall
-        shrine_armor_region = self.create_region("Shrine - Armor Hall", shrine_armor_locations)
+        for region_name, exits in lwn_regions.items():
+            region = self.multiworld.get_region(region_name, self.player)
+            region.add_exits(exits)
 
-        # Shrine secret passage
-        shrine_secret_passage_region = self.create_region("Shrine - Secret Passage", shrine_secret_passage_locations)
+        for location_name, location_id in shrine_start_locations.items():
+            region = self.multiworld.get_region("Shrine - Start", self.player)
+            region.locations.append(LWNLocation(self.player, location_name, location_id, region))
 
-        # Underground start
-        underground_start_region = self.create_region("Underground - Start", underground_start_locations)
+        for location_name, location_id in shrine_armor_hall_locations.items():
+            region = self.multiworld.get_region("Shrine - Armor Hall", self.player)
+            region.locations.append(LWNLocation(self.player, location_name, location_id, region))
 
-        # Underground tania
-        underground_tania_region = self.create_region("Underground - Tania", underground_tania_locations)
+        for location_name, location_id in shrine_secret_passage_locations.items():
+            region = self.multiworld.get_region("Shrine - Secret Passage", self.player)
+            region.locations.append(LWNLocation(self.player, location_name, location_id, region))
 
-        # Lava ruins start
-        lava_ruins_start_region = self.create_region("Lava Ruins - Start", lava_ruins_start_locations)
+        for location_name, location_id in underground_start_locations.items():
+            region = self.multiworld.get_region("Underground - Start", self.player)
+            region.locations.append(LWNLocation(self.player, location_name, location_id, region))
 
-        # Lava ruins after fire barrier
-        lava_ruins_after_fire_barrier_region = self.create_region("Lava Ruins - After Fire Barrier", lava_ruins_after_fire_barrier_locations)
+        for location_name, location_id in underground_tania_locations.items():
+            region = self.multiworld.get_region("Underground - Tania", self.player)
+            region.locations.append(LWNLocation(self.player, location_name, location_id, region))
 
-        # Dark tunnel start
-        dark_tunnel_start_region = self.create_region("Dark Tunnel - Start", dark_tunnel_start_locations)
+        for location_name, location_id in lava_ruins_start_locations.items():
+            region = self.multiworld.get_region("Lava Ruins - Start", self.player)
+            region.locations.append(LWNLocation(self.player, location_name, location_id, region))
 
-        # Dark tunnel after thunder
-        dark_tunnel_after_thunder_region = self.create_region("Dark Tunnel - After Thunder", dark_tunnel_after_thunder_locations)
+        for location_name, location_id in lava_ruins_after_fire_barrier_locations.items():
+            region = self.multiworld.get_region("Lava Ruins - After Fire Barrier", self.player)
+            region.locations.append(LWNLocation(self.player, location_name, location_id, region))
 
-        # Spirit realm start
-        spirit_realm_start_region = self.create_region("Spirit Realm - Start", spirit_realm_start_locations)
+        for location_name, location_id in dark_tunnel_start_locations.items():
+            region = self.multiworld.get_region("Dark Tunnel - Start", self.player)
+            region.locations.append(LWNLocation(self.player, location_name, location_id, region))
 
-        # Spirit realm after arcane barrier
-        spirit_realm_after_arcane_barrier_region = self.create_region("Spirit Realm - After Arcane Barrier", spirit_realm_after_arcane_barrier_locations)
+        for location_name, location_id in dark_tunnel_after_thunder_locations.items():
+            region = self.multiworld.get_region("Dark Tunnel - After Thunder", self.player)
+            region.locations.append(LWNLocation(self.player, location_name, location_id, region))
 
-        # Spirit realm after teleport
-        spirit_realm_after_teleport_region = self.create_region("Spirit Realm - After Teleport", spirit_realm_after_teleport_locations)
+        for location_name, location_id in spirit_realm_start_locations.items():
+            region = self.multiworld.get_region("Spirit Realm - Start", self.player)
+            region.locations.append(LWNLocation(self.player, location_name, location_id, region))
 
-        # Abyss
-        abyss_region = self.create_region("Abyss", abyss_locations)
+        for location_name, location_id in spirit_realm_after_arcane_barrier_locations.items():
+            region = self.multiworld.get_region("Spirit Realm - After Arcane Barrier", self.player)
+            region.locations.append(LWNLocation(self.player, location_name, location_id, region))
 
-        # Abyss trials
-        abyss_trials_region = self.create_region("Abyss Trials", abyss_trials_locations)
+        for location_name, location_id in spirit_realm_after_teleport_locations.items():
+            region = self.multiworld.get_region("Spirit Realm - After Teleport", self.player)
+            region.locations.append(LWNLocation(self.player, location_name, location_id, region))
 
-        # Connect regions
-        menu_region.connect(shrine_start_region)
+        for location_name, location_id in abyss_locations.items():
+            region = self.multiworld.get_region("Abyss", self.player)
+            region.locations.append(LWNLocation(self.player, location_name, location_id, region))
 
-        shrine_start_region.add_exits({"Shrine - Armor Hall": "Shrine Arcane Barrier"},
-            {"Shrine - Armor Hall": lambda state: state.has("Arcane", self.player)
-                or state.has("Thunder", self.player)})
-
-        shrine_armor_region.connect(underground_start_region)
-        shrine_armor_region.add_exits({"Shrine - Secret Passage": "Secret Passage Fire Barrier"},
-            {"Shrine - Secret Passage": lambda state: state.has("Fire", self.player)
-                or state.has("Thunder", self.player)})
-
-        shrine_secret_passage_region.connect(dark_tunnel_start_region)
-
-        underground_start_region.add_exits({"Underground - Tania": "Underground Fire"},
-            {"Underground - Tania": lambda state: state.has("Ice", self.player)})
-
-        underground_tania_region.connect(shrine_start_region)
-        underground_tania_region.connect(lava_ruins_start_region)
-
-        lava_ruins_start_region.add_exits({"Lava Ruins - After Fire Barrier": "Lava Ruins Fire Barrier"},
-            {"Lava Ruins - After Fire Barrier": lambda state:
-                state.has("Fire", self.player) or state.has("Thunder", self.player)})
-
-        lava_ruins_after_fire_barrier_region.connect(underground_start_region)
-        lava_ruins_after_fire_barrier_region.connect(dark_tunnel_start_region)
-
-        dark_tunnel_start_region.add_exits({"Dark Tunnel - After Thunder": "Dark Tunnel Thunder Barrier"},
-            {"Dark Tunnel - After Thunder": lambda state: state.has("Thunder", self.player)})
-
-        dark_tunnel_after_thunder_region.connect(shrine_start_region)
-        dark_tunnel_after_thunder_region.connect(spirit_realm_start_region)
-
-        spirit_realm_start_region.add_exits(
-            {"Spirit Realm - After Arcane Barrier": "Spirit Realm Arcane Barrier"},
-            {"Spirit Realm - After Arcane Barrier": lambda state: state.has("Arcane", self.player)})
-
-        spirit_realm_after_arcane_barrier_region.add_exits(
-            {"Spirit Realm - After Teleport": "Spirit Realm Teleport Switch"},
-            {"Spirit Realm - After Teleport": lambda state: state.has("Ice", self.player) and
-                state.has("Thunder", self.player)})
-
-        spirit_realm_after_teleport_region.connect(abyss_region)
-
-        if self.options.trial_keys.value == Toggle.option_true:
-            abyss_region.add_exits({"Abyss Trials": "Abyss Trial Fire Barrier"},
-                {"Abyss Trials": lambda state: (state.has("Fire", self.player) or state.has("Thunder", self.player))
-                    and state.has("Trial Key", self.player, 3)})
-        else:
-            abyss_region.add_exits({"Abyss Trials": "Abyss Trial Fire Barrier"},
-                {"Abyss Trials": lambda state: state.has("Fire", self.player) or state.has("Thunder", self.player)})
+        for location_name, location_id in abyss_trials_locations.items():
+            region = self.multiworld.get_region("Abyss Trials", self.player)
+            region.locations.append(LWNLocation(self.player, location_name, location_id, region))
 
     def set_rules(self):
+
+        # Set exit rules
+        set_region_rules(self)
+
+        # Set goal rules
         if self.options.goal.value == self.options.goal.option_boss_hunt:
             self.multiworld.completion_condition[self.player] = lambda state: state.has("Victory", self.player) \
                 and state.has("Specter Armor Soul", self.player) and state.has("Tania Soul", self.player) \
@@ -207,16 +182,15 @@ class LWNWorld(World):
         item_pool.append(self.create_item("Thunder"))
 
         # Generate 4 extra of all progressive and useful items
-        if self.options.accessibility.value != self.options.accessibility.option_minimal:
-            for item in attack_magics.keys():
-                for _ in range(4):
-                    lwn_item = self.create_item(item)
-                    item_pool.append(lwn_item)
+        for item in attack_magics.keys():
+            for _ in range(4):
+                lwn_item = self.create_item(item)
+                item_pool.append(lwn_item)
 
-            for item in useful_items.keys():
-                for _ in range(4):
-                    lwn_item = self.create_item(item)
-                    item_pool.append(lwn_item)
+        for item in useful_items.keys():
+            for _ in range(4):
+                lwn_item = self.create_item(item)
+                item_pool.append(lwn_item)
 
         # Generate boss souls
         if self.options.randomize_boss_souls.value == Toggle.option_true:
@@ -232,10 +206,10 @@ class LWNWorld(World):
 
         # Generate remaining filler items
         empty_locations = len(self.multiworld.get_unfilled_locations(self.player))
-        if self.options.randomize_boss_souls.value == Toggle.option_true:
-            remaining_items_needed = empty_locations - len(item_pool) - 1
-        else:
-            remaining_items_needed = empty_locations - len(item_pool) - 7
+        remaining_items_needed = empty_locations - len(item_pool) - 1
+        # Subtract local boss souls if not randomized
+        if self.options.randomize_boss_souls.value == Toggle.option_false:
+            remaining_items_needed -= len(boss_souls)
 
         item_pool += [
             self.create_item(self.get_filler_item_name())
