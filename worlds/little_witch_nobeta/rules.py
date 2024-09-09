@@ -26,11 +26,11 @@ def set_region_rules(world: "LWNWorld") -> None:
     multiworld.get_entrance("Shrine - Armor Hall -> Secret Passage - Boss Shortcut", player).access_rule = \
         lambda state: state.has("Shrine Secret Boss Shortcut Gate", player)
     multiworld.get_entrance("Shrine - Armor Hall -> Shrine - Underground shortcut", player).access_rule = \
-        lambda state: state.has("Underground Shortcut Gate", player)
+        lambda state: state.has("Shrine Underground Shortcut Gate", player)
     multiworld.get_entrance("Shrine - Armor Hall -> Shrine - After first magic switch", player).access_rule = \
         lambda state: state.has("Shrine Second Magic Barrier", player)
     multiworld.get_entrance("Shrine - Underground shortcut -> Shrine - Armor Hall", player).access_rule = \
-        lambda state: state.has("Underground Shortcut Gate", player)
+        lambda state: state.has("Shrine Underground Shortcut Gate", player)
     multiworld.get_entrance("Shrine - Underground shortcut -> Underground - Shrine shortcut", player).access_rule = \
         lambda state: True
     multiworld.get_entrance("Secret passage - Start -> Shrine - Armor Hall", player).access_rule = \
@@ -244,6 +244,8 @@ def set_location_rules(world: "LWNWorld") -> None:
              lambda state: state.has("Mana Absorption", player))
     set_rule(multiworld.get_location("Secret Passage - Teleport from Enraged Armor", player),
              lambda state: state.has("Mana Absorption", player))
+    set_rule(multiworld.get_location("Secret Passage - Defeat Enraged Armor barrier", player),
+             lambda state: state.has("Mana Absorption", player))
     set_rule(multiworld.get_location("Underground - Arcane chest at bridge jumping puzzle", player),
              lambda state: state.has("Wind", player) or options.less_wind_requirements.value == Toggle.option_true)
     set_rule(multiworld.get_location("Underground - Magic barrier switches at maid enemy", player),
@@ -260,8 +262,6 @@ def set_location_rules(world: "LWNWorld") -> None:
              lambda state: state.has("Fire", player) or state.has("Thunder", player))
     set_rule(multiworld.get_location("Lava Ruins - Jumping puzzle arcane chest at moving ring gauntlet", player),
              lambda state: state.has("Wind", player))
-    set_rule(multiworld.get_location("Lava Ruins - Monica shortcut switch", player),
-             lambda state: state.has("Lava Ruins Monica Shortcut Gate", player))
     set_rule(multiworld.get_location("Lava Ruins - Monica", player),
              lambda state: state.has("Mana Absorption", player))
     set_rule(multiworld.get_location("Lava Ruins - 34. Bestian Ear from Monica", player),
@@ -341,6 +341,8 @@ def set_location_rules(world: "LWNWorld") -> None:
     set_rule(multiworld.get_location("Abyss - Dark Tunnel trial magic switch", player),
              lambda state: state.has("Fire", player) or state.has("Thunder", player))
     set_rule(multiworld.get_location("Abyss - 93. Enchanted Soul Shard from maid enemy in lava ruins trial", player),
+             lambda state: state.has("Fire", player) or state.has("Thunder", player) or state.has("Ice", player))
+    set_rule(multiworld.get_location("Abyss - Lava Ruins trial defeat maids enemy barrier", player),
              lambda state: state.has("Fire", player) or state.has("Thunder", player) or state.has("Ice", player))
     set_rule(multiworld.get_location("Abyss - Lava Ruins trial magic switch", player),
              lambda state: state.has("Fire", player) or state.has("Thunder", player))
