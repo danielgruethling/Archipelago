@@ -13,7 +13,6 @@ useful_items: Dict[str, int] = {
     "Wind": base_id + 4,
     "Mana Absorption": base_id + 5,
     "Progressive Bag Upgrade": base_id + 6,
-    "Teleport": base_id + 23,
 }
 
 boss_souls: Dict[str, int] = {
@@ -204,6 +203,7 @@ lwn_items: Dict[str, int] = {
     **useful_items,
     **boss_souls,
     **filler_items,
+    "Teleport": base_id + 23,
     "Trial Key": base_id + 24,
     **lore_items
 }
