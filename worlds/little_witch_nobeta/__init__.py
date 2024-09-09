@@ -4,8 +4,8 @@ from typing import Any, Dict, List
 from BaseClasses import Location, Item, ItemClassification, Tutorial, Region
 from worlds.AutoWorld import World, WebWorld
 from .options import PerGameCommonOptions, LWNOptions, Toggle
-from .items import lwn_items, attack_magics, boss_souls, useful_items, filler_items
-from .locations import lwn_locations, shrine_start_locations, shrine_armor_hall_locations, \
+from .items import lwn_items, attack_magics, boss_souls, useful_items, filler_items, lore_items, item_name_groups
+from .locations import location_name_groups, lwn_locations, shrine_start_locations, shrine_armor_hall_locations, \
     shrine_secret_passage_locations, underground_start_locations, \
     underground_tania_locations, lava_ruins_start_locations, \
     lava_ruins_after_fire_barrier_locations, dark_tunnel_start_locations, \
@@ -55,12 +55,9 @@ class LWNWorld(World):
 
     # Items can be grouped using their names to allow easy checking if any item
     # from that group has been collected. Group names can also be used for !hint
-    item_name_groups = {
-        "attack_magics": attack_magics,
-        "boss_souls": boss_souls,
-        "useful_items": useful_items,
-        "filler_items": filler_items,
-    }
+    item_name_groups = item_name_groups
+
+    location_name_groups = location_name_groups
 
     def create_item(self, item: str) -> LWNItem:
         item_class = ItemClassification.filler
@@ -73,6 +70,8 @@ class LWNWorld(World):
         elif item in useful_items:
             item_class = ItemClassification.useful
         elif item in filler_items:
+            item_class = ItemClassification.filler
+        elif item in lore_items:
             item_class = ItemClassification.filler
         return LWNItem(item, item_class, self.item_name_to_id.get(item, None), self.player)
 

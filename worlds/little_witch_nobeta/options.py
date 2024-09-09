@@ -71,7 +71,7 @@ class NoArcane(DefaultOffToggle):
 
 class EntranceRandomization(DefaultOffToggle):
     """
-    Randomizes the start level and the destinations of doors/post-custcene level changes.
+    Randomizes the start level and the destinations of doors/post-cutscene level changes.
     """
     display_name = "Entrance randomization"
 
@@ -131,7 +131,7 @@ class SoulGainFactor(Range):
 
 class DeathLink(DefaultOffToggle):
     """
-    On death a trigger to kill all other deathlink players will be send. When another deathlink
+    On death a trigger to kill all other deathlink players will be sent. When another deathlink
     player dies you die as well.
     """
     display_name = "Deathlink"
