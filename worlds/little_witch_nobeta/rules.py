@@ -1,9 +1,25 @@
 from typing import TYPE_CHECKING
 
-from .options import LWNOptions, Toggle
+from .options import Toggle
 from worlds.generic.Rules import set_rule
+from BaseClasses import CollectionState
 if TYPE_CHECKING:
     from . import LWNWorld
+
+
+def has_fire_or_thunder(state: CollectionState, player: int) -> bool:
+    return state.has_any(["Fire", "Thunder"], player)
+
+
+def has_wind_or_skip(state: CollectionState, player: int, world: "LWNWorld") -> bool:
+    return (state.has("Wind", player) or
+            world.options.wind_requirements.value == world.options.wind_requirements.option_less_wind_requirements)
+
+
+def has_wind_or_damage_boost(state: CollectionState, player: int, world: "LWNWorld") -> bool:
+    return (state.has("Wind", player) or
+            (world.options.wind_requirements.value == world.options.wind_requirements.option_less_wind_requirements and 
+            state.has("Fire", player)))
 
 
 def set_region_rules(world: "LWNWorld") -> None:
@@ -58,7 +74,7 @@ def set_region_rules(world: "LWNWorld") -> None:
     multiworld.get_entrance("Secret Passage - Dark Tunnel shortcut -> Secret passage - After first fire barrier", player).access_rule = \
         lambda state: state.has("Secret Passage Dark Tunnel Shortcut Gate", player)
     multiworld.get_entrance("Underground - Start -> Underground - After wind", player).access_rule = \
-        lambda state: state.has("Wind", player) or options.less_wind_requirements.value == Toggle.option_true
+        lambda state: has_wind_or_skip(state, player, world)
     multiworld.get_entrance("Underground - After wind -> Underground - Grand Hall", player).access_rule = \
         lambda state: state.has("Underground Magic Barrier At Maid Enemy", player)
     multiworld.get_entrance("Underground - After wind -> Underground - Start", player).access_rule = \
@@ -118,7 +134,7 @@ def set_region_rules(world: "LWNWorld") -> None:
     multiworld.get_entrance("Lava Ruins - After Fire Barrier -> Lava Ruins - After scissor enemy barrier", player).access_rule = \
         lambda state: state.has("Lava Ruins Fire Magic Barrier", player) or state.has("Lava Ruins Monica Shortcut Gate", player)
     multiworld.get_entrance("Lava Ruins - After Fire Barrier -> Lava Ruins - Monica", player).access_rule = \
-        lambda state: state.has("Wind", player) or (options.less_wind_requirements.value == Toggle.option_true and state.has("Fire", player))
+        lambda state: has_wind_or_damage_boost(state, player, world)
     multiworld.get_entrance("Lava Ruins - Monica -> Lava Ruins - After Fire Barrier", player).access_rule = \
         lambda state: True
     multiworld.get_entrance("Lava Ruins - Monica -> Lava Ruins - Monica warp", player).access_rule = \
@@ -233,11 +249,11 @@ def set_location_rules(world: "LWNWorld") -> None:
     set_rule(multiworld.get_location("Shrine - Second magic switch", player),
              lambda state: state.has("Arcane", player) or state.has("Thunder", player))
     set_rule(multiworld.get_location("Shrine - Secret passage magic switch", player),
-             lambda state: state.has("Fire", player) or state.has("Thunder", player))
+             lambda state: has_fire_or_thunder(state, player))
     set_rule(multiworld.get_location("Secret Passage - First fire barrier magic switch", player),
-             lambda state: state.has("Fire", player) or state.has("Thunder", player))
+             lambda state: has_fire_or_thunder(state, player))
     set_rule(multiworld.get_location("Secret Passage - Second fire barrier magic switch", player),
-             lambda state: state.has("Fire", player) or state.has("Thunder", player))
+             lambda state: has_fire_or_thunder(state, player))
     set_rule(multiworld.get_location("Secret Passage - Enraged Armor", player),
              lambda state: state.has("Mana Absorption", player))
     set_rule(multiworld.get_location("Secret Passage - 56. Knight Kingdom Crown from Enraged Armor", player),
@@ -247,7 +263,7 @@ def set_location_rules(world: "LWNWorld") -> None:
     set_rule(multiworld.get_location("Secret Passage - Defeat Enraged Armor barrier", player),
              lambda state: state.has("Mana Absorption", player))
     set_rule(multiworld.get_location("Underground - Arcane chest at bridge jumping puzzle", player),
-             lambda state: state.has("Wind", player) or options.less_wind_requirements.value == Toggle.option_true)
+             lambda state: has_wind_or_skip(state, player, world))
     set_rule(multiworld.get_location("Underground - Magic barrier switches at maid enemy", player),
              lambda state: state.has("Ice", player))
     set_rule(multiworld.get_location("Underground - After fire magic switch", player),
@@ -257,9 +273,9 @@ def set_location_rules(world: "LWNWorld") -> None:
     set_rule(multiworld.get_location("Underground - 98. Lost Maiden's Soul Shard from Tania", player),
              lambda state: state.has("Mana Absorption", player))
     set_rule(multiworld.get_location("Lava Ruins - Chest on scaffolding", player),
-             lambda state: state.has("Wind", player) or (options.less_wind_requirements.value == Toggle.option_true and state.has("Fire", player)))
+             lambda state: has_wind_or_damage_boost(state, player, world))
     set_rule(multiworld.get_location("Lava Ruins - Fire magic switch", player),
-             lambda state: state.has("Fire", player) or state.has("Thunder", player))
+             lambda state: has_fire_or_thunder(state, player))
     set_rule(multiworld.get_location("Lava Ruins - Jumping puzzle arcane chest at moving ring gauntlet", player),
              lambda state: state.has("Wind", player))
     set_rule(multiworld.get_location("Lava Ruins - Monica", player),
@@ -271,7 +287,7 @@ def set_location_rules(world: "LWNWorld") -> None:
     set_rule(multiworld.get_location("Lava Ruins - 99. Child's Soul Shard from Monica", player),
              lambda state: state.has("Mana Absorption", player))
     set_rule(multiworld.get_location("Dark Tunnel - 39. Dark Elf's Short Bow from barrel on scaffolding", player),
-             lambda state: state.has("Wind", player) or (options.less_wind_requirements.value == Toggle.option_true and state.has("Fire", player)))
+             lambda state: has_wind_or_damage_boost(state, player, world))
     set_rule(multiworld.get_location("Dark Tunnel - 45. Golden Coin from first mimic", player),
              lambda state: state.has("Fire", player))
     set_rule(multiworld.get_location("Dark Tunnel - 48. Chief's Skull from right mimic in mimic room", player),
@@ -279,7 +295,7 @@ def set_location_rules(world: "LWNWorld") -> None:
     set_rule(multiworld.get_location("Dark Tunnel - 49. Chief's Skull from straight mimic in mimic room", player),
              lambda state: state.has("Fire", player))
     set_rule(multiworld.get_location("Dark Tunnel - Thunder spell chest in mimic room", player),
-             lambda state: state.has("Wind", player) or (options.less_wind_requirements.value == Toggle.option_true and state.has("Fire", player)))
+             lambda state: has_wind_or_damage_boost(state, player, world))
     set_rule(multiworld.get_location("Dark Tunnel - Thunder barrier magic switches", player),
              lambda state: state.has("Thunder", player))
     set_rule(multiworld.get_location("Dark Tunnel - Floating platform switch one", player),
@@ -289,11 +305,11 @@ def set_location_rules(world: "LWNWorld") -> None:
     set_rule(multiworld.get_location("Dark Tunnel - Floating platform switch three", player),
              lambda state: state.has("Thunder", player) or state.can_reach("Dark Tunnel - After floating platforms", player))
     set_rule(multiworld.get_location("Dark Tunnel - 71. Apocalypse Knight Record from knight enemy", player),
-             lambda state: state.has("Wind", player) or (options.less_wind_requirements.value == Toggle.option_true and state.has("Fire", player)))
+             lambda state: has_wind_or_damage_boost(state, player, world))
     set_rule(multiworld.get_location("Dark Tunnel - 103. Loyal Soul Shard from knight enemy", player),
-             lambda state: state.has("Wind", player) or (options.less_wind_requirements.value == Toggle.option_true and state.has("Fire", player)))
+             lambda state: has_wind_or_damage_boost(state, player, world))
     set_rule(multiworld.get_location("Dark Tunnel - Chest after knight enemy", player),
-             lambda state: state.has("Wind", player) or (options.less_wind_requirements.value == Toggle.option_true and state.has("Fire", player)))
+             lambda state: has_wind_or_damage_boost(state, player, world))
     set_rule(multiworld.get_location("Dark Tunnel - Vanessa", player),
              lambda state: state.has("Mana Absorption", player))
     set_rule(multiworld.get_location("Dark Tunnel - 100. King's Final Honor from Vanessa", player),
@@ -325,27 +341,27 @@ def set_location_rules(world: "LWNWorld") -> None:
     set_rule(multiworld.get_location("Abyss - 83. Castle Blueprint from crystal on brittle ledge", player),
              lambda state: state.has("Wind", player))
     set_rule(multiworld.get_location("Abyss - Underground trial magic switch", player),
-             lambda state: state.has("Fire", player) or state.has("Thunder", player))
+             lambda state: has_fire_or_thunder(state, player))
     set_rule(multiworld.get_location("Abyss - 91. Gaseous Soul Essence from scissor enemy in underground trial", player),
-             lambda state: state.has("Fire", player) or state.has("Thunder", player))
+             lambda state: has_fire_or_thunder(state, player))
     set_rule(multiworld.get_location("Abyss - Underground trial scissor enemy magic gate", player),
-             lambda state: state.has("Fire", player) or state.has("Thunder", player))
+             lambda state: has_fire_or_thunder(state, player))
     set_rule(multiworld.get_location("Abyss - Underground trial magic switch", player),
-             lambda state: state.has("Fire", player) or state.has("Thunder", player))
+             lambda state: has_fire_or_thunder(state, player))
     set_rule(multiworld.get_location("Abyss - Thunder spell chest dark tunnel trial", player),
-             lambda state: state.has("Wind", player) or options.less_wind_requirements.value == Toggle.option_true)
+             lambda state: has_wind_or_skip(state, player, world))
     set_rule(multiworld.get_location("Abyss - 95. Refined Soul Shard from maid enemy in dark tunnel trial", player),
              lambda state: state.has("Thunder", player))
     set_rule(multiworld.get_location("Abyss - Dark tunnel trial maid enemy barrier", player),
              lambda state: state.has("Thunder", player))
     set_rule(multiworld.get_location("Abyss - Dark Tunnel trial magic switch", player),
-             lambda state: state.has("Fire", player) or state.has("Thunder", player))
+             lambda state: has_fire_or_thunder(state, player))
     set_rule(multiworld.get_location("Abyss - 93. Enchanted Soul Shard from maid enemy in lava ruins trial", player),
-             lambda state: state.has("Fire", player) or state.has("Thunder", player) or state.has("Ice", player))
+             lambda state: has_fire_or_thunder(state, player) or state.has("Ice", player))
     set_rule(multiworld.get_location("Abyss - Lava Ruins trial defeat maids enemy barrier", player),
-             lambda state: state.has("Fire", player) or state.has("Thunder", player) or state.has("Ice", player))
+             lambda state: has_fire_or_thunder(state, player) or state.has("Ice", player))
     set_rule(multiworld.get_location("Abyss - Lava Ruins trial magic switch", player),
-             lambda state: state.has("Fire", player) or state.has("Thunder", player))
+             lambda state: has_fire_or_thunder(state, player))
     set_rule(multiworld.get_location("Abyss - 102. Lost Maiden's Crafted Soul Shard from Nonota", player),
              lambda state: state.has("Mana Absorption", player))
     set_rule(multiworld.get_location("Abyss - Nonota", player),

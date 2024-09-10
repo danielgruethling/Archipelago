@@ -69,6 +69,21 @@ class NoArcane(DefaultOffToggle):
     display_name = "Start without magic"
 
 
+class WindRequirements(Choice):
+    """
+    Double Jump logic requirements.
+    [Start with] Will put one copy of Wind magic in the starting inventory and thus allow double jump from the start.
+    [Start without] Will have all 5 Wind spells in the multiworld.
+    [Less wind requirements] Skips some logic requirements of Wind magic in favor of trick jumps and damage boosts.
+    """
+    display_name = "Wind Requirements"
+    option_start_with = 0
+    option_start_without = 1
+    option_less_wind_requirements = 2
+
+    default = option_start_with
+
+
 class EntranceRandomization(DefaultOffToggle):
     """
     Randomizes the start level and the destinations of doors/post-cutscene level changes.
@@ -151,3 +166,4 @@ class LWNOptions(PerGameCommonOptions):
     soul_gain_base_value: SoulGainBaseValue
     soul_gain_factor: SoulGainFactor
     death_link: DeathLink
+    wind_requirements: WindRequirements
