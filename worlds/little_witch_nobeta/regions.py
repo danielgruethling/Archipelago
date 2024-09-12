@@ -49,7 +49,7 @@ lwn_regions: Dict[str, Set[str]] = {
     "Spirit Realm - After elevator": {"Spirit Realm - After teleport", "Spirit Realm - After second Seal"},
     "Spirit Realm - After teleport": {"Spirit Realm - After elevator", "Abyss"},
     "Abyss": {"Abyss - After first teleport"},
-    "Abyss - After first teleport": {"Abyss Trials"},
+    "Abyss - After first teleport": {"Abyss - After first gate"},
     "Abyss - After first gate": {"Abyss - After giant maid barrier", "Abyss - Left gate at trap"},
     "Abyss - Left gate at trap": {"Abyss - After first gate"},
     "Abyss - After giant maid barrier": {"Abyss - Trials Lobby"},

@@ -3,6 +3,7 @@ from typing import TYPE_CHECKING
 from .options import Toggle
 from worlds.generic.Rules import set_rule
 from BaseClasses import CollectionState
+
 if TYPE_CHECKING:
     from . import LWNWorld
 
@@ -26,7 +27,6 @@ def set_region_rules(world: "LWNWorld") -> None:
     multiworld = world.multiworld
     player = world.player
     options = world.options
-
     multiworld.get_entrance("Menu -> Shrine - Start", player).access_rule = \
         lambda state: True
     multiworld.get_entrance("Shrine - Start -> Shrine - After first magic switch", player).access_rule = \
@@ -209,7 +209,7 @@ def set_region_rules(world: "LWNWorld") -> None:
         lambda state: True
     multiworld.get_entrance("Abyss -> Abyss - After first teleport", player).access_rule = \
         lambda state: True
-    multiworld.get_entrance("Abyss - After first teleport -> Abyss Trials", player).access_rule = \
+    multiworld.get_entrance("Abyss - After first teleport -> Abyss - After first gate", player).access_rule = \
         lambda state: state.has("Abyss First Gate", player)
     multiworld.get_entrance("Abyss - After first gate -> Abyss - After giant maid barrier", player).access_rule = \
         lambda state: state.has("Abyss After Giant Maid Barrier", player)
@@ -299,11 +299,11 @@ def set_location_rules(world: "LWNWorld") -> None:
     set_rule(multiworld.get_location("Dark Tunnel - Thunder barrier magic switches", player),
              lambda state: state.has("Thunder", player))
     set_rule(multiworld.get_location("Dark Tunnel - Floating platform switch one", player),
-             lambda state: state.has("Thunder", player) or state.can_reach("Dark Tunnel - After floating platforms", player))
+             lambda state: state.has("Thunder", player) or state.can_reach("Dark Tunnel - After floating platforms", "Region", player))
     set_rule(multiworld.get_location("Dark Tunnel - Floating platform switch two", player),
-             lambda state: state.has("Thunder", player) or state.can_reach("Dark Tunnel - After floating platforms", player))
+             lambda state: state.has("Thunder", player) or state.can_reach("Dark Tunnel - After floating platforms", "Region", player))
     set_rule(multiworld.get_location("Dark Tunnel - Floating platform switch three", player),
-             lambda state: state.has("Thunder", player) or state.can_reach("Dark Tunnel - After floating platforms", player))
+             lambda state: state.has("Thunder", player) or state.can_reach("Dark Tunnel - After floating platforms", "Region", player))
     set_rule(multiworld.get_location("Dark Tunnel - 71. Apocalypse Knight Record from knight enemy", player),
              lambda state: has_wind_or_damage_boost(state, player, world))
     set_rule(multiworld.get_location("Dark Tunnel - 103. Loyal Soul Shard from knight enemy", player),
@@ -331,7 +331,7 @@ def set_location_rules(world: "LWNWorld") -> None:
     set_rule(multiworld.get_location("Spirit Realm - Magic switch barrier switch", player),
              lambda state: state.has("Spirit Realm Fire Deactivation", player))
     set_rule(multiworld.get_location("Spirit Realm - Teleporter magic switch", player),
-             lambda state: (state.has("Spirit Realm Magic Switch Barrier", player) or (options.barrier_rando.value == Toggle.option_false and state.has("Thunder", player))) or state.has("Fire", player))
+             lambda state: (state.has("Spirit Realm Magic Switch Barrier", player) or (options.magic_puzzle_gate_behaviour.value != options.magic_puzzle_gate_behaviour.option_randomized and state.has("Thunder", player))) or state.has("Fire", player))
     set_rule(multiworld.get_location("Spirit Realm - Vanessa V2", player),
              lambda state: state.has("Mana Absorption", player))
     set_rule(multiworld.get_location("Spirit Realm - 101. Proud King's Crafted Soul Shard from Vanessa V2", player),
@@ -340,7 +340,7 @@ def set_location_rules(world: "LWNWorld") -> None:
              lambda state: state.has("Mana Absorption", player))
     set_rule(multiworld.get_location("Abyss - 83. Castle Blueprint from crystal on brittle ledge", player),
              lambda state: state.has("Wind", player))
-    set_rule(multiworld.get_location("Abyss - Underground trial magic switch", player),
+    set_rule(multiworld.get_location("Abyss - Underground trial unlock enemies magic switch", player),
              lambda state: has_fire_or_thunder(state, player))
     set_rule(multiworld.get_location("Abyss - 91. Gaseous Soul Essence from scissor enemy in underground trial", player),
              lambda state: has_fire_or_thunder(state, player))
