@@ -167,7 +167,7 @@ def set_region_rules(world: "LWNWorld") -> None:
                        or state.has("Lava Ruins Fake Floor Shortcut Gate", player)
                        or gates_always_open(options))
     multiworld.get_entrance("Lava Ruins - Start -> Lava Ruins - Monica warp", player).access_rule = \
-        lambda state: (state.has("Lava Ruins Monica Warp Gate")
+        lambda state: (state.has("Lava Ruins Monica Warp Gate", player)
                        or gates_always_open(options))
     multiworld.get_entrance("Lava Ruins - After magic platforms -> Lava Ruins - After scissor enemy barrier", player).access_rule = \
         lambda state: (state.has("Lava Ruins Scissor Enemy Barrier", player)
@@ -197,10 +197,10 @@ def set_region_rules(world: "LWNWorld") -> None:
     multiworld.get_entrance("Lava Ruins - Monica -> Lava Ruins - Monica warp", player).access_rule = \
         lambda state: True
     multiworld.get_entrance("Lava Ruins - Monica warp -> Lava Ruins - Path to dark tunnel", player).access_rule = \
-        lambda state: (state.has("Lava Ruins Monica Warp Gate")
+        lambda state: (state.has("Lava Ruins Monica Warp Gate", player)
                        or gates_always_open(options))
     multiworld.get_entrance("Lava Ruins - Monica warp -> Lava Ruins - Start", player).access_rule = \
-        lambda state: (state.has("Lava Ruins Monica Warp Gate")
+        lambda state: (state.has("Lava Ruins Monica Warp Gate", player)
                        or gates_always_open(options))
     multiworld.get_entrance("Lava Ruins - Path to dark tunnel -> Underground - Lava ruins shortcut", player).access_rule = \
         lambda state: True

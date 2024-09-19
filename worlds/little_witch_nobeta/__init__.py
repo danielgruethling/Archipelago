@@ -47,18 +47,27 @@ class LWNWorld(World):
 
     def create_item(self, item: str) -> LWNItem:
         item_class = ItemClassification.filler
-        if item in attack_magics:
-            item_class = ItemClassification.progression
-        if item in boss_souls:
+        if item in attack_magics or item in boss_souls:
             item_class = ItemClassification.progression
         elif item == "Trial Key":
             item_class = ItemClassification.progression
         elif item in useful_items:
             item_class = ItemClassification.useful
-        elif item in filler_items:
+        elif item in filler_items or item in lore_items:
             item_class = ItemClassification.filler
-        elif item in lore_items:
-            item_class = ItemClassification.filler
+        elif item in barrier_items:
+            if self.options.magic_puzzle_gate_behaviour.value \
+                    == self.options.magic_puzzle_gate_behaviour.option_randomized:
+                item_class = ItemClassification.progression
+            else:
+                item_class = ItemClassification.filler
+        elif item in gate_items:
+            if self.options.shortcut_gate_behaviour.value \
+                    == self.options.shortcut_gate_behaviour.option_randomized:
+                item_class = ItemClassification.progression
+            else:
+                item_class = ItemClassification.filler
+
         return LWNItem(item, item_class, self.item_name_to_id.get(item, None), self.player)
 
     def create_event(self, event: str) -> LWNItem:
@@ -93,10 +102,10 @@ class LWNWorld(World):
 
         # Set goal rules
         if self.options.goal.value == self.options.goal.option_boss_hunt:
-            self.multiworld.completion_condition[self.player] = lambda state: state.has("Victory", self.player) \
+            self.multiworld.completion_condition[self.player] = lambda state: state.has \
                 and state.has("Specter Armor Soul", self.player) and state.has("Tania Soul", self.player) \
                 and state.has("Monica Soul", self.player) and state.has("Enraged Armor Soul", self.player) \
-                and state.has("Vanessa Soul", self.player) and state.has("Queen Vanessa V2 Soul", self.player)
+                and state.has("Vanessa Soul", self.player) and state.has("Vanessa V2 Soul", self.player)
         elif self.options.goal.value == self.options.goal.option_magic_master:
             self.multiworld.completion_condition[self.player] = lambda state: state.has("Victory", self.player) \
                 and state.has("Arcane", self.player, 5) and state.has("Ice", self.player, 5) \
@@ -115,20 +124,29 @@ class LWNWorld(World):
         item_pool.append(self.create_item("Ice"))
         item_pool.append(self.create_item("Thunder"))
 
+        # Generate a progression counter and double jump
+        counter_spell = self.create_item("Mana Absorption")
+        counter_spell.classification = ItemClassification.progression
+        item_pool.append(counter_spell)
+
+        wind_spell = self.create_item("Wind")
+        wind_spell.classification = ItemClassification.progression
+        item_pool.append(wind_spell)
+
         # Generate 4 extra of all progressive and useful items
-        for item in attack_magics:
+        for item in attack_magics.keys():
             for _ in range(4):
                 lwn_item = self.create_item(item)
                 item_pool.append(lwn_item)
 
-        for item in useful_items:
+        for item in useful_items.keys():
             for _ in range(4):
                 lwn_item = self.create_item(item)
                 item_pool.append(lwn_item)
 
         # Generate boss souls
         if self.options.randomize_boss_souls.value == Toggle.option_true:
-            for item in boss_souls:
+            for item in boss_souls.keys():
                 lwn_item = self.create_item(item)
                 item_pool.append(lwn_item)
 
@@ -136,6 +154,24 @@ class LWNWorld(World):
         if self.options.trial_keys.value == Toggle.option_true:
             for _ in range(self.options.trial_key_amount.value):
                 lwn_item = self.create_item("Trial Key")
+                item_pool.append(lwn_item)
+
+        # Generate lore items
+        if self.options.randomize_lore.value == Toggle.option_true:
+            for lore_item_name in lore_items.keys():
+                lwn_item = self.create_item(lore_item_name)
+                item_pool.append(lwn_item)
+
+        # Generate barrier items
+        if self.options.magic_puzzle_gate_behaviour.value == self.options.magic_puzzle_gate_behaviour.option_randomized:
+            for barrier_item_name in barrier_items.keys():
+                lwn_item = self.create_item(barrier_item_name)
+                item_pool.append(lwn_item)
+
+        # Generate barrier items
+        if self.options.shortcut_gate_behaviour.value == self.options.shortcut_gate_behaviour.option_randomized:
+            for gate_item_name in gate_items.keys():
+                lwn_item = self.create_item(gate_item_name)
                 item_pool.append(lwn_item)
 
         # Generate remaining filler items
@@ -177,7 +213,7 @@ class LWNWorld(World):
                 .place_locked_item(self.create_item("Vanessa Soul")))
 
             (self.multiworld.get_location("Spirit Realm - Vanessa V2", self.player)
-                .place_locked_item(self.create_item("Queen Vanessa V2 Soul")))
+                .place_locked_item(self.create_item("Vanessa V2 Soul")))
 
     def fill_slot_data(self) -> Dict[str, Any]:
         slot_data = dict()

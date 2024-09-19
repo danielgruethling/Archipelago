@@ -69,6 +69,13 @@ class NoArcane(DefaultOffToggle):
     display_name = "Start without magic"
 
 
+class RandomizeLore(DefaultOffToggle):
+    """
+    Lore items (green glowing circles) will be randomized into the item pool and give random items instead.
+    """
+    display_name = "Randomize lore items"
+
+
 class WindRequirements(Choice):
     """
     Double Jump logic requirements.
@@ -160,6 +167,7 @@ class LWNOptions(PerGameCommonOptions):
     trial_keys: TrialKeys
     trial_key_amount: TrialKeyAmount
     no_arcane: NoArcane
+    randomize_lore: RandomizeLore
     shortcut_gate_behaviour: ShortcutGateBehaviour
     magic_puzzle_gate_behaviour: MagicPuzzleGateBehaviour
     entrance_randomization: EntranceRandomization
