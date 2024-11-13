@@ -9,7 +9,8 @@ class LWNRegion(Region):
 lwn_regions: Dict[str, Set[str]] = {
     "Menu": {"Shrine - Start"},
     "Shrine - Start": {"Shrine - After first magic switch"},
-    "Shrine - After first magic switch": {"Shrine - Armor Hall", "Shrine - Start"},
+    "Shrine - After first magic switch": {"Shrine - Cat Room", "Shrine - Start"},
+    "Shrine - Cat Room": {"Shrine - After first magic switch", "Shrine - Armor Hall"},
     "Shrine - Armor Hall": {"Secret passage - Start", "Secret passage - After first fire barrier", "Secret Passage - Boss Shortcut", "Shrine - Underground shortcut", "Shrine - After first magic switch"},
     "Shrine - Underground shortcut": {"Shrine - Armor Hall", "Underground - Shrine shortcut"},
     "Secret passage - Start": {"Shrine - Armor Hall", "Secret passage - After first fire barrier"},

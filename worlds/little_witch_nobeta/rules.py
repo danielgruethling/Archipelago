@@ -56,10 +56,16 @@ def set_region_rules(world: "LWNWorld") -> None:
         lambda state: True
     multiworld.get_entrance("Shrine - Start -> Shrine - After first magic switch", player).access_rule = \
         lambda state: has_barrier(state, "Shrine First Magic Barrier", world)
-    multiworld.get_entrance("Shrine - After first magic switch -> Shrine - Armor Hall", player).access_rule = \
+    multiworld.get_entrance("Shrine - After first magic switch -> Shrine - Cat Room", player).access_rule = \
         lambda state: has_barrier(state, "Shrine Second Magic Barrier", world)
     multiworld.get_entrance("Shrine - After first magic switch -> Shrine - Start", player).access_rule = \
         lambda state: has_barrier(state, "Shrine First Magic Barrier", world)
+    multiworld.get_entrance("Shrine - Cat Room -> Shrine - After first magic switch", player).access_rule = \
+        lambda state: (state.has("Shrine Second Magic Barrier", player)
+                       or barriers_always_open(options))
+    multiworld.get_entrance("Shrine - Cat Room -> Shrine - Armor Hall", player).access_rule = \
+        lambda state: (state.has("Shrine Meet Cat Magic Barrier", player)
+                       or barriers_always_open(options))
     multiworld.get_entrance("Shrine - Armor Hall -> Secret passage - Start", player).access_rule = \
         lambda state: has_barrier(state, "Secret Passage Entrance Magic Barrier", world)
     multiworld.get_entrance("Shrine - Armor Hall -> Secret passage - After first fire barrier", player).access_rule = \

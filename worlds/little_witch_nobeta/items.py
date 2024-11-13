@@ -140,12 +140,13 @@ lore_items: Dict[str, str] = {
     "100. King's Final Honor": "Lore",
     "101. Proud King's Crafted Soul Shard": "Lore",
     "102. Lost Maiden's Crafted Soul Shard": "Lore",
-    "103. Loyal Soul Shard": "Lore"
+    "103. Loyal Soul Shard": "Lore",
 }
 
 barrier_items: Dict[str, str] = {
     "Shrine First Magic Barrier": "Magic Barrier",
     "Shrine Second Magic Barrier": "Magic Barrier",
+    "Shrine Meet Cat Magic Barrier": "Magic Barrier",
     "Secret Passage Entrance Magic Barrier": "Magic Barrier",
     "Secret Passage First Fire Barrier": "Magic Barrier",
     "Secret Passage Second Fire Barrier": "Magic Barrier",

@@ -13,14 +13,16 @@ from .rules import set_region_rules, set_location_rules
 
 class LWNWebWorld(WebWorld):
     theme = "grass"
-    tutorials = [Tutorial(
-        "Multiworld Setup Guide",
-        "A guide to playing Little Witch Nobeta with Archipelago.",
-        "English",
-        "setup_en.md",
-        "setup/en",
-        ["fragger"]
-    )]
+    tutorials = [
+        Tutorial(
+            "Multiworld Setup Guide",
+            "A guide to playing Little Witch Nobeta with Archipelago.",
+            "English",
+            "setup_en.md",
+            "setup/en",
+            ["fragger"]
+        )
+    ]
 
 
 class LWNItem(Item):

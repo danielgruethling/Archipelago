@@ -29,6 +29,10 @@ shrine_after_first_magic_switch_locations: Dict[str, str] = {
     "Shrine - Second magic switch": "Barrier",
 }
 
+shrine_cat_room_locations: Dict[str, str] = {
+    "Shrine - Meet Cat barrier": "Barrier",
+}
+
 shrine_armor_hall_locations: Dict[str, str] = {
     "Shrine - Chest behind gate": "Chest",
     "Shrine - 12. Pointy Witch's Hat in pot at chest behind gate": "Lore",
@@ -381,6 +385,7 @@ abyss_nonota_locations: Dict[str, str] = {
 lwn_locations: Dict[str, str] = {
     **shrine_start_locations,
     **shrine_after_first_magic_switch_locations,
+    **shrine_cat_room_locations,
     **shrine_armor_hall_locations,
     **shrine_underground_shortcut_locations,
     **secret_passage_start_locations,
@@ -640,6 +645,7 @@ location_name_groups = {
         "Secret Passage - First fire barrier magic switch",
         "Secret Passage - Second fire barrier magic switch",
         "Shrine - First magic switch",
+        "Shrine - Meet Cat barrier",
         "Shrine - Second magic switch",
         "Shrine - Secret passage magic switch",
         "Spirit Realm - Arcane barrier magic switches",
@@ -672,6 +678,11 @@ def append_locations(world: "LWNWorld"):
     for location_name in shrine_after_first_magic_switch_locations:
         location_id = location_name_to_id[location_name]
         region = world.multiworld.get_region("Shrine - After first magic switch", world.player)
+        region.locations.append(LWNLocation(world.player, location_name, location_id, region))
+
+    for location_name in shrine_cat_room_locations:
+        location_id = location_name_to_id[location_name]
+        region = world.multiworld.get_region("Shrine - Cat Room", world.player)
         region.locations.append(LWNLocation(world.player, location_name, location_id, region))
 
     for location_name in shrine_armor_hall_locations:
