@@ -6,7 +6,7 @@ from worlds.AutoWorld import World, WebWorld
 from .options import PerGameCommonOptions, LWNOptions, Toggle
 from .items import (lwn_items, item_name_to_id, attack_magics, boss_souls, useful_items, filler_items,
                     lore_items, barrier_items, gate_items, item_name_groups)
-from .locations import LWNLocation, location_name_groups, location_name_to_id, lwn_locations, append_locations
+from .locations import LWNLocation, location_name_groups, location_name_to_id, append_locations
 from .regions import LWNRegion, lwn_regions
 from .rules import set_region_rules, set_location_rules
 

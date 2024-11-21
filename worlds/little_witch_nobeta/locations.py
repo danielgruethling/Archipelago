@@ -672,257 +672,614 @@ location_name_groups = {
 def append_locations(world: "LWNWorld"):
     for location_name in shrine_start_locations:
         location_id = location_name_to_id[location_name]
+        group_name = shrine_start_locations[location_name]
         region = world.multiworld.get_region("Shrine - Start", world.player)
+        if (group_name == "Gate"
+                and world.options.shortcut_gate_behaviour.value == world.options.shortcut_gate_behaviour.option_vanilla):
+            continue
+        elif (group_name == "Barrier"
+                and world.options.magic_puzzle_gate_behaviour.value == world.options.magic_puzzle_gate_behaviour.option_vanilla):
+            continue
         region.locations.append(LWNLocation(world.player, location_name, location_id, region))
 
     for location_name in shrine_after_first_magic_switch_locations:
         location_id = location_name_to_id[location_name]
+        group_name = shrine_after_first_magic_switch_locations[location_name]
         region = world.multiworld.get_region("Shrine - After first magic switch", world.player)
+        if (group_name == "Gate"
+                and world.options.shortcut_gate_behaviour.value == world.options.shortcut_gate_behaviour.option_vanilla):
+            continue
+        elif (group_name == "Barrier"
+                and world.options.magic_puzzle_gate_behaviour.value == world.options.magic_puzzle_gate_behaviour.option_vanilla):
+            continue
         region.locations.append(LWNLocation(world.player, location_name, location_id, region))
 
     for location_name in shrine_cat_room_locations:
         location_id = location_name_to_id[location_name]
+        group_name = shrine_cat_room_locations[location_name]
         region = world.multiworld.get_region("Shrine - Cat Room", world.player)
+        if (group_name == "Gate"
+                and world.options.shortcut_gate_behaviour.value == world.options.shortcut_gate_behaviour.option_vanilla):
+            continue
+        elif (group_name == "Barrier"
+                and world.options.magic_puzzle_gate_behaviour.value == world.options.magic_puzzle_gate_behaviour.option_vanilla):
+            continue
         region.locations.append(LWNLocation(world.player, location_name, location_id, region))
 
     for location_name in shrine_armor_hall_locations:
         location_id = location_name_to_id[location_name]
+        group_name = shrine_armor_hall_locations[location_name]
         region = world.multiworld.get_region("Shrine - Armor Hall", world.player)
+        if (group_name == "Gate"
+                and world.options.shortcut_gate_behaviour.value == world.options.shortcut_gate_behaviour.option_vanilla):
+            continue
+        elif (group_name == "Barrier"
+                and world.options.magic_puzzle_gate_behaviour.value == world.options.magic_puzzle_gate_behaviour.option_vanilla):
+            continue
         region.locations.append(LWNLocation(world.player, location_name, location_id, region))
 
     for location_name in shrine_underground_shortcut_locations:
         location_id = location_name_to_id[location_name]
+        group_name = shrine_underground_shortcut_locations[location_name]
         region = world.multiworld.get_region("Shrine - Underground shortcut", world.player)
+        if (group_name == "Gate"
+                and world.options.shortcut_gate_behaviour.value == world.options.shortcut_gate_behaviour.option_vanilla):
+            continue
+        elif (group_name == "Barrier"
+                and world.options.magic_puzzle_gate_behaviour.value == world.options.magic_puzzle_gate_behaviour.option_vanilla):
+            continue
         region.locations.append(LWNLocation(world.player, location_name, location_id, region))
 
     for location_name in secret_passage_start_locations:
         location_id = location_name_to_id[location_name]
+        group_name = secret_passage_start_locations[location_name]
         region = world.multiworld.get_region("Secret passage - Start", world.player)
+        if (group_name == "Gate"
+                and world.options.shortcut_gate_behaviour.value == world.options.shortcut_gate_behaviour.option_vanilla):
+            continue
+        elif (group_name == "Barrier"
+                and world.options.magic_puzzle_gate_behaviour.value == world.options.magic_puzzle_gate_behaviour.option_vanilla):
+            continue
         region.locations.append(LWNLocation(world.player, location_name, location_id, region))
 
     for location_name in secret_passage_after_first_fire_barrier_locations:
         location_id = location_name_to_id[location_name]
+        group_name = secret_passage_after_first_fire_barrier_locations[location_name]
         region = world.multiworld.get_region("Secret passage - After first fire barrier", world.player)
+        if (group_name == "Gate"
+                and world.options.shortcut_gate_behaviour.value == world.options.shortcut_gate_behaviour.option_vanilla):
+            continue
+        elif (group_name == "Barrier"
+                and world.options.magic_puzzle_gate_behaviour.value == world.options.magic_puzzle_gate_behaviour.option_vanilla):
+            continue
         region.locations.append(LWNLocation(world.player, location_name, location_id, region))
 
     for location_name in secret_passage_enraged_armor_locations:
         location_id = location_name_to_id[location_name]
+        group_name = secret_passage_enraged_armor_locations[location_name]
         region = world.multiworld.get_region("Secret Passage - Enraged Armor", world.player)
+        if (group_name == "Gate"
+                and world.options.shortcut_gate_behaviour.value == world.options.shortcut_gate_behaviour.option_vanilla):
+            continue
+        elif (group_name == "Barrier"
+                and world.options.magic_puzzle_gate_behaviour.value == world.options.magic_puzzle_gate_behaviour.option_vanilla):
+            continue
         region.locations.append(LWNLocation(world.player, location_name, location_id, region))
 
     for location_name in secret_passage_boss_shortcut_locations:
         location_id = location_name_to_id[location_name]
+        group_name = secret_passage_boss_shortcut_locations[location_name]
         region = world.multiworld.get_region("Secret Passage - Boss Shortcut", world.player)
+        if (group_name == "Gate"
+                and world.options.shortcut_gate_behaviour.value == world.options.shortcut_gate_behaviour.option_vanilla):
+            continue
+        elif (group_name == "Barrier"
+                and world.options.magic_puzzle_gate_behaviour.value == world.options.magic_puzzle_gate_behaviour.option_vanilla):
+            continue
         region.locations.append(LWNLocation(world.player, location_name, location_id, region))
 
     for location_name in secret_passage_dark_tunnel_shortcut_locations:
         location_id = location_name_to_id[location_name]
+        group_name = secret_passage_dark_tunnel_shortcut_locations[location_name]
         region = world.multiworld.get_region("Secret Passage - Dark Tunnel shortcut", world.player)
+        if (group_name == "Gate"
+                and world.options.shortcut_gate_behaviour.value == world.options.shortcut_gate_behaviour.option_vanilla):
+            continue
+        elif (group_name == "Barrier"
+                and world.options.magic_puzzle_gate_behaviour.value == world.options.magic_puzzle_gate_behaviour.option_vanilla):
+            continue
         region.locations.append(LWNLocation(world.player, location_name, location_id, region))
 
     for location_name in underground_start_locations:
         location_id = location_name_to_id[location_name]
+        group_name = underground_start_locations[location_name]
         region = world.multiworld.get_region("Underground - Start", world.player)
+        if (group_name == "Gate"
+                and world.options.shortcut_gate_behaviour.value == world.options.shortcut_gate_behaviour.option_vanilla):
+            continue
+        elif (group_name == "Barrier"
+                and world.options.magic_puzzle_gate_behaviour.value == world.options.magic_puzzle_gate_behaviour.option_vanilla):
+            continue
         region.locations.append(LWNLocation(world.player, location_name, location_id, region))
 
     for location_name in underground_after_wind_locations:
         location_id = location_name_to_id[location_name]
+        group_name = underground_after_wind_locations[location_name]
         region = world.multiworld.get_region("Underground - After wind", world.player)
+        if (group_name == "Gate"
+                and world.options.shortcut_gate_behaviour.value == world.options.shortcut_gate_behaviour.option_vanilla):
+            continue
+        elif (group_name == "Barrier"
+                and world.options.magic_puzzle_gate_behaviour.value == world.options.magic_puzzle_gate_behaviour.option_vanilla):
+            continue
         region.locations.append(LWNLocation(world.player, location_name, location_id, region))
 
     for location_name in underground_lava_ruins_shortcut_locations:
         location_id = location_name_to_id[location_name]
+        group_name = underground_lava_ruins_shortcut_locations[location_name]
         region = world.multiworld.get_region("Underground - Lava ruins shortcut", world.player)
+        if (group_name == "Gate"
+                and world.options.shortcut_gate_behaviour.value == world.options.shortcut_gate_behaviour.option_vanilla):
+            continue
+        elif (group_name == "Barrier"
+                and world.options.magic_puzzle_gate_behaviour.value == world.options.magic_puzzle_gate_behaviour.option_vanilla):
+            continue
         region.locations.append(LWNLocation(world.player, location_name, location_id, region))
 
     for location_name in underground_tania_shortcut_locations:
         location_id = location_name_to_id[location_name]
+        group_name = underground_tania_shortcut_locations[location_name]
         region = world.multiworld.get_region("Underground - Tania shortcut", world.player)
+        if (group_name == "Gate"
+                and world.options.shortcut_gate_behaviour.value == world.options.shortcut_gate_behaviour.option_vanilla):
+            continue
+        elif (group_name == "Barrier"
+                and world.options.magic_puzzle_gate_behaviour.value == world.options.magic_puzzle_gate_behaviour.option_vanilla):
+            continue
         region.locations.append(LWNLocation(world.player, location_name, location_id, region))
 
     for location_name in underground_after_fire_locations:
         location_id = location_name_to_id[location_name]
+        group_name = underground_after_fire_locations[location_name]
         region = world.multiworld.get_region("Underground - After fire", world.player)
+        if (group_name == "Gate"
+                and world.options.shortcut_gate_behaviour.value == world.options.shortcut_gate_behaviour.option_vanilla):
+            continue
+        elif (group_name == "Barrier"
+                and world.options.magic_puzzle_gate_behaviour.value == world.options.magic_puzzle_gate_behaviour.option_vanilla):
+            continue
         region.locations.append(LWNLocation(world.player, location_name, location_id, region))
 
     for location_name in underground_after_fire_magic_switch_barrier_locations:
         location_id = location_name_to_id[location_name]
+        group_name = underground_after_fire_magic_switch_barrier_locations[location_name]
         region = world.multiworld.get_region("Underground - After fire magic switch barrier", world.player)
+        if (group_name == "Gate"
+                and world.options.shortcut_gate_behaviour.value == world.options.shortcut_gate_behaviour.option_vanilla):
+            continue
+        elif (group_name == "Barrier"
+                and world.options.magic_puzzle_gate_behaviour.value == world.options.magic_puzzle_gate_behaviour.option_vanilla):
+            continue
         region.locations.append(LWNLocation(world.player, location_name, location_id, region))
 
     for location_name in underground_tania_locations:
         location_id = location_name_to_id[location_name]
+        group_name = underground_tania_locations[location_name]
         region = world.multiworld.get_region("Underground - Tania", world.player)
+        if (group_name == "Gate"
+                and world.options.shortcut_gate_behaviour.value == world.options.shortcut_gate_behaviour.option_vanilla):
+            continue
+        elif (group_name == "Barrier"
+                and world.options.magic_puzzle_gate_behaviour.value == world.options.magic_puzzle_gate_behaviour.option_vanilla):
+            continue
         region.locations.append(LWNLocation(world.player, location_name, location_id, region))
 
     for location_name in lava_ruins_start_locations:
         location_id = location_name_to_id[location_name]
+        group_name = lava_ruins_start_locations[location_name]
         region = world.multiworld.get_region("Lava Ruins - Start", world.player)
+        if (group_name == "Gate"
+                and world.options.shortcut_gate_behaviour.value == world.options.shortcut_gate_behaviour.option_vanilla):
+            continue
+        elif (group_name == "Barrier"
+                and world.options.magic_puzzle_gate_behaviour.value == world.options.magic_puzzle_gate_behaviour.option_vanilla):
+            continue
         region.locations.append(LWNLocation(world.player, location_name, location_id, region))
 
     for location_name in lava_ruins_after_magic_platforms_locations:
         location_id = location_name_to_id[location_name]
+        group_name = lava_ruins_after_magic_platforms_locations[location_name]
         region = world.multiworld.get_region("Lava Ruins - After magic platforms", world.player)
+        if (group_name == "Gate"
+                and world.options.shortcut_gate_behaviour.value == world.options.shortcut_gate_behaviour.option_vanilla):
+            continue
+        elif (group_name == "Barrier"
+                and world.options.magic_puzzle_gate_behaviour.value == world.options.magic_puzzle_gate_behaviour.option_vanilla):
+            continue
         region.locations.append(LWNLocation(world.player, location_name, location_id, region))
 
     for location_name in lava_ruins_after_scissor_enemy_barrier_locations:
         location_id = location_name_to_id[location_name]
+        group_name = lava_ruins_after_scissor_enemy_barrier_locations[location_name]
         region = world.multiworld.get_region("Lava Ruins - After scissor enemy barrier", world.player)
+        if (group_name == "Gate"
+                and world.options.shortcut_gate_behaviour.value == world.options.shortcut_gate_behaviour.option_vanilla):
+            continue
+        elif (group_name == "Barrier"
+                and world.options.magic_puzzle_gate_behaviour.value == world.options.magic_puzzle_gate_behaviour.option_vanilla):
+            continue
         region.locations.append(LWNLocation(world.player, location_name, location_id, region))
 
     for location_name in lava_ruins_after_fire_barrier_locations:
         location_id = location_name_to_id[location_name]
+        group_name = lava_ruins_after_fire_barrier_locations[location_name]
         region = world.multiworld.get_region("Lava Ruins - After Fire Barrier", world.player)
+        if (group_name == "Gate"
+                and world.options.shortcut_gate_behaviour.value == world.options.shortcut_gate_behaviour.option_vanilla):
+            continue
+        elif (group_name == "Barrier"
+                and world.options.magic_puzzle_gate_behaviour.value == world.options.magic_puzzle_gate_behaviour.option_vanilla):
+            continue
         region.locations.append(LWNLocation(world.player, location_name, location_id, region))
 
     for location_name in lava_ruins_monica_locations:
         location_id = location_name_to_id[location_name]
+        group_name = lava_ruins_monica_locations[location_name]
         region = world.multiworld.get_region("Lava Ruins - Monica", world.player)
+        if (group_name == "Gate"
+                and world.options.shortcut_gate_behaviour.value == world.options.shortcut_gate_behaviour.option_vanilla):
+            continue
+        elif (group_name == "Barrier"
+                and world.options.magic_puzzle_gate_behaviour.value == world.options.magic_puzzle_gate_behaviour.option_vanilla):
+            continue
         region.locations.append(LWNLocation(world.player, location_name, location_id, region))
 
     for location_name in lava_ruins_monica_warp_locations:
         location_id = location_name_to_id[location_name]
+        group_name = lava_ruins_monica_warp_locations[location_name]
         region = world.multiworld.get_region("Lava Ruins - Monica warp", world.player)
+        if (group_name == "Gate"
+                and world.options.shortcut_gate_behaviour.value == world.options.shortcut_gate_behaviour.option_vanilla):
+            continue
+        elif (group_name == "Barrier"
+                and world.options.magic_puzzle_gate_behaviour.value == world.options.magic_puzzle_gate_behaviour.option_vanilla):
+            continue
         region.locations.append(LWNLocation(world.player, location_name, location_id, region))
 
     for location_name in lava_ruins_path_to_dark_tunnel_locations:
         location_id = location_name_to_id[location_name]
+        group_name = lava_ruins_path_to_dark_tunnel_locations[location_name]
         region = world.multiworld.get_region("Lava Ruins - Path to dark tunnel", world.player)
+        if (group_name == "Gate"
+                and world.options.shortcut_gate_behaviour.value == world.options.shortcut_gate_behaviour.option_vanilla):
+            continue
+        elif (group_name == "Barrier"
+                and world.options.magic_puzzle_gate_behaviour.value == world.options.magic_puzzle_gate_behaviour.option_vanilla):
+            continue
         region.locations.append(LWNLocation(world.player, location_name, location_id, region))
 
     for location_name in dark_tunnel_start_locations:
         location_id = location_name_to_id[location_name]
+        group_name = dark_tunnel_start_locations[location_name]
         region = world.multiworld.get_region("Dark Tunnel - Start", world.player)
+        if (group_name == "Gate"
+                and world.options.shortcut_gate_behaviour.value == world.options.shortcut_gate_behaviour.option_vanilla):
+            continue
+        elif (group_name == "Barrier"
+                and world.options.magic_puzzle_gate_behaviour.value == world.options.magic_puzzle_gate_behaviour.option_vanilla):
+            continue
         region.locations.append(LWNLocation(world.player, location_name, location_id, region))
 
     for location_name in dark_tunnel_after_first_magic_barrier_locations:
         location_id = location_name_to_id[location_name]
+        group_name = dark_tunnel_after_first_magic_barrier_locations[location_name]
         region = world.multiworld.get_region("Dark Tunnel - After first magic barrier", world.player)
+        if (group_name == "Gate"
+                and world.options.shortcut_gate_behaviour.value == world.options.shortcut_gate_behaviour.option_vanilla):
+            continue
+        elif (group_name == "Barrier"
+                and world.options.magic_puzzle_gate_behaviour.value == world.options.magic_puzzle_gate_behaviour.option_vanilla):
+            continue
         region.locations.append(LWNLocation(world.player, location_name, location_id, region))
 
     for location_name in dark_tunnel_after_first_gate_locations:
         location_id = location_name_to_id[location_name]
+        group_name = dark_tunnel_after_first_gate_locations[location_name]
         region = world.multiworld.get_region("Dark Tunnel - After first gate", world.player)
+        if (group_name == "Gate"
+                and world.options.shortcut_gate_behaviour.value == world.options.shortcut_gate_behaviour.option_vanilla):
+            continue
+        elif (group_name == "Barrier"
+                and world.options.magic_puzzle_gate_behaviour.value == world.options.magic_puzzle_gate_behaviour.option_vanilla):
+            continue
         region.locations.append(LWNLocation(world.player, location_name, location_id, region))
 
     for location_name in dark_tunnel_after_light_switch_barrier_locations:
         location_id = location_name_to_id[location_name]
+        group_name = dark_tunnel_after_light_switch_barrier_locations[location_name]
         region = world.multiworld.get_region("Dark Tunnel - After light switch barrier", world.player)
+        if (group_name == "Gate"
+                and world.options.shortcut_gate_behaviour.value == world.options.shortcut_gate_behaviour.option_vanilla):
+            continue
+        elif (group_name == "Barrier"
+                and world.options.magic_puzzle_gate_behaviour.value == world.options.magic_puzzle_gate_behaviour.option_vanilla):
+            continue
         region.locations.append(LWNLocation(world.player, location_name, location_id, region))
 
     for location_name in dark_tunnel_after_thunder_barrier_locations:
         location_id = location_name_to_id[location_name]
+        group_name = dark_tunnel_after_thunder_barrier_locations[location_name]
         region = world.multiworld.get_region("Dark Tunnel - After thunder barrier", world.player)
+        if (group_name == "Gate"
+                and world.options.shortcut_gate_behaviour.value == world.options.shortcut_gate_behaviour.option_vanilla):
+            continue
+        elif (group_name == "Barrier"
+                and world.options.magic_puzzle_gate_behaviour.value == world.options.magic_puzzle_gate_behaviour.option_vanilla):
+            continue
         region.locations.append(LWNLocation(world.player, location_name, location_id, region))
 
     for location_name in dark_tunnel_after_floating_platforms_locations:
         location_id = location_name_to_id[location_name]
+        group_name = dark_tunnel_after_floating_platforms_locations[location_name]
         region = world.multiworld.get_region("Dark Tunnel - After floating platforms", world.player)
+        if (group_name == "Gate"
+                and world.options.shortcut_gate_behaviour.value == world.options.shortcut_gate_behaviour.option_vanilla):
+            continue
+        elif (group_name == "Barrier"
+                and world.options.magic_puzzle_gate_behaviour.value == world.options.magic_puzzle_gate_behaviour.option_vanilla):
+            continue
         region.locations.append(LWNLocation(world.player, location_name, location_id, region))
 
     for location_name in dark_tunnel_after_bridge_collapse_locations:
         location_id = location_name_to_id[location_name]
+        group_name = dark_tunnel_after_bridge_collapse_locations[location_name]
         region = world.multiworld.get_region("Dark Tunnel - After bridge collapse", world.player)
+        if (group_name == "Gate"
+                and world.options.shortcut_gate_behaviour.value == world.options.shortcut_gate_behaviour.option_vanilla):
+            continue
+        elif (group_name == "Barrier"
+                and world.options.magic_puzzle_gate_behaviour.value == world.options.magic_puzzle_gate_behaviour.option_vanilla):
+            continue
         region.locations.append(LWNLocation(world.player, location_name, location_id, region))
 
     for location_name in spirit_realm_start_locations:
         location_id = location_name_to_id[location_name]
+        group_name = spirit_realm_start_locations[location_name]
         region = world.multiworld.get_region("Spirit Realm - Start", world.player)
+        if (group_name == "Gate"
+                and world.options.shortcut_gate_behaviour.value == world.options.shortcut_gate_behaviour.option_vanilla):
+            continue
+        elif (group_name == "Barrier"
+                and world.options.magic_puzzle_gate_behaviour.value == world.options.magic_puzzle_gate_behaviour.option_vanilla):
+            continue
         region.locations.append(LWNLocation(world.player, location_name, location_id, region))
 
     for location_name in spirit_realm_after_platforms_locations:
         location_id = location_name_to_id[location_name]
+        group_name = spirit_realm_after_platforms_locations[location_name]
         region = world.multiworld.get_region("Spirit Realm - After platforms", world.player)
+        if (group_name == "Gate"
+                and world.options.shortcut_gate_behaviour.value == world.options.shortcut_gate_behaviour.option_vanilla):
+            continue
+        elif (group_name == "Barrier"
+                and world.options.magic_puzzle_gate_behaviour.value == world.options.magic_puzzle_gate_behaviour.option_vanilla):
+            continue
         region.locations.append(LWNLocation(world.player, location_name, location_id, region))
 
     for location_name in spirit_realm_after_arcane_barrier_locations:
         location_id = location_name_to_id[location_name]
+        group_name = spirit_realm_after_arcane_barrier_locations[location_name]
         region = world.multiworld.get_region("Spirit Realm - After arcane barrier", world.player)
+        if (group_name == "Gate"
+                and world.options.shortcut_gate_behaviour.value == world.options.shortcut_gate_behaviour.option_vanilla):
+            continue
+        elif (group_name == "Barrier"
+                and world.options.magic_puzzle_gate_behaviour.value == world.options.magic_puzzle_gate_behaviour.option_vanilla):
+            continue
         region.locations.append(LWNLocation(world.player, location_name, location_id, region))
 
     for location_name in spirit_realm_seal_locations:
         location_id = location_name_to_id[location_name]
+        group_name = spirit_realm_seal_locations[location_name]
         region = world.multiworld.get_region("Spirit Realm - Seal", world.player)
+        if (group_name == "Gate"
+                and world.options.shortcut_gate_behaviour.value == world.options.shortcut_gate_behaviour.option_vanilla):
+            continue
+        elif (group_name == "Barrier"
+                and world.options.magic_puzzle_gate_behaviour.value == world.options.magic_puzzle_gate_behaviour.option_vanilla):
+            continue
         region.locations.append(LWNLocation(world.player, location_name, location_id, region))
 
     for location_name in spirit_realm_after_first_seal_locations:
         location_id = location_name_to_id[location_name]
+        group_name = spirit_realm_after_first_seal_locations[location_name]
         region = world.multiworld.get_region("Spirit Realm - After first Seal", world.player)
+        if (group_name == "Gate"
+                and world.options.shortcut_gate_behaviour.value == world.options.shortcut_gate_behaviour.option_vanilla):
+            continue
+        elif (group_name == "Barrier"
+                and world.options.magic_puzzle_gate_behaviour.value == world.options.magic_puzzle_gate_behaviour.option_vanilla):
+            continue
         region.locations.append(LWNLocation(world.player, location_name, location_id, region))
 
     for location_name in spirit_realm_after_second_seal_locations:
         location_id = location_name_to_id[location_name]
+        group_name = spirit_realm_after_second_seal_locations[location_name]
         region = world.multiworld.get_region("Spirit Realm - After second Seal", world.player)
+        if (group_name == "Gate"
+                and world.options.shortcut_gate_behaviour.value == world.options.shortcut_gate_behaviour.option_vanilla):
+            continue
+        elif (group_name == "Barrier"
+                and world.options.magic_puzzle_gate_behaviour.value == world.options.magic_puzzle_gate_behaviour.option_vanilla):
+            continue
         region.locations.append(LWNLocation(world.player, location_name, location_id, region))
 
     for location_name in spirit_realm_after_elevator_locations:
         location_id = location_name_to_id[location_name]
+        group_name = spirit_realm_after_elevator_locations[location_name]
         region = world.multiworld.get_region("Spirit Realm - After elevator", world.player)
+        if (group_name == "Gate"
+                and world.options.shortcut_gate_behaviour.value == world.options.shortcut_gate_behaviour.option_vanilla):
+            continue
+        elif (group_name == "Barrier"
+                and world.options.magic_puzzle_gate_behaviour.value == world.options.magic_puzzle_gate_behaviour.option_vanilla):
+            continue
         region.locations.append(LWNLocation(world.player, location_name, location_id, region))
 
     for location_name in spirit_realm_after_teleport_locations:
         location_id = location_name_to_id[location_name]
+        group_name = spirit_realm_after_teleport_locations[location_name]
         region = world.multiworld.get_region("Spirit Realm - After teleport", world.player)
+        if (group_name == "Gate"
+                and world.options.shortcut_gate_behaviour.value == world.options.shortcut_gate_behaviour.option_vanilla):
+            continue
+        elif (group_name == "Barrier"
+                and world.options.magic_puzzle_gate_behaviour.value == world.options.magic_puzzle_gate_behaviour.option_vanilla):
+            continue
         region.locations.append(LWNLocation(world.player, location_name, location_id, region))
 
     for location_name in abyss_locations:
         location_id = location_name_to_id[location_name]
+        group_name = abyss_locations[location_name]
         region = world.multiworld.get_region("Abyss", world.player)
+        if (group_name == "Gate"
+                and world.options.shortcut_gate_behaviour.value == world.options.shortcut_gate_behaviour.option_vanilla):
+            continue
+        elif (group_name == "Barrier"
+                and world.options.magic_puzzle_gate_behaviour.value == world.options.magic_puzzle_gate_behaviour.option_vanilla):
+            continue
         region.locations.append(LWNLocation(world.player, location_name, location_id, region))
 
     for location_name in abyss_after_first_teleport_locations:
         location_id = location_name_to_id[location_name]
+        group_name = abyss_after_first_teleport_locations[location_name]
         region = world.multiworld.get_region("Abyss - After first teleport", world.player)
+        if (group_name == "Gate"
+                and world.options.shortcut_gate_behaviour.value == world.options.shortcut_gate_behaviour.option_vanilla):
+            continue
+        elif (group_name == "Barrier"
+                and world.options.magic_puzzle_gate_behaviour.value == world.options.magic_puzzle_gate_behaviour.option_vanilla):
+            continue
         region.locations.append(LWNLocation(world.player, location_name, location_id, region))
 
     for location_name in abyss_after_first_gate_locations:
         location_id = location_name_to_id[location_name]
+        group_name = abyss_after_first_gate_locations[location_name]
         region = world.multiworld.get_region("Abyss - After first gate", world.player)
+        if (group_name == "Gate"
+                and world.options.shortcut_gate_behaviour.value == world.options.shortcut_gate_behaviour.option_vanilla):
+            continue
+        elif (group_name == "Barrier"
+                and world.options.magic_puzzle_gate_behaviour.value == world.options.magic_puzzle_gate_behaviour.option_vanilla):
+            continue
         region.locations.append(LWNLocation(world.player, location_name, location_id, region))
 
     for location_name in abyss_left_gate_at_trap_locations:
         location_id = location_name_to_id[location_name]
+        group_name = abyss_left_gate_at_trap_locations[location_name]
         region = world.multiworld.get_region("Abyss - Left gate at trap", world.player)
+        if (group_name == "Gate"
+                and world.options.shortcut_gate_behaviour.value == world.options.shortcut_gate_behaviour.option_vanilla):
+            continue
+        elif (group_name == "Barrier"
+                and world.options.magic_puzzle_gate_behaviour.value == world.options.magic_puzzle_gate_behaviour.option_vanilla):
+            continue
         region.locations.append(LWNLocation(world.player, location_name, location_id, region))
 
     for location_name in abyss_after_giant_maid_barrier_locations:
         location_id = location_name_to_id[location_name]
+        group_name = abyss_after_giant_maid_barrier_locations[location_name]
         region = world.multiworld.get_region("Abyss - After giant maid barrier", world.player)
+        if (group_name == "Gate"
+                and world.options.shortcut_gate_behaviour.value == world.options.shortcut_gate_behaviour.option_vanilla):
+            continue
+        elif (group_name == "Barrier"
+                and world.options.magic_puzzle_gate_behaviour.value == world.options.magic_puzzle_gate_behaviour.option_vanilla):
+            continue
         region.locations.append(LWNLocation(world.player, location_name, location_id, region))
 
     for location_name in abyss_trials_lobby_locations:
         location_id = location_name_to_id[location_name]
+        group_name = abyss_trials_lobby_locations[location_name]
         region = world.multiworld.get_region("Abyss - Trials Lobby", world.player)
+        if (group_name == "Gate"
+                and world.options.shortcut_gate_behaviour.value == world.options.shortcut_gate_behaviour.option_vanilla):
+            continue
+        elif (group_name == "Barrier"
+                and world.options.magic_puzzle_gate_behaviour.value == world.options.magic_puzzle_gate_behaviour.option_vanilla):
+            continue
         region.locations.append(LWNLocation(world.player, location_name, location_id, region))
 
     for location_name in abyss_underground_trial_locations:
         location_id = location_name_to_id[location_name]
+        group_name = abyss_underground_trial_locations[location_name]
         region = world.multiworld.get_region("Abyss - Underground Trial", world.player)
+        if (group_name == "Gate"
+                and world.options.shortcut_gate_behaviour.value == world.options.shortcut_gate_behaviour.option_vanilla):
+            continue
+        elif (group_name == "Barrier"
+                and world.options.magic_puzzle_gate_behaviour.value == world.options.magic_puzzle_gate_behaviour.option_vanilla):
+            continue
         region.locations.append(LWNLocation(world.player, location_name, location_id, region))
 
     for location_name in abyss_underground_trial_magic_switch_locations:
         location_id = location_name_to_id[location_name]
+        group_name = abyss_underground_trial_magic_switch_locations[location_name]
         region = world.multiworld.get_region("Abyss - Underground Trial magic switch", world.player)
+        if (group_name == "Gate"
+                and world.options.shortcut_gate_behaviour.value == world.options.shortcut_gate_behaviour.option_vanilla):
+            continue
+        elif (group_name == "Barrier"
+                and world.options.magic_puzzle_gate_behaviour.value == world.options.magic_puzzle_gate_behaviour.option_vanilla):
+            continue
         region.locations.append(LWNLocation(world.player, location_name, location_id, region))
 
     for location_name in abyss_dark_tunnel_trial_locations:
         location_id = location_name_to_id[location_name]
+        group_name = abyss_dark_tunnel_trial_locations[location_name]
         region = world.multiworld.get_region("Abyss - Dark Tunnel Trial", world.player)
+        if (group_name == "Gate"
+                and world.options.shortcut_gate_behaviour.value == world.options.shortcut_gate_behaviour.option_vanilla):
+            continue
+        elif (group_name == "Barrier"
+                and world.options.magic_puzzle_gate_behaviour.value == world.options.magic_puzzle_gate_behaviour.option_vanilla):
+            continue
         region.locations.append(LWNLocation(world.player, location_name, location_id, region))
 
     for location_name in abyss_dark_tunnel_trial_magic_switch_locations:
         location_id = location_name_to_id[location_name]
+        group_name = abyss_dark_tunnel_trial_magic_switch_locations[location_name]
         region = world.multiworld.get_region("Abyss - Dark Tunnel Trial magic switch", world.player)
+        if (group_name == "Gate"
+                and world.options.shortcut_gate_behaviour.value == world.options.shortcut_gate_behaviour.option_vanilla):
+            continue
+        elif (group_name == "Barrier"
+                and world.options.magic_puzzle_gate_behaviour.value == world.options.magic_puzzle_gate_behaviour.option_vanilla):
+            continue
         region.locations.append(LWNLocation(world.player, location_name, location_id, region))
 
     for location_name in abyss_lava_ruins_trial_locations:
         location_id = location_name_to_id[location_name]
+        group_name = abyss_lava_ruins_trial_locations[location_name]
         region = world.multiworld.get_region("Abyss - Lava Ruins Trial", world.player)
+        if (group_name == "Gate"
+                and world.options.shortcut_gate_behaviour.value == world.options.shortcut_gate_behaviour.option_vanilla):
+            continue
+        elif (group_name == "Barrier"
+                and world.options.magic_puzzle_gate_behaviour.value == world.options.magic_puzzle_gate_behaviour.option_vanilla):
+            continue
         region.locations.append(LWNLocation(world.player, location_name, location_id, region))
 
     for location_name in abyss_lava_ruins_trial_magic_switch_locations:
         location_id = location_name_to_id[location_name]
+        group_name = abyss_lava_ruins_trial_magic_switch_locations[location_name]
         region = world.multiworld.get_region("Abyss - Lava Ruins Trial magic switch", world.player)
+        if (group_name == "Gate"
+                and world.options.shortcut_gate_behaviour.value == world.options.shortcut_gate_behaviour.option_vanilla):
+            continue
+        elif (group_name == "Barrier"
+                and world.options.magic_puzzle_gate_behaviour.value == world.options.magic_puzzle_gate_behaviour.option_vanilla):
+            continue
         region.locations.append(LWNLocation(world.player, location_name, location_id, region))
 
     for location_name in abyss_nonota_locations:
@@ -930,5 +1287,12 @@ def append_locations(world: "LWNWorld"):
             location_id = location_name_to_id[location_name]
         else:
             location_id = None
+        group_name = abyss_nonota_locations[location_name]
         region = world.multiworld.get_region("Abyss - Nonota", world.player)
+        if (group_name == "Gate"
+                and world.options.shortcut_gate_behaviour.value == world.options.shortcut_gate_behaviour.option_vanilla):
+            continue
+        elif (group_name == "Barrier"
+                and world.options.magic_puzzle_gate_behaviour.value == world.options.magic_puzzle_gate_behaviour.option_vanilla):
+            continue
         region.locations.append(LWNLocation(world.player, location_name, location_id, region))

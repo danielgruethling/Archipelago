@@ -76,6 +76,8 @@ def set_region_rules(world: "LWNWorld") -> None:
         lambda state: has_gate(state, "Shrine Underground Shortcut Gate", world)
     multiworld.get_entrance("Shrine - Armor Hall -> Shrine - After first magic switch", player).access_rule = \
         lambda state: has_barrier(state, "Shrine Second Magic Barrier", world)
+    multiworld.get_entrance("Shrine - Armor Hall -> Underground - Start", player).access_rule = \
+        lambda state: has_attack_magic(state, player)
     multiworld.get_entrance("Shrine - Underground shortcut -> Shrine - Armor Hall", player).access_rule = \
         lambda state: has_gate(state, "Shrine Underground Shortcut Gate", world)
     multiworld.get_entrance("Shrine - Underground shortcut -> Underground - Shrine shortcut", player).access_rule = \
