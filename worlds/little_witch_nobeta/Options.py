@@ -76,66 +76,6 @@ class EntranceRandomization(DefaultOffToggle):
     display_name = "Entrance randomization"
 
 
-class ShortcutGateBehaviour(Choice):
-    """
-    Shortcut gate behaviour.
-    [Vanilla] Shortcuts are closed and will be opened when their lever is pulled.
-    [Always open] Shortcut gates will always be open.
-    [Randomized] Adds shortcut gate items to the item pool.
-    Pulling a lever will then reward a random item and the shortcut will only open when its item is found.
-    """
-    display_name = "Shortcut lever behaviour"
-    option_vanilla = 0
-    option_always_open = 1
-    option_randomized = 2
-
-    default = option_vanilla
-
-
-class MagicPuzzleGateBehaviour(Choice):
-    """
-    Magic puzzle gate behaviour.
-    [Vanilla] Magic puzzle gates are closed and will be opened when their puzzle is solved(destroy switches).
-    [Always open] Magic puzzle gates will always be open.
-    [Randomized] Adds puzzle gate items to the item pool.
-    Solving a puzzle will then reward a random item and the puzzle gate will only open when its item is found.
-    """
-    display_name = "Magic puzzle gate behaviour"
-    option_vanilla = 0
-    option_always_open = 1
-    option_randomized = 2
-
-    default = option_vanilla
-
-
-class SoulGainBaseValue(Range):
-    """
-    Whenever the randomizer would add souls to your inventory it will at least add this amount.
-    """
-    display_name = "Soul gain base value"
-    range_start = 1
-    range_end = 1000
-    default = 250
-    
-
-class SoulGainFactor(Range):
-    """
-    Whenever the randomizer would add souls to your inventory it will multiply the soul gain base value with
-    a factor randomly chosen between 1 and the configured soul gain factor.
-    """
-    display_name = "Soul gain factor"
-    range_start = 1
-    range_end = 100
-    default = 2
-
-
-class DeathLink(DefaultOffToggle):
-    """
-    On death a trigger to kill all other deathlink players will be send. When another deathlink
-    player dies you die as well.
-    """
-    display_name = "Deathlink"
-
 
 @dataclass
 class LWNOptions(PerGameCommonOptions):
@@ -145,9 +85,3 @@ class LWNOptions(PerGameCommonOptions):
     trial_keys: TrialKeys
     trial_key_amount: TrialKeyAmount
     no_arcane: NoArcane
-    shortcut_gate_behaviour: ShortcutGateBehaviour
-    magic_puzzle_gate_behaviour: MagicPuzzleGateBehaviour
-    entrance_randomization: EntranceRandomization
-    soul_gain_base_value: SoulGainBaseValue
-    soul_gain_factor: SoulGainFactor
-    death_link: DeathLink

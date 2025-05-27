@@ -1,6 +1,6 @@
 from typing import TYPE_CHECKING
 
-from .options import LWNOptions, Toggle
+from .Options import LWNOptions, Toggle
 if TYPE_CHECKING:
     from . import LWNWorld
 

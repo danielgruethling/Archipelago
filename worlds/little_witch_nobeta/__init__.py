@@ -3,16 +3,16 @@ from typing import Any, Dict, List
 
 from BaseClasses import Location, Item, ItemClassification, Tutorial, Region
 from worlds.AutoWorld import World, WebWorld
-from .options import PerGameCommonOptions, LWNOptions, Toggle
-from .items import lwn_items, attack_magics, boss_souls, useful_items, filler_items
-from .locations import lwn_locations, shrine_start_locations, shrine_armor_hall_locations, \
+from .Options import PerGameCommonOptions, LWNOptions, Toggle
+from .Items import lwn_items, attack_magics, boss_souls, useful_items, filler_items
+from .Locations import lwn_locations, shrine_start_locations, shrine_armor_hall_locations, \
     shrine_secret_passage_locations, underground_start_locations, \
     underground_tania_locations, lava_ruins_start_locations, \
     lava_ruins_after_fire_barrier_locations, dark_tunnel_start_locations, \
     dark_tunnel_after_thunder_locations, spirit_realm_start_locations, \
     spirit_realm_after_arcane_barrier_locations, spirit_realm_after_teleport_locations, \
     abyss_locations, abyss_trials_locations
-from .regions import LWNRegion, lwn_regions
+from .Regions import LWNRegion, lwn_regions
 from .rules import set_region_rules
 
 
@@ -164,9 +164,15 @@ class LWNWorld(World):
                 and state.has("Monica Soul", self.player) and state.has("Enraged Armor Soul", self.player) \
                 and state.has("Vanessa Soul", self.player) and state.has("Queen Vanessa V2 Soul", self.player)
         elif self.options.goal.value == self.options.goal.option_magic_master:
-            self.multiworld.completion_condition[self.player] = lambda state: state.has("Victory", self.player) \
-                and state.has("Arcane", self.player, 5) and state.has("Ice", self.player, 5) \
-                and state.has("Fire", self.player, 5) and state.has("Thunder", self.player, 5)
+            if self.options.no_arcane.value == Toggle.option_false:
+                self.multiworld.completion_condition[self.player] = lambda state: state.has("Victory", self.player) \
+                    and state.has("Arcane", self.player, 4) and state.has("Ice", self.player, 5) \
+                    and state.has("Fire", self.player, 5) and state.has("Thunder", self.player, 5)
+            else:
+                self.multiworld.completion_condition[self.player] = lambda state: state.has("Victory", self.player) \
+                    and state.has("Arcane", self.player, 5) and state.has("Ice", self.player, 5) \
+                    and state.has("Fire", self.player, 5) and state.has("Thunder", self.player, 5)
+
         else:
             self.multiworld.completion_condition[self.player] = lambda state: state.has("Victory", self.player)
 
