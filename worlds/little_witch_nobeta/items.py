@@ -1,6 +1,6 @@
 from typing import Dict, Set, Any
 
-base_id = 345600000
+base_id = 0
 
 attack_magics: Dict[str, str] = {
     "Arcane": "Attack Magics",
