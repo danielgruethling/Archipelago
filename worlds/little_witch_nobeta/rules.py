@@ -24,7 +24,7 @@ def has_wind_or_damage_boost(state: CollectionState, world: "LWNWorld") -> bool:
 
 
 def barriers_always_open(options: LWNOptions) -> bool:
-    return options.magic_puzzle_gate_behaviour.value == options.magic_puzzle_gate_behaviour.option_always_open
+    return options.barrier_behaviour.value == options.barrier_behaviour.option_always_open
 
 
 def gates_always_open(options: LWNOptions) -> bool:
@@ -55,27 +55,30 @@ def set_region_rules(world: "LWNWorld") -> None:
     multiworld.get_entrance("Menu -> Shrine - Start", player).access_rule = \
         lambda state: True
     multiworld.get_entrance("Shrine - Start -> Shrine - After first magic switch", player).access_rule = \
-        lambda state: has_barrier(state, "Shrine First Magic Barrier", world)
+        lambda state: (has_barrier(state, "Shrine First Magic Barrier", world)
+                       or options.barrier_behaviour.value == options.barrier_behaviour.option_vanilla)
     multiworld.get_entrance("Shrine - After first magic switch -> Shrine - Cat Room", player).access_rule = \
-        lambda state: has_barrier(state, "Shrine Second Magic Barrier", world)
+        lambda state: (has_barrier(state, "Shrine Second Magic Barrier", world)
+                       or options.barrier_behaviour.value == options.barrier_behaviour.option_vanilla)
     multiworld.get_entrance("Shrine - After first magic switch -> Shrine - Start", player).access_rule = \
         lambda state: has_barrier(state, "Shrine First Magic Barrier", world)
     multiworld.get_entrance("Shrine - Cat Room -> Shrine - After first magic switch", player).access_rule = \
-        lambda state: (state.has("Shrine Second Magic Barrier", player)
-                       or barriers_always_open(options))
+        lambda state: has_barrier(state, "Shrine Second Magic Barrier", world)
     multiworld.get_entrance("Shrine - Cat Room -> Shrine - Armor Hall", player).access_rule = \
-        lambda state: (state.has("Shrine Meet Cat Magic Barrier", player)
-                       or barriers_always_open(options))
+        lambda state: (has_barrier(state, "Shrine Meet Cat Magic Barrier", world)
+                       or options.barrier_behaviour.value == options.barrier_behaviour.option_vanilla)
     multiworld.get_entrance("Shrine - Armor Hall -> Secret passage - Start", player).access_rule = \
-        lambda state: has_barrier(state, "Secret Passage Entrance Magic Barrier", world)
+        lambda state: (has_barrier(state, "Secret Passage Entrance Magic Barrier", world)
+                       or (options.barrier_behaviour.value == options.barrier_behaviour.option_vanilla
+                       and has_fire_or_thunder(state, player)))
     multiworld.get_entrance("Shrine - Armor Hall -> Secret passage - After first fire barrier", player).access_rule = \
         lambda state: has_gate(state, "Shrine Secret Area Shortcut Gate", world)
     multiworld.get_entrance("Shrine - Armor Hall -> Secret Passage - Boss Shortcut", player).access_rule = \
         lambda state: has_gate(state, "Shrine Secret Boss Shortcut Gate", world)
     multiworld.get_entrance("Shrine - Armor Hall -> Shrine - Underground shortcut", player).access_rule = \
         lambda state: has_gate(state, "Shrine Underground Shortcut Gate", world)
-    multiworld.get_entrance("Shrine - Armor Hall -> Shrine - After first magic switch", player).access_rule = \
-        lambda state: has_barrier(state, "Shrine Second Magic Barrier", world)
+    multiworld.get_entrance("Shrine - Armor Hall -> Shrine - Cat Room", player).access_rule = \
+        lambda state: has_barrier(state, "Shrine Meet Cat Magic Barrier", world)
     multiworld.get_entrance("Shrine - Armor Hall -> Underground - Start", player).access_rule = \
         lambda state: has_attack_magic(state, player)
     multiworld.get_entrance("Shrine - Underground shortcut -> Shrine - Armor Hall", player).access_rule = \
@@ -295,17 +298,21 @@ def set_location_rules(world: "LWNWorld") -> None:
     player = world.player
     options = world.options
 
-    set_rule(multiworld.get_location("Shrine - Second magic switch", player),
-             lambda state: state.has("Arcane", player)
-             or state.has("Thunder", player))
+    if options.barrier_behaviour.value == options.barrier_behaviour.option_randomized:
+        set_rule(multiworld.get_location("Shrine - Second magic switch", player),
+                 lambda state: state.has("Arcane", player)
+                 or state.has("Thunder", player))
     set_rule(multiworld.get_location("Shrine - Specter Armor", player),
              lambda state: has_attack_magic(state, player))
-    set_rule(multiworld.get_location("Shrine - Secret passage magic switch", player),
-             lambda state: has_fire_or_thunder(state, player))
-    set_rule(multiworld.get_location("Secret Passage - First fire barrier magic switch", player),
-             lambda state: has_fire_or_thunder(state, player))
-    set_rule(multiworld.get_location("Secret Passage - Second fire barrier magic switch", player),
-             lambda state: has_fire_or_thunder(state, player))
+    if options.barrier_behaviour.value == options.barrier_behaviour.option_randomized:
+        set_rule(multiworld.get_location("Shrine - Secret passage magic switch", player),
+                 lambda state: has_fire_or_thunder(state, player))
+    if options.barrier_behaviour.value == options.barrier_behaviour.option_randomized:
+        set_rule(multiworld.get_location("Secret Passage - First fire barrier magic switch", player),
+                 lambda state: has_fire_or_thunder(state, player))
+    if options.barrier_behaviour.value == options.barrier_behaviour.option_randomized:
+        set_rule(multiworld.get_location("Secret Passage - Second fire barrier magic switch", player),
+                 lambda state: has_fire_or_thunder(state, player))
     set_rule(multiworld.get_location("Secret Passage - Enraged Armor", player),
              lambda state: has_attack_magic(state, player)
              and has_counter(state, player))
@@ -315,15 +322,18 @@ def set_location_rules(world: "LWNWorld") -> None:
     set_rule(multiworld.get_location("Secret Passage - Teleport from Enraged Armor", player),
              lambda state: has_attack_magic(state, player)
              and has_counter(state, player))
-    set_rule(multiworld.get_location("Secret Passage - Defeat Enraged Armor barrier", player),
-             lambda state: has_attack_magic(state, player)
-             and has_counter(state, player))
+    if options.barrier_behaviour.value == options.barrier_behaviour.option_randomized:
+        set_rule(multiworld.get_location("Secret Passage - Defeat Enraged Armor barrier", player),
+                 lambda state: has_attack_magic(state, player)
+                 and has_counter(state, player))
     set_rule(multiworld.get_location("Underground - Arcane chest at bridge jumping puzzle", player),
              lambda state: has_wind_or_skip(state, world))
-    set_rule(multiworld.get_location("Underground - Magic barrier switches at maid enemy", player),
-             lambda state: state.has("Ice", player))
-    set_rule(multiworld.get_location("Underground - After fire magic switch", player),
-             lambda state: state.has("Ice", player))
+    if options.barrier_behaviour.value == options.barrier_behaviour.option_randomized:
+        set_rule(multiworld.get_location("Underground - Magic barrier switches at maid enemy", player),
+                 lambda state: state.has("Ice", player))
+    if options.barrier_behaviour.value == options.barrier_behaviour.option_randomized:
+        set_rule(multiworld.get_location("Underground - After fire magic switch", player),
+                 lambda state: state.has("Ice", player))
     set_rule(multiworld.get_location("Underground - Tania", player),
              lambda state: has_attack_magic(state, player)
              and has_counter(state, player))
@@ -332,8 +342,9 @@ def set_location_rules(world: "LWNWorld") -> None:
              and has_counter(state, player))
     set_rule(multiworld.get_location("Lava Ruins - Chest on scaffolding", player),
              lambda state: has_wind_or_damage_boost(state, world))
-    set_rule(multiworld.get_location("Lava Ruins - Fire magic switch", player),
-             lambda state: has_fire_or_thunder(state, player))
+    if options.barrier_behaviour.value == options.barrier_behaviour.option_randomized:
+        set_rule(multiworld.get_location("Lava Ruins - Fire magic switch", player),
+                 lambda state: has_fire_or_thunder(state, player))
     set_rule(multiworld.get_location("Lava Ruins - Jumping puzzle arcane chest at moving ring gauntlet", player),
              lambda state: state.has("Wind", player))
     set_rule(multiworld.get_location("Lava Ruins - Monica", player),
@@ -358,17 +369,21 @@ def set_location_rules(world: "LWNWorld") -> None:
              lambda state: state.has("Fire", player))
     set_rule(multiworld.get_location("Dark Tunnel - Thunder spell chest in mimic room", player),
              lambda state: has_wind_or_damage_boost(state, world))
-    set_rule(multiworld.get_location("Dark Tunnel - Thunder barrier magic switches", player),
-             lambda state: state.has("Thunder", player))
-    set_rule(multiworld.get_location("Dark Tunnel - Floating platform switch one", player),
-             lambda state: state.has("Thunder", player)
-             or state.can_reach("Dark Tunnel - After floating platforms", "Region", player))
-    set_rule(multiworld.get_location("Dark Tunnel - Floating platform switch two", player),
-             lambda state: state.has("Thunder", player)
-             or state.can_reach("Dark Tunnel - After floating platforms", "Region", player))
-    set_rule(multiworld.get_location("Dark Tunnel - Floating platform switch three", player),
-             lambda state: state.has("Thunder", player)
-             or state.can_reach("Dark Tunnel - After floating platforms", "Region", player))
+    if options.barrier_behaviour.value == options.barrier_behaviour.option_randomized:
+        set_rule(multiworld.get_location("Dark Tunnel - Thunder barrier magic switches", player),
+                 lambda state: state.has("Thunder", player))
+    if options.barrier_behaviour.value == options.barrier_behaviour.option_randomized:
+        set_rule(multiworld.get_location("Dark Tunnel - Floating platform switch one", player),
+                 lambda state: state.has("Thunder", player)
+                 or state.can_reach("Dark Tunnel - After floating platforms", "Region", player))
+    if options.barrier_behaviour.value == options.barrier_behaviour.option_randomized:
+        set_rule(multiworld.get_location("Dark Tunnel - Floating platform switch two", player),
+                 lambda state: state.has("Thunder", player)
+                 or state.can_reach("Dark Tunnel - After floating platforms", "Region", player))
+    if options.barrier_behaviour.value == options.barrier_behaviour.option_randomized:
+        set_rule(multiworld.get_location("Dark Tunnel - Floating platform switch three", player),
+                 lambda state: state.has("Thunder", player)
+                 or state.can_reach("Dark Tunnel - After floating platforms", "Region", player))
     set_rule(multiworld.get_location("Dark Tunnel - 71. Apocalypse Knight Record from knight enemy", player),
              lambda state: has_wind_or_damage_boost(state, world))
     set_rule(multiworld.get_location("Dark Tunnel - 103. Loyal Soul Shard from knight enemy", player),
@@ -389,22 +404,28 @@ def set_location_rules(world: "LWNWorld") -> None:
              and has_counter(state, player))
     set_rule(multiworld.get_location("Spirit Realm - Ice spell chest in right side alcove", player),
              lambda state: state.has("Wind", player))
-    set_rule(multiworld.get_location("Spirit Realm - Ice spell chest gate switch in right side alcove", player),
-             lambda state: state.has("Wind", player))
-    set_rule(multiworld.get_location("Spirit Realm - Arcane barrier magic switches", player),
-             lambda state: state.has("Arcane", player))
-    set_rule(multiworld.get_location("Spirit Realm - Platform shortcut switch", player),
-             lambda state: state.has("Fire", player)
-             and state.has("Thunder", player))
-    set_rule(multiworld.get_location("Spirit Realm - Fire control magic switch", player),
-             lambda state: state.has("Ice", player)
-             or state.has("Thunder", player)
-             or has_barrier(state, "Spirit Realm Fire Deactivation", world))
-    set_rule(multiworld.get_location("Spirit Realm - Magic switch barrier switch", player),
-             lambda state: has_barrier(state, "Spirit Realm Fire Deactivation", world))
-    set_rule(multiworld.get_location("Spirit Realm - Teleporter magic switch", player),
-             lambda state: has_barrier(state, "Spirit Realm Magic Switch Barrier", world)
-             or has_fire_or_thunder(state, player))
+    if options.shortcut_gate_behaviour.value == options.shortcut_gate_behaviour.option_randomized:
+        set_rule(multiworld.get_location("Spirit Realm - Ice spell chest gate switch in right side alcove", player),
+                 lambda state: state.has("Wind", player))
+    if options.barrier_behaviour.value == options.barrier_behaviour.option_randomized:
+        set_rule(multiworld.get_location("Spirit Realm - Arcane barrier magic switches", player),
+                 lambda state: state.has("Arcane", player))
+    if options.barrier_behaviour.value == options.barrier_behaviour.option_randomized:
+        set_rule(multiworld.get_location("Spirit Realm - Platform shortcut switch", player),
+                 lambda state: state.has("Fire", player)
+                 and state.has("Thunder", player))
+    if options.barrier_behaviour.value == options.barrier_behaviour.option_randomized:
+        set_rule(multiworld.get_location("Spirit Realm - Fire control magic switch", player),
+                 lambda state: state.has("Ice", player)
+                 or state.has("Thunder", player)
+                 or has_barrier(state, "Spirit Realm Fire Deactivation", world))
+    if options.barrier_behaviour.value == options.barrier_behaviour.option_randomized:
+        set_rule(multiworld.get_location("Spirit Realm - Magic switch barrier switch", player),
+                 lambda state: has_barrier(state, "Spirit Realm Fire Deactivation", world))
+    if options.barrier_behaviour.value == options.barrier_behaviour.option_randomized:
+        set_rule(multiworld.get_location("Spirit Realm - Teleporter magic switch", player),
+                 lambda state: has_barrier(state, "Spirit Realm Magic Switch Barrier", world)
+                 or has_fire_or_thunder(state, player))
     set_rule(multiworld.get_location("Spirit Realm - Vanessa V2", player),
              lambda state: has_attack_magic(state, player)
              and has_counter(state, player))
@@ -416,30 +437,37 @@ def set_location_rules(world: "LWNWorld") -> None:
              and has_counter(state, player))
     set_rule(multiworld.get_location("Abyss - 83. Castle Blueprint from crystal on brittle ledge", player),
              lambda state: state.has("Wind", player))
-    set_rule(multiworld.get_location("Abyss - Underground trial unlock enemies magic switch", player),
-             lambda state: has_fire_or_thunder(state, player))
+    if options.barrier_behaviour.value == options.barrier_behaviour.option_randomized:
+        set_rule(multiworld.get_location("Abyss - Underground trial unlock enemies magic switch", player),
+                 lambda state: has_fire_or_thunder(state, player))
     set_rule(multiworld.get_location("Abyss - 91. Gaseous Soul Essence from scissor enemy in underground trial", player),
              lambda state: has_fire_or_thunder(state, player))
-    set_rule(multiworld.get_location("Abyss - Underground trial scissor enemy magic gate", player),
-             lambda state: has_fire_or_thunder(state, player))
-    set_rule(multiworld.get_location("Abyss - Underground trial magic switch", player),
-             lambda state: has_fire_or_thunder(state, player))
+    if options.barrier_behaviour.value == options.barrier_behaviour.option_randomized:
+        set_rule(multiworld.get_location("Abyss - Underground trial scissor enemy magic gate", player),
+                 lambda state: has_fire_or_thunder(state, player))
+    if options.barrier_behaviour.value == options.barrier_behaviour.option_randomized:
+        set_rule(multiworld.get_location("Abyss - Underground trial magic switch", player),
+                 lambda state: has_fire_or_thunder(state, player))
     set_rule(multiworld.get_location("Abyss - Thunder spell chest dark tunnel trial", player),
              lambda state: has_wind_or_skip(state, world))
     set_rule(multiworld.get_location("Abyss - 95. Refined Soul Shard from maid enemy in dark tunnel trial", player),
              lambda state: state.has("Thunder", player))
-    set_rule(multiworld.get_location("Abyss - Dark tunnel trial maid enemy barrier", player),
-             lambda state: state.has("Thunder", player))
-    set_rule(multiworld.get_location("Abyss - Dark Tunnel trial magic switch", player),
-             lambda state: has_fire_or_thunder(state, player))
+    if options.barrier_behaviour.value == options.barrier_behaviour.option_randomized:
+        set_rule(multiworld.get_location("Abyss - Dark tunnel trial maid enemy barrier", player),
+                 lambda state: state.has("Thunder", player))
+    if options.barrier_behaviour.value == options.barrier_behaviour.option_randomized:
+        set_rule(multiworld.get_location("Abyss - Dark Tunnel trial magic switch", player),
+                 lambda state: has_fire_or_thunder(state, player))
     set_rule(multiworld.get_location("Abyss - 93. Enchanted Soul Shard from maid enemy in lava ruins trial", player),
              lambda state: has_fire_or_thunder(state, player)
              or state.has("Ice", player))
-    set_rule(multiworld.get_location("Abyss - Lava Ruins trial defeat maids enemy barrier", player),
-             lambda state: has_fire_or_thunder(state, player)
-             or state.has("Ice", player))
-    set_rule(multiworld.get_location("Abyss - Lava Ruins trial magic switch", player),
-             lambda state: has_fire_or_thunder(state, player))
+    if options.barrier_behaviour.value == options.barrier_behaviour.option_randomized:
+        set_rule(multiworld.get_location("Abyss - Lava Ruins trial defeat maids enemy barrier", player),
+                 lambda state: has_fire_or_thunder(state, player)
+                 or state.has("Ice", player))
+    if options.barrier_behaviour.value == options.barrier_behaviour.option_randomized:
+        set_rule(multiworld.get_location("Abyss - Lava Ruins trial magic switch", player),
+                 lambda state: has_fire_or_thunder(state, player))
     set_rule(multiworld.get_location("Abyss - 102. Lost Maiden's Crafted Soul Shard from Nonota", player),
              lambda state: has_attack_magic(state, player)
              and has_counter(state, player))

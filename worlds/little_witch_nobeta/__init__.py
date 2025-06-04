@@ -58,8 +58,8 @@ class LWNWorld(World):
         elif item in filler_items or item in lore_items:
             item_class = ItemClassification.filler
         elif item in barrier_items:
-            if self.options.magic_puzzle_gate_behaviour.value \
-                    == self.options.magic_puzzle_gate_behaviour.option_randomized:
+            if self.options.barrier_behaviour.value \
+                    == self.options.barrier_behaviour.option_randomized:
                 item_class = ItemClassification.progression
             else:
                 item_class = ItemClassification.filler
@@ -165,7 +165,7 @@ class LWNWorld(World):
                 item_pool.append(lwn_item)
 
         # Generate barrier items
-        if self.options.magic_puzzle_gate_behaviour.value == self.options.magic_puzzle_gate_behaviour.option_randomized:
+        if self.options.barrier_behaviour.value == self.options.barrier_behaviour.option_randomized:
             for barrier_item_name in barrier_items.keys():
                 lwn_item = self.create_item(barrier_item_name)
                 item_pool.append(lwn_item)

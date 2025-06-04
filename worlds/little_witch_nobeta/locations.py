@@ -678,7 +678,7 @@ def append_locations(world: "LWNWorld"):
                 and world.options.shortcut_gate_behaviour.value == world.options.shortcut_gate_behaviour.option_vanilla):
             continue
         elif (group_name == "Barrier"
-                and world.options.magic_puzzle_gate_behaviour.value == world.options.magic_puzzle_gate_behaviour.option_vanilla):
+                and world.options.barrier_behaviour.value == world.options.barrier_behaviour.option_vanilla):
             continue
         region.locations.append(LWNLocation(world.player, location_name, location_id, region))
 
@@ -690,7 +690,7 @@ def append_locations(world: "LWNWorld"):
                 and world.options.shortcut_gate_behaviour.value == world.options.shortcut_gate_behaviour.option_vanilla):
             continue
         elif (group_name == "Barrier"
-                and world.options.magic_puzzle_gate_behaviour.value == world.options.magic_puzzle_gate_behaviour.option_vanilla):
+                and world.options.barrier_behaviour.value == world.options.barrier_behaviour.option_vanilla):
             continue
         region.locations.append(LWNLocation(world.player, location_name, location_id, region))
 
@@ -702,7 +702,7 @@ def append_locations(world: "LWNWorld"):
                 and world.options.shortcut_gate_behaviour.value == world.options.shortcut_gate_behaviour.option_vanilla):
             continue
         elif (group_name == "Barrier"
-                and world.options.magic_puzzle_gate_behaviour.value == world.options.magic_puzzle_gate_behaviour.option_vanilla):
+                and world.options.barrier_behaviour.value == world.options.barrier_behaviour.option_vanilla):
             continue
         region.locations.append(LWNLocation(world.player, location_name, location_id, region))
 
@@ -714,7 +714,7 @@ def append_locations(world: "LWNWorld"):
                 and world.options.shortcut_gate_behaviour.value == world.options.shortcut_gate_behaviour.option_vanilla):
             continue
         elif (group_name == "Barrier"
-                and world.options.magic_puzzle_gate_behaviour.value == world.options.magic_puzzle_gate_behaviour.option_vanilla):
+                and world.options.barrier_behaviour.value == world.options.barrier_behaviour.option_vanilla):
             continue
         region.locations.append(LWNLocation(world.player, location_name, location_id, region))
 
@@ -726,7 +726,7 @@ def append_locations(world: "LWNWorld"):
                 and world.options.shortcut_gate_behaviour.value == world.options.shortcut_gate_behaviour.option_vanilla):
             continue
         elif (group_name == "Barrier"
-                and world.options.magic_puzzle_gate_behaviour.value == world.options.magic_puzzle_gate_behaviour.option_vanilla):
+                and world.options.barrier_behaviour.value == world.options.barrier_behaviour.option_vanilla):
             continue
         region.locations.append(LWNLocation(world.player, location_name, location_id, region))
 
@@ -738,7 +738,7 @@ def append_locations(world: "LWNWorld"):
                 and world.options.shortcut_gate_behaviour.value == world.options.shortcut_gate_behaviour.option_vanilla):
             continue
         elif (group_name == "Barrier"
-                and world.options.magic_puzzle_gate_behaviour.value == world.options.magic_puzzle_gate_behaviour.option_vanilla):
+                and world.options.barrier_behaviour.value == world.options.barrier_behaviour.option_vanilla):
             continue
         region.locations.append(LWNLocation(world.player, location_name, location_id, region))
 
@@ -750,7 +750,7 @@ def append_locations(world: "LWNWorld"):
                 and world.options.shortcut_gate_behaviour.value == world.options.shortcut_gate_behaviour.option_vanilla):
             continue
         elif (group_name == "Barrier"
-                and world.options.magic_puzzle_gate_behaviour.value == world.options.magic_puzzle_gate_behaviour.option_vanilla):
+                and world.options.barrier_behaviour.value == world.options.barrier_behaviour.option_vanilla):
             continue
         region.locations.append(LWNLocation(world.player, location_name, location_id, region))
 
@@ -762,7 +762,7 @@ def append_locations(world: "LWNWorld"):
                 and world.options.shortcut_gate_behaviour.value == world.options.shortcut_gate_behaviour.option_vanilla):
             continue
         elif (group_name == "Barrier"
-                and world.options.magic_puzzle_gate_behaviour.value == world.options.magic_puzzle_gate_behaviour.option_vanilla):
+                and world.options.barrier_behaviour.value == world.options.barrier_behaviour.option_vanilla):
             continue
         region.locations.append(LWNLocation(world.player, location_name, location_id, region))
 
@@ -774,7 +774,7 @@ def append_locations(world: "LWNWorld"):
                 and world.options.shortcut_gate_behaviour.value == world.options.shortcut_gate_behaviour.option_vanilla):
             continue
         elif (group_name == "Barrier"
-                and world.options.magic_puzzle_gate_behaviour.value == world.options.magic_puzzle_gate_behaviour.option_vanilla):
+                and world.options.barrier_behaviour.value == world.options.barrier_behaviour.option_vanilla):
             continue
         region.locations.append(LWNLocation(world.player, location_name, location_id, region))
 
@@ -786,7 +786,7 @@ def append_locations(world: "LWNWorld"):
                 and world.options.shortcut_gate_behaviour.value == world.options.shortcut_gate_behaviour.option_vanilla):
             continue
         elif (group_name == "Barrier"
-                and world.options.magic_puzzle_gate_behaviour.value == world.options.magic_puzzle_gate_behaviour.option_vanilla):
+                and world.options.barrier_behaviour.value == world.options.barrier_behaviour.option_vanilla):
             continue
         region.locations.append(LWNLocation(world.player, location_name, location_id, region))
 
@@ -798,7 +798,7 @@ def append_locations(world: "LWNWorld"):
                 and world.options.shortcut_gate_behaviour.value == world.options.shortcut_gate_behaviour.option_vanilla):
             continue
         elif (group_name == "Barrier"
-                and world.options.magic_puzzle_gate_behaviour.value == world.options.magic_puzzle_gate_behaviour.option_vanilla):
+                and world.options.barrier_behaviour.value == world.options.barrier_behaviour.option_vanilla):
             continue
         region.locations.append(LWNLocation(world.player, location_name, location_id, region))
 
@@ -810,7 +810,7 @@ def append_locations(world: "LWNWorld"):
                 and world.options.shortcut_gate_behaviour.value == world.options.shortcut_gate_behaviour.option_vanilla):
             continue
         elif (group_name == "Barrier"
-                and world.options.magic_puzzle_gate_behaviour.value == world.options.magic_puzzle_gate_behaviour.option_vanilla):
+                and world.options.barrier_behaviour.value == world.options.barrier_behaviour.option_vanilla):
             continue
         region.locations.append(LWNLocation(world.player, location_name, location_id, region))
 
@@ -822,7 +822,7 @@ def append_locations(world: "LWNWorld"):
                 and world.options.shortcut_gate_behaviour.value == world.options.shortcut_gate_behaviour.option_vanilla):
             continue
         elif (group_name == "Barrier"
-                and world.options.magic_puzzle_gate_behaviour.value == world.options.magic_puzzle_gate_behaviour.option_vanilla):
+                and world.options.barrier_behaviour.value == world.options.barrier_behaviour.option_vanilla):
             continue
         region.locations.append(LWNLocation(world.player, location_name, location_id, region))
 
@@ -834,7 +834,7 @@ def append_locations(world: "LWNWorld"):
                 and world.options.shortcut_gate_behaviour.value == world.options.shortcut_gate_behaviour.option_vanilla):
             continue
         elif (group_name == "Barrier"
-                and world.options.magic_puzzle_gate_behaviour.value == world.options.magic_puzzle_gate_behaviour.option_vanilla):
+                and world.options.barrier_behaviour.value == world.options.barrier_behaviour.option_vanilla):
             continue
         region.locations.append(LWNLocation(world.player, location_name, location_id, region))
 
@@ -846,7 +846,7 @@ def append_locations(world: "LWNWorld"):
                 and world.options.shortcut_gate_behaviour.value == world.options.shortcut_gate_behaviour.option_vanilla):
             continue
         elif (group_name == "Barrier"
-                and world.options.magic_puzzle_gate_behaviour.value == world.options.magic_puzzle_gate_behaviour.option_vanilla):
+                and world.options.barrier_behaviour.value == world.options.barrier_behaviour.option_vanilla):
             continue
         region.locations.append(LWNLocation(world.player, location_name, location_id, region))
 
@@ -858,7 +858,7 @@ def append_locations(world: "LWNWorld"):
                 and world.options.shortcut_gate_behaviour.value == world.options.shortcut_gate_behaviour.option_vanilla):
             continue
         elif (group_name == "Barrier"
-                and world.options.magic_puzzle_gate_behaviour.value == world.options.magic_puzzle_gate_behaviour.option_vanilla):
+                and world.options.barrier_behaviour.value == world.options.barrier_behaviour.option_vanilla):
             continue
         region.locations.append(LWNLocation(world.player, location_name, location_id, region))
 
@@ -870,7 +870,7 @@ def append_locations(world: "LWNWorld"):
                 and world.options.shortcut_gate_behaviour.value == world.options.shortcut_gate_behaviour.option_vanilla):
             continue
         elif (group_name == "Barrier"
-                and world.options.magic_puzzle_gate_behaviour.value == world.options.magic_puzzle_gate_behaviour.option_vanilla):
+                and world.options.barrier_behaviour.value == world.options.barrier_behaviour.option_vanilla):
             continue
         region.locations.append(LWNLocation(world.player, location_name, location_id, region))
 
@@ -882,7 +882,7 @@ def append_locations(world: "LWNWorld"):
                 and world.options.shortcut_gate_behaviour.value == world.options.shortcut_gate_behaviour.option_vanilla):
             continue
         elif (group_name == "Barrier"
-                and world.options.magic_puzzle_gate_behaviour.value == world.options.magic_puzzle_gate_behaviour.option_vanilla):
+                and world.options.barrier_behaviour.value == world.options.barrier_behaviour.option_vanilla):
             continue
         region.locations.append(LWNLocation(world.player, location_name, location_id, region))
 
@@ -894,7 +894,7 @@ def append_locations(world: "LWNWorld"):
                 and world.options.shortcut_gate_behaviour.value == world.options.shortcut_gate_behaviour.option_vanilla):
             continue
         elif (group_name == "Barrier"
-                and world.options.magic_puzzle_gate_behaviour.value == world.options.magic_puzzle_gate_behaviour.option_vanilla):
+                and world.options.barrier_behaviour.value == world.options.barrier_behaviour.option_vanilla):
             continue
         region.locations.append(LWNLocation(world.player, location_name, location_id, region))
 
@@ -906,7 +906,7 @@ def append_locations(world: "LWNWorld"):
                 and world.options.shortcut_gate_behaviour.value == world.options.shortcut_gate_behaviour.option_vanilla):
             continue
         elif (group_name == "Barrier"
-                and world.options.magic_puzzle_gate_behaviour.value == world.options.magic_puzzle_gate_behaviour.option_vanilla):
+                and world.options.barrier_behaviour.value == world.options.barrier_behaviour.option_vanilla):
             continue
         region.locations.append(LWNLocation(world.player, location_name, location_id, region))
 
@@ -918,7 +918,7 @@ def append_locations(world: "LWNWorld"):
                 and world.options.shortcut_gate_behaviour.value == world.options.shortcut_gate_behaviour.option_vanilla):
             continue
         elif (group_name == "Barrier"
-                and world.options.magic_puzzle_gate_behaviour.value == world.options.magic_puzzle_gate_behaviour.option_vanilla):
+                and world.options.barrier_behaviour.value == world.options.barrier_behaviour.option_vanilla):
             continue
         region.locations.append(LWNLocation(world.player, location_name, location_id, region))
 
@@ -930,7 +930,7 @@ def append_locations(world: "LWNWorld"):
                 and world.options.shortcut_gate_behaviour.value == world.options.shortcut_gate_behaviour.option_vanilla):
             continue
         elif (group_name == "Barrier"
-                and world.options.magic_puzzle_gate_behaviour.value == world.options.magic_puzzle_gate_behaviour.option_vanilla):
+                and world.options.barrier_behaviour.value == world.options.barrier_behaviour.option_vanilla):
             continue
         region.locations.append(LWNLocation(world.player, location_name, location_id, region))
 
@@ -942,7 +942,7 @@ def append_locations(world: "LWNWorld"):
                 and world.options.shortcut_gate_behaviour.value == world.options.shortcut_gate_behaviour.option_vanilla):
             continue
         elif (group_name == "Barrier"
-                and world.options.magic_puzzle_gate_behaviour.value == world.options.magic_puzzle_gate_behaviour.option_vanilla):
+                and world.options.barrier_behaviour.value == world.options.barrier_behaviour.option_vanilla):
             continue
         region.locations.append(LWNLocation(world.player, location_name, location_id, region))
 
@@ -954,7 +954,7 @@ def append_locations(world: "LWNWorld"):
                 and world.options.shortcut_gate_behaviour.value == world.options.shortcut_gate_behaviour.option_vanilla):
             continue
         elif (group_name == "Barrier"
-                and world.options.magic_puzzle_gate_behaviour.value == world.options.magic_puzzle_gate_behaviour.option_vanilla):
+                and world.options.barrier_behaviour.value == world.options.barrier_behaviour.option_vanilla):
             continue
         region.locations.append(LWNLocation(world.player, location_name, location_id, region))
 
@@ -966,7 +966,7 @@ def append_locations(world: "LWNWorld"):
                 and world.options.shortcut_gate_behaviour.value == world.options.shortcut_gate_behaviour.option_vanilla):
             continue
         elif (group_name == "Barrier"
-                and world.options.magic_puzzle_gate_behaviour.value == world.options.magic_puzzle_gate_behaviour.option_vanilla):
+                and world.options.barrier_behaviour.value == world.options.barrier_behaviour.option_vanilla):
             continue
         region.locations.append(LWNLocation(world.player, location_name, location_id, region))
 
@@ -978,7 +978,7 @@ def append_locations(world: "LWNWorld"):
                 and world.options.shortcut_gate_behaviour.value == world.options.shortcut_gate_behaviour.option_vanilla):
             continue
         elif (group_name == "Barrier"
-                and world.options.magic_puzzle_gate_behaviour.value == world.options.magic_puzzle_gate_behaviour.option_vanilla):
+                and world.options.barrier_behaviour.value == world.options.barrier_behaviour.option_vanilla):
             continue
         region.locations.append(LWNLocation(world.player, location_name, location_id, region))
 
@@ -990,7 +990,7 @@ def append_locations(world: "LWNWorld"):
                 and world.options.shortcut_gate_behaviour.value == world.options.shortcut_gate_behaviour.option_vanilla):
             continue
         elif (group_name == "Barrier"
-                and world.options.magic_puzzle_gate_behaviour.value == world.options.magic_puzzle_gate_behaviour.option_vanilla):
+                and world.options.barrier_behaviour.value == world.options.barrier_behaviour.option_vanilla):
             continue
         region.locations.append(LWNLocation(world.player, location_name, location_id, region))
 
@@ -1002,7 +1002,7 @@ def append_locations(world: "LWNWorld"):
                 and world.options.shortcut_gate_behaviour.value == world.options.shortcut_gate_behaviour.option_vanilla):
             continue
         elif (group_name == "Barrier"
-                and world.options.magic_puzzle_gate_behaviour.value == world.options.magic_puzzle_gate_behaviour.option_vanilla):
+                and world.options.barrier_behaviour.value == world.options.barrier_behaviour.option_vanilla):
             continue
         region.locations.append(LWNLocation(world.player, location_name, location_id, region))
 
@@ -1014,7 +1014,7 @@ def append_locations(world: "LWNWorld"):
                 and world.options.shortcut_gate_behaviour.value == world.options.shortcut_gate_behaviour.option_vanilla):
             continue
         elif (group_name == "Barrier"
-                and world.options.magic_puzzle_gate_behaviour.value == world.options.magic_puzzle_gate_behaviour.option_vanilla):
+                and world.options.barrier_behaviour.value == world.options.barrier_behaviour.option_vanilla):
             continue
         region.locations.append(LWNLocation(world.player, location_name, location_id, region))
 
@@ -1026,7 +1026,7 @@ def append_locations(world: "LWNWorld"):
                 and world.options.shortcut_gate_behaviour.value == world.options.shortcut_gate_behaviour.option_vanilla):
             continue
         elif (group_name == "Barrier"
-                and world.options.magic_puzzle_gate_behaviour.value == world.options.magic_puzzle_gate_behaviour.option_vanilla):
+                and world.options.barrier_behaviour.value == world.options.barrier_behaviour.option_vanilla):
             continue
         region.locations.append(LWNLocation(world.player, location_name, location_id, region))
 
@@ -1038,7 +1038,7 @@ def append_locations(world: "LWNWorld"):
                 and world.options.shortcut_gate_behaviour.value == world.options.shortcut_gate_behaviour.option_vanilla):
             continue
         elif (group_name == "Barrier"
-                and world.options.magic_puzzle_gate_behaviour.value == world.options.magic_puzzle_gate_behaviour.option_vanilla):
+                and world.options.barrier_behaviour.value == world.options.barrier_behaviour.option_vanilla):
             continue
         region.locations.append(LWNLocation(world.player, location_name, location_id, region))
 
@@ -1050,7 +1050,7 @@ def append_locations(world: "LWNWorld"):
                 and world.options.shortcut_gate_behaviour.value == world.options.shortcut_gate_behaviour.option_vanilla):
             continue
         elif (group_name == "Barrier"
-                and world.options.magic_puzzle_gate_behaviour.value == world.options.magic_puzzle_gate_behaviour.option_vanilla):
+                and world.options.barrier_behaviour.value == world.options.barrier_behaviour.option_vanilla):
             continue
         region.locations.append(LWNLocation(world.player, location_name, location_id, region))
 
@@ -1062,7 +1062,7 @@ def append_locations(world: "LWNWorld"):
                 and world.options.shortcut_gate_behaviour.value == world.options.shortcut_gate_behaviour.option_vanilla):
             continue
         elif (group_name == "Barrier"
-                and world.options.magic_puzzle_gate_behaviour.value == world.options.magic_puzzle_gate_behaviour.option_vanilla):
+                and world.options.barrier_behaviour.value == world.options.barrier_behaviour.option_vanilla):
             continue
         region.locations.append(LWNLocation(world.player, location_name, location_id, region))
 
@@ -1074,7 +1074,7 @@ def append_locations(world: "LWNWorld"):
                 and world.options.shortcut_gate_behaviour.value == world.options.shortcut_gate_behaviour.option_vanilla):
             continue
         elif (group_name == "Barrier"
-                and world.options.magic_puzzle_gate_behaviour.value == world.options.magic_puzzle_gate_behaviour.option_vanilla):
+                and world.options.barrier_behaviour.value == world.options.barrier_behaviour.option_vanilla):
             continue
         region.locations.append(LWNLocation(world.player, location_name, location_id, region))
 
@@ -1086,7 +1086,7 @@ def append_locations(world: "LWNWorld"):
                 and world.options.shortcut_gate_behaviour.value == world.options.shortcut_gate_behaviour.option_vanilla):
             continue
         elif (group_name == "Barrier"
-                and world.options.magic_puzzle_gate_behaviour.value == world.options.magic_puzzle_gate_behaviour.option_vanilla):
+                and world.options.barrier_behaviour.value == world.options.barrier_behaviour.option_vanilla):
             continue
         region.locations.append(LWNLocation(world.player, location_name, location_id, region))
 
@@ -1098,7 +1098,7 @@ def append_locations(world: "LWNWorld"):
                 and world.options.shortcut_gate_behaviour.value == world.options.shortcut_gate_behaviour.option_vanilla):
             continue
         elif (group_name == "Barrier"
-                and world.options.magic_puzzle_gate_behaviour.value == world.options.magic_puzzle_gate_behaviour.option_vanilla):
+                and world.options.barrier_behaviour.value == world.options.barrier_behaviour.option_vanilla):
             continue
         region.locations.append(LWNLocation(world.player, location_name, location_id, region))
 
@@ -1110,7 +1110,7 @@ def append_locations(world: "LWNWorld"):
                 and world.options.shortcut_gate_behaviour.value == world.options.shortcut_gate_behaviour.option_vanilla):
             continue
         elif (group_name == "Barrier"
-                and world.options.magic_puzzle_gate_behaviour.value == world.options.magic_puzzle_gate_behaviour.option_vanilla):
+                and world.options.barrier_behaviour.value == world.options.barrier_behaviour.option_vanilla):
             continue
         region.locations.append(LWNLocation(world.player, location_name, location_id, region))
 
@@ -1122,7 +1122,7 @@ def append_locations(world: "LWNWorld"):
                 and world.options.shortcut_gate_behaviour.value == world.options.shortcut_gate_behaviour.option_vanilla):
             continue
         elif (group_name == "Barrier"
-                and world.options.magic_puzzle_gate_behaviour.value == world.options.magic_puzzle_gate_behaviour.option_vanilla):
+                and world.options.barrier_behaviour.value == world.options.barrier_behaviour.option_vanilla):
             continue
         region.locations.append(LWNLocation(world.player, location_name, location_id, region))
 
@@ -1134,7 +1134,7 @@ def append_locations(world: "LWNWorld"):
                 and world.options.shortcut_gate_behaviour.value == world.options.shortcut_gate_behaviour.option_vanilla):
             continue
         elif (group_name == "Barrier"
-                and world.options.magic_puzzle_gate_behaviour.value == world.options.magic_puzzle_gate_behaviour.option_vanilla):
+                and world.options.barrier_behaviour.value == world.options.barrier_behaviour.option_vanilla):
             continue
         region.locations.append(LWNLocation(world.player, location_name, location_id, region))
 
@@ -1146,7 +1146,7 @@ def append_locations(world: "LWNWorld"):
                 and world.options.shortcut_gate_behaviour.value == world.options.shortcut_gate_behaviour.option_vanilla):
             continue
         elif (group_name == "Barrier"
-                and world.options.magic_puzzle_gate_behaviour.value == world.options.magic_puzzle_gate_behaviour.option_vanilla):
+                and world.options.barrier_behaviour.value == world.options.barrier_behaviour.option_vanilla):
             continue
         region.locations.append(LWNLocation(world.player, location_name, location_id, region))
 
@@ -1158,7 +1158,7 @@ def append_locations(world: "LWNWorld"):
                 and world.options.shortcut_gate_behaviour.value == world.options.shortcut_gate_behaviour.option_vanilla):
             continue
         elif (group_name == "Barrier"
-                and world.options.magic_puzzle_gate_behaviour.value == world.options.magic_puzzle_gate_behaviour.option_vanilla):
+                and world.options.barrier_behaviour.value == world.options.barrier_behaviour.option_vanilla):
             continue
         region.locations.append(LWNLocation(world.player, location_name, location_id, region))
 
@@ -1170,7 +1170,7 @@ def append_locations(world: "LWNWorld"):
                 and world.options.shortcut_gate_behaviour.value == world.options.shortcut_gate_behaviour.option_vanilla):
             continue
         elif (group_name == "Barrier"
-                and world.options.magic_puzzle_gate_behaviour.value == world.options.magic_puzzle_gate_behaviour.option_vanilla):
+                and world.options.barrier_behaviour.value == world.options.barrier_behaviour.option_vanilla):
             continue
         region.locations.append(LWNLocation(world.player, location_name, location_id, region))
 
@@ -1182,7 +1182,7 @@ def append_locations(world: "LWNWorld"):
                 and world.options.shortcut_gate_behaviour.value == world.options.shortcut_gate_behaviour.option_vanilla):
             continue
         elif (group_name == "Barrier"
-                and world.options.magic_puzzle_gate_behaviour.value == world.options.magic_puzzle_gate_behaviour.option_vanilla):
+                and world.options.barrier_behaviour.value == world.options.barrier_behaviour.option_vanilla):
             continue
         region.locations.append(LWNLocation(world.player, location_name, location_id, region))
 
@@ -1194,7 +1194,7 @@ def append_locations(world: "LWNWorld"):
                 and world.options.shortcut_gate_behaviour.value == world.options.shortcut_gate_behaviour.option_vanilla):
             continue
         elif (group_name == "Barrier"
-                and world.options.magic_puzzle_gate_behaviour.value == world.options.magic_puzzle_gate_behaviour.option_vanilla):
+                and world.options.barrier_behaviour.value == world.options.barrier_behaviour.option_vanilla):
             continue
         region.locations.append(LWNLocation(world.player, location_name, location_id, region))
 
@@ -1206,7 +1206,7 @@ def append_locations(world: "LWNWorld"):
                 and world.options.shortcut_gate_behaviour.value == world.options.shortcut_gate_behaviour.option_vanilla):
             continue
         elif (group_name == "Barrier"
-                and world.options.magic_puzzle_gate_behaviour.value == world.options.magic_puzzle_gate_behaviour.option_vanilla):
+                and world.options.barrier_behaviour.value == world.options.barrier_behaviour.option_vanilla):
             continue
         region.locations.append(LWNLocation(world.player, location_name, location_id, region))
 
@@ -1218,7 +1218,7 @@ def append_locations(world: "LWNWorld"):
                 and world.options.shortcut_gate_behaviour.value == world.options.shortcut_gate_behaviour.option_vanilla):
             continue
         elif (group_name == "Barrier"
-                and world.options.magic_puzzle_gate_behaviour.value == world.options.magic_puzzle_gate_behaviour.option_vanilla):
+                and world.options.barrier_behaviour.value == world.options.barrier_behaviour.option_vanilla):
             continue
         region.locations.append(LWNLocation(world.player, location_name, location_id, region))
 
@@ -1230,7 +1230,7 @@ def append_locations(world: "LWNWorld"):
                 and world.options.shortcut_gate_behaviour.value == world.options.shortcut_gate_behaviour.option_vanilla):
             continue
         elif (group_name == "Barrier"
-                and world.options.magic_puzzle_gate_behaviour.value == world.options.magic_puzzle_gate_behaviour.option_vanilla):
+                and world.options.barrier_behaviour.value == world.options.barrier_behaviour.option_vanilla):
             continue
         region.locations.append(LWNLocation(world.player, location_name, location_id, region))
 
@@ -1242,7 +1242,7 @@ def append_locations(world: "LWNWorld"):
                 and world.options.shortcut_gate_behaviour.value == world.options.shortcut_gate_behaviour.option_vanilla):
             continue
         elif (group_name == "Barrier"
-                and world.options.magic_puzzle_gate_behaviour.value == world.options.magic_puzzle_gate_behaviour.option_vanilla):
+                and world.options.barrier_behaviour.value == world.options.barrier_behaviour.option_vanilla):
             continue
         region.locations.append(LWNLocation(world.player, location_name, location_id, region))
 
@@ -1254,7 +1254,7 @@ def append_locations(world: "LWNWorld"):
                 and world.options.shortcut_gate_behaviour.value == world.options.shortcut_gate_behaviour.option_vanilla):
             continue
         elif (group_name == "Barrier"
-                and world.options.magic_puzzle_gate_behaviour.value == world.options.magic_puzzle_gate_behaviour.option_vanilla):
+                and world.options.barrier_behaviour.value == world.options.barrier_behaviour.option_vanilla):
             continue
         region.locations.append(LWNLocation(world.player, location_name, location_id, region))
 
@@ -1266,7 +1266,7 @@ def append_locations(world: "LWNWorld"):
                 and world.options.shortcut_gate_behaviour.value == world.options.shortcut_gate_behaviour.option_vanilla):
             continue
         elif (group_name == "Barrier"
-                and world.options.magic_puzzle_gate_behaviour.value == world.options.magic_puzzle_gate_behaviour.option_vanilla):
+                and world.options.barrier_behaviour.value == world.options.barrier_behaviour.option_vanilla):
             continue
         region.locations.append(LWNLocation(world.player, location_name, location_id, region))
 
@@ -1278,7 +1278,7 @@ def append_locations(world: "LWNWorld"):
                 and world.options.shortcut_gate_behaviour.value == world.options.shortcut_gate_behaviour.option_vanilla):
             continue
         elif (group_name == "Barrier"
-                and world.options.magic_puzzle_gate_behaviour.value == world.options.magic_puzzle_gate_behaviour.option_vanilla):
+                and world.options.barrier_behaviour.value == world.options.barrier_behaviour.option_vanilla):
             continue
         region.locations.append(LWNLocation(world.player, location_name, location_id, region))
 
@@ -1293,6 +1293,6 @@ def append_locations(world: "LWNWorld"):
                 and world.options.shortcut_gate_behaviour.value == world.options.shortcut_gate_behaviour.option_vanilla):
             continue
         elif (group_name == "Barrier"
-                and world.options.magic_puzzle_gate_behaviour.value == world.options.magic_puzzle_gate_behaviour.option_vanilla):
+                and world.options.barrier_behaviour.value == world.options.barrier_behaviour.option_vanilla):
             continue
         region.locations.append(LWNLocation(world.player, location_name, location_id, region))

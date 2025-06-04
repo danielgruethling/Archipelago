@@ -169,7 +169,7 @@ class LWNOptions(PerGameCommonOptions):
     no_arcane: NoArcane
     randomize_lore: RandomizeLore
     shortcut_gate_behaviour: ShortcutGateBehaviour
-    magic_puzzle_gate_behaviour: MagicPuzzleGateBehaviour
+    barrier_behaviour: MagicPuzzleGateBehaviour
     entrance_randomization: EntranceRandomization
     soul_gain_base_value: SoulGainBaseValue
     soul_gain_factor: SoulGainFactor
