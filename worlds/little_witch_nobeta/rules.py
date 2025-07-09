@@ -342,15 +342,21 @@ def set_region_rules(world: "LWNWorld") -> None:
                        or (options.barrier_behaviour.value == options.barrier_behaviour.option_vanilla
                        and state.has("Thunder", player)))
     multiworld.get_entrance("Abyss - Underground Trial -> Abyss - Underground Trial magic switch", player).access_rule = \
-        lambda state: has_barrier(state, "Abyss After Scissor Enemy Barrier", world)
+        lambda state: (has_barrier(state, "Abyss After Scissor Enemy Barrier", world)
+                       or (options.barrier_behaviour.value == options.barrier_behaviour.option_vanilla
+                       and has_fire_or_thunder(state, player)))
     multiworld.get_entrance("Abyss - Underground Trial magic switch -> Abyss - Trials Lobby", player).access_rule = \
         lambda state: has_barrier(state, "Abyss Underground Trial Magic Switch", world)
     multiworld.get_entrance("Abyss - Dark Tunnel Trial -> Abyss - Dark Tunnel Trial magic switch", player).access_rule = \
-        lambda state: has_barrier(state, "Abyss Dark Tunnel Trial Maid Enemy Barrier", world)
+        lambda state: (has_barrier(state, "Abyss Dark Tunnel Trial Maid Enemy Barrier", world)
+                       or (options.barrier_behaviour.value == options.barrier_behaviour.option_vanilla
+                       and state.has("Thunder", player)))
     multiworld.get_entrance("Abyss - Dark Tunnel Trial magic switch -> Abyss - Trials Lobby", player).access_rule = \
         lambda state: has_barrier(state, "Abyss Dark Tunnel Trial Magic Switch", world)
     multiworld.get_entrance("Abyss - Lava Ruins Trial -> Abyss - Lava Ruins Trial magic switch", player).access_rule = \
-        lambda state: has_barrier(state, "Abyss Lava Ruins Trial Maid Enemy Barrier", world)
+        lambda state: (has_barrier(state, "Abyss Lava Ruins Trial Maid Enemy Barrier", world)
+                       or (options.barrier_behaviour.value == options.barrier_behaviour.option_vanilla
+                       and has_attack_magic(state, player)))
     multiworld.get_entrance("Abyss - Lava Ruins Trial magic switch -> Abyss - Trials Lobby", player).access_rule = \
         lambda state: has_barrier(state, "Abyss Lava Ruins Trial Magic Switch", world)
 

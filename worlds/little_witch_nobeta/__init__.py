@@ -72,7 +72,7 @@ class LWNWorld(World):
             else:
                 item_class = ItemClassification.filler
 
-        return LWNItem(item, item_class, item_name_to_id.get(item, None), self.player)
+        return LWNItem(item, item_class, self.item_name_to_id.get(item, None), self.player)
 
     def create_event(self, event: str) -> LWNItem:
         return LWNItem(event, ItemClassification.progression, None, self.player)

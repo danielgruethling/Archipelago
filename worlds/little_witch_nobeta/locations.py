@@ -15,7 +15,7 @@ class LWNLocation(Location):
         self.event = code is None
 
 
-base_id = 345600000
+base_id = 1
 
 shrine_start_locations: Dict[str, str] = {
     "Shrine - 6. Broken Cross Spear from first ranged Enemy": "Lore",

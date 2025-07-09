@@ -1,6 +1,6 @@
 from typing import Dict, Set, Any
 
-base_id = 0
+base_id = 1
 
 attack_magics: Dict[str, str] = {
     "Arcane": "Attack Magics",
@@ -212,14 +212,14 @@ lwn_items: Dict[str, str] = {
 }
 
 item_name_groups = {
-    "Attack Magics": attack_magics,
-    "Boss Souls": boss_souls,
-    "Double Jump": "Wind",
-    "Counter": "Mana Absorption",
-    "Lore": lore_items,
-    "Magic Barrier": barrier_items,
-    "Metal Gate": gate_items,
-    "Bag Upgrade": "Progressive Bag Upgrade",
+    "Attack Magics": attack_magics.keys(),
+    "Boss Souls": boss_souls.keys(),
+    "Double Jump": {"Wind"},
+    "Counter": {"Mana Absorption"},
+    "Lore": lore_items.keys(),
+    "Magic Barrier": barrier_items.keys(),
+    "Metal Gate": gate_items.keys(),
+    "Bag Upgrade": {"Progressive Bag Upgrade"},
 }
 
 item_name_to_id: Dict[str, int] = {name: base_id + index for index, name in enumerate(sorted(lwn_items))}
