@@ -106,7 +106,7 @@ class LWNWorld(World):
 
         # Set goal rules
         if self.options.goal.value == self.options.goal.option_boss_hunt:
-            self.multiworld.completion_condition[self.player] = lambda state: state.has \
+            self.multiworld.completion_condition[self.player] = lambda state: state.has("Victory", self.player) \
                 and state.has("Specter Armor Soul", self.player) and state.has("Tania Soul", self.player) \
                 and state.has("Monica Soul", self.player) and state.has("Enraged Armor Soul", self.player) \
                 and state.has("Vanessa Soul", self.player) and state.has("Vanessa V2 Soul", self.player)
