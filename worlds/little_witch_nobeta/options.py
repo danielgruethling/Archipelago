@@ -1,6 +1,6 @@
 from dataclasses import dataclass
 
-from Options import Choice, Toggle, Range, PerGameCommonOptions
+from Options import Choice, Toggle, Range, PerGameCommonOptions, Visibility
 
 DefaultOffToggle = Toggle
 
@@ -74,6 +74,7 @@ class RandomizeLore(DefaultOffToggle):
     Lore items (green glowing circles) will be randomized into the item pool and give random items instead.
     """
     display_name = "Randomize lore items"
+    visibility = Visibility.none
 
 
 class WindRequirements(Choice):
@@ -96,6 +97,7 @@ class EntranceRandomization(DefaultOffToggle):
     Randomizes the start level and the destinations of doors/post-cutscene level changes.
     """
     display_name = "Entrance randomization"
+    visibility = Visibility.none
 
 
 class ShortcutGateBehaviour(Choice):
@@ -107,6 +109,7 @@ class ShortcutGateBehaviour(Choice):
     Pulling a lever will then reward a random item and the shortcut will only open when its item is found.
     """
     display_name = "Shortcut lever behaviour"
+    visibility = Visibility.none
     option_vanilla = 0
     option_always_open = 1
     option_randomized = 2
@@ -123,6 +126,7 @@ class MagicPuzzleGateBehaviour(Choice):
     Solving a puzzle will then reward a random item and the puzzle gate will only open when its item is found.
     """
     display_name = "Magic puzzle gate behaviour"
+    visibility = Visibility.none
     option_vanilla = 0
     option_always_open = 1
     option_randomized = 2
