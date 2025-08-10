@@ -105,22 +105,7 @@ class LWNWorld(World):
         set_location_rules(self)
 
         # Set goal rules
-        if self.options.goal.value == self.options.goal.option_boss_hunt:
-            self.multiworld.completion_condition[self.player] = lambda state: state.has("Victory", self.player) \
-                and state.has("Specter Armor Soul", self.player) and state.has("Tania Soul", self.player) \
-                and state.has("Monica Soul", self.player) and state.has("Enraged Armor Soul", self.player) \
-                and state.has("Vanessa Soul", self.player) and state.has("Vanessa V2 Soul", self.player)
-        elif self.options.goal.value == self.options.goal.option_magic_master:
-            if self.options.no_arcane.value == Toggle.option_false:
-                self.multiworld.completion_condition[self.player] = lambda state: state.has("Victory", self.player) \
-                    and state.has("Arcane", self.player, 4) and state.has("Ice", self.player, 5) \
-                    and state.has("Fire", self.player, 5) and state.has("Thunder", self.player, 5)
-            else:
-                self.multiworld.completion_condition[self.player] = lambda state: state.has("Victory", self.player) \
-                    and state.has("Arcane", self.player, 5) and state.has("Ice", self.player, 5) \
-                    and state.has("Fire", self.player, 5) and state.has("Thunder", self.player, 5)
-        else:
-            self.multiworld.completion_condition[self.player] = lambda state: state.has("Victory", self.player)
+        self.multiworld.completion_condition[self.player] = lambda state: state.has("Victory", self.player)
 
     def create_items(self):
         # Generate item pool
