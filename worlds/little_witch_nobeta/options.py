@@ -74,7 +74,6 @@ class RandomizeLore(DefaultOffToggle):
     Lore items (green glowing circles) will be randomized into the item pool and give random items instead.
     """
     display_name = "Randomize lore items"
-    visibility = Visibility.none
 
 
 class WindRequirements(Choice):
