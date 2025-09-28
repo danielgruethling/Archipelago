@@ -118,14 +118,18 @@ class LWNWorld(World):
         item_pool.append(self.create_item("Ice"))
         item_pool.append(self.create_item("Thunder"))
 
-        # Generate a progression counter and double jump
+        # Generate a progression counter
         counter_spell = self.create_item("Mana Absorption")
         counter_spell.classification = ItemClassification.progression
         item_pool.append(counter_spell)
 
+        # Generate a progression double jump
         wind_spell = self.create_item("Wind")
         wind_spell.classification = ItemClassification.progression
-        item_pool.append(wind_spell)
+        if self.options.wind_requirements != self.options.wind_requirements.option_start_with:
+            item_pool.append(wind_spell)
+        else:
+            self.multiworld.push_precollected(wind_spell)
 
         # Generate 4 extra of all progressive and useful items
         for item in attack_magics.keys():
@@ -170,7 +174,7 @@ class LWNWorld(World):
 
         # Generate remaining filler items
         empty_locations = len(self.multiworld.get_unfilled_locations(self.player))
-        remaining_items_needed = empty_locations - len(item_pool) - 1
+        remaining_items_needed = empty_locations - len(item_pool) - 1 - 7  # subtract 7 here for the excluded locations
         # Subtract local boss souls if not randomized
         if self.options.randomize_boss_souls.value == Toggle.option_false:
             remaining_items_needed -= len(boss_souls)
@@ -208,6 +212,22 @@ class LWNWorld(World):
 
             (self.multiworld.get_location("Spirit Realm - Vanessa V2", self.player)
                 .place_locked_item(self.create_item("Vanessa V2 Soul")))
+
+        # Exclude currently broken locations
+        (self.multiworld.get_location("Secret Passage - Teleport from Enraged Armor", self.player)
+         .place_locked_item(self.create_item("Souls")))
+        (self.multiworld.get_location("Dark Tunnel - 100. King's Final Honor from Vanessa", self.player)
+         .place_locked_item(self.create_item("Souls")))
+        (self.multiworld.get_location("Dark Tunnel - 78. Ancient Throne Rune from Vanessa", self.player)
+         .place_locked_item(self.create_item("Souls")))
+        (self.multiworld.get_location("Dark Tunnel - 77. The Throne from Vanessa", self.player)
+         .place_locked_item(self.create_item("Souls")))
+        (self.multiworld.get_location("Spirit Realm - 90. Enchanted Shackles from second Seal phase", self.player)
+         .place_locked_item(self.create_item("Souls")))
+        (self.multiworld.get_location("Spirit Realm - 101. Proud King's Crafted Soul Shard from Vanessa V2", self.player)
+         .place_locked_item(self.create_item("Souls")))
+        (self.multiworld.get_location("Spirit Realm - Thunder spell from Vanessa V2", self.player)
+         .place_locked_item(self.create_item("Souls")))
 
     def fill_slot_data(self) -> Dict[str, Any]:
         slot_data = dict()
