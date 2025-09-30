@@ -183,7 +183,7 @@ lava_ruins_monica_warp_locations: Dict[str, str] = {
 
 lava_ruins_path_to_dark_tunnel_locations: Dict[str, str] = {
     "Lava Ruins - Ice spell chest in corner on path to dark tunnel": "Chest",
-    "Dark Tunnel - 5. Melted Silver Candlestick in front of underground shortcut": "Lore",
+    "Lava Ruins - 5. Melted Silver Candlestick in front of underground shortcut": "Lore",
 }
 
 dark_tunnel_start_locations: Dict[str, str] = {

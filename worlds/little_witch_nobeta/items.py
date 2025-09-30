@@ -60,7 +60,7 @@ lore_items: Dict[str, str] = {
     "20. Weathered Cloak": "Lore",
     "21. Silver Coin": "Lore",
     "22. Intricate Clock": "Lore",
-    "24. Cursed Turquoise Necklace": "Lore",
+    "23. Cursed Turquoise Necklace": "Lore",
     "24. Glass Lantern": "Lore",
     "25. Copper Ingot": "Lore",
     "26. Teddy Bear": "Lore",
