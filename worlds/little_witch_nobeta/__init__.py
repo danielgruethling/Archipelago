@@ -214,9 +214,9 @@ class LWNWorld(World):
                 .place_locked_item(self.create_item("Vanessa V2 Soul")))
 
         # Exclude currently broken locations
-        (self.multiworld.get_location("Spirit Realm - 90. Enchanted Shackles from second Seal phase", self.player)
-         .place_locked_item(self.create_item("Souls")))
         (self.multiworld.get_location("Lava Ruins - Fake floor bait item", self.player)
+         .place_locked_item(self.create_item("Souls")))
+        (self.multiworld.get_location("Underground - Tania", self.player)
          .place_locked_item(self.create_item("Souls")))
 
     def fill_slot_data(self) -> Dict[str, Any]:
