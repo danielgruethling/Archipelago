@@ -2,36 +2,24 @@
 
 ## Required Software
 
-- [Little Witch Nobeta] (https://store.steampowered.com/app/1049890/Little_Witch_Nobeta/) Steam version of Little Witch Nobeta at the current version.
-- [RandomizedWitchNobeta BepInEx mod](https://github.com/danielgruethling/RandomizedWitchNobeta/releases) Download the LWNAP.zip from the github releases.
+- [Little Witch Nobeta](https://store.steampowered.com/app/1049890/Little_Witch_Nobeta/) Steam version of Little Witch Nobeta at the current version.
+- [MelonLoader](https://melonloader.co/download) Download the MelonLoader installer for your distribution.
+- [RandomizedWitchNobetaAP MelonLoader mod](https://github.com/danielgruethling/LittleWitchNobetaAP/releases) Download the LWNAP.zip from the github releases.
 
 ## Installation Procedures
 
-This plugin modifies the game using [BepInEx](https://github.com/BepInEx/BepInEx), so it is needed to install BepInEx to load this plugin, here are the steps to achieve this:
-- Find the installation directory of the game *(Usually in `steamapps/common`, you can find this from the game properties in steam -> local files -> browse...)*
-- **/!\ Do a copy of your game installation and rename it `Little Witch Nobeta - Randomizer`** *(The changes are reversible but a pain to do, furthermore it's easier to have two versions of the game, one with the randomizer and the base one)*
-- You should now have at least two folders in the `steamapps/common` directory: `Little Witch Nobeta` *(base game)* and `Little Witch Nobeta - Randomizer` *(will be modded with the Randomizer)*
-- Download the randomizer: [**`LWNAP.zip`**](https://github.com/danielgruethling/RandomizedWitchNobeta/releases)
-- Copy all the files from the archive inside the game directory *(Where there is `LittleWitchNobeta.exe`)*
-- Now you should see a file named `imgui.ini` just next to `LittleWitchNobeta.exe`
-- Create a shortcut to `LittleWitchNobeta.exe`, name it as you want, run the game and enjoy!
+This plugin modifies the game using [MelonLoader](https://melonloader.co/download), so it is needed to install MelonLoader to load this plugin, here are the steps to achieve this:
+- Find the installation directory of the game *(Usually in `steamapps/common`, you can find this from the game properties in Steam -> local files -> browse...)*
+- Run the MelonLoader installer and install the newest stable version to your installation directory. As of writing this this should be v0.7.1.
+- Download the randomizer: [**`LWNAP.zip`**](https://github.com/danielgruethling/LittleWitchNobetaAP/releases)
+- Copy all the Mods folder from the archive inside the game directory *(Where there is `LittleWitchNobeta.exe`)*
+- Run the game through Steam and enjoy!
 
-A correct installation directory content should look like this:
-```
-.
-├── BepInEx
-├── dotnet
-├── LittleWitchNobeta_Data
-├── GameAssembly.dll
-├── LittleWitchNobeta.exe
-├── UnityCrashHandler64.exe
-├── UnityPlayer.dll
-├── baselib.dll
-├── changelog.txt
-├── doorstop_config.ini
-├── imgui.ini
-└── winhttp.dll
-```
+Note: When upgrading from BepInEx, if it was installed to your Steam directory delete the BepInEx folder and follow the instructions above to switch to MelonLoader.
+
+## How to uninstall
+
+Delete the contents of the Mods directory from your installation directory.
 
 ## Create a Config (.yaml) File
 
@@ -44,8 +32,8 @@ options.
 
 ### Where do I get a config file?
 
-The [Player Settings](/games/Little%20Witch%20Nobeta/player-settings) page on the website allows you to configure
-your personal settings and export a config file from them.
+The [Player Options](/games/Little%20Witch%20Nobeta/player-options) page on the website allows you to configure
+your personal options and export a config file from them.
 
 ### Verifying your config file
 
@@ -59,17 +47,25 @@ the host will provide you with a link to obtain the server information used to c
 
 This can be split up into the following steps:
 
-1. Navigate to the [Player Settings](/games/Little%20Witch%20Nobeta/player-settings) page, configure your options,
-   and click the "Generate Game" button.
-2. You will be presented with a "Seed Info" page.
-3. Click the "Create New Room" link.
-4. You will be presented with a server page, from which you can obtain the server information.
-5. Start the game from the shortcut. It will load up an overlay menu when the main menu loads.
-6. Tick the "Randomize using Archipelago" checkbox.
-7. Insert the server information (hostname, port, slotname and password) in the fields.
-8. Press the "Connect to Archipelago" button.
-9. The settings should now autoadjust to the ones from your yaml.
-10. Start a new run by clicking "New Randomizer" in the main menu or when reconnecting to a running session press "Resume Run" in the main menu.
+1. Navigate to the [Player Options](/games/Little%20Witch%20Nobeta/player-options) page, configure your options,
+   and click the "Generate Game" button
+2. You will be presented with a "Seed Info" page
+3. Click the "Create New Room" link
+4. You will be presented with a server page, from which you can obtain the server information
+5. Start the game through Steam
+6. Start a new game. Your movement will be limited until you connect to Archipelago
+7. An overlay will be shown, insert the server information (hostname, port, slotname and password) in the fields
+8. Press the "Connect" button
+
+### Rejoining a MultiWorld Game
+
+When you want to reconnect to your slot follow these steps:
+
+1. Start the game through Steam
+2. Load your game. Your movement will be limited until you connect to Archipelago
+3. An overlay will be shown, insert the server information (hostname, port, slotname and password) in the fields
+4. Press the "Connect" button
+
 
 ### Play the game
 

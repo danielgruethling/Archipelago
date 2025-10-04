@@ -1,8 +1,8 @@
 # Little Witch Nobeta
 
-## Where is the settings page?
+## Where is the options page?
 
-The [player settings page for this game](../player-settings) contains all the options you need to configure and export a
+The [player options page for this game](../player-options) contains all the options you need to configure and export a
 config file.
 
 ## What does randomization do to this game?
@@ -13,7 +13,7 @@ would in the vanilla game.
 
 ## What items and locations get shuffled?
 
-All types of magics, bag upgrades, buff-, healing items, the starting arcane magic and boss souls can be shuffled,
+All types of magics, bag upgrades, buff-, healing items, lore items, the starting arcane and wind magic and boss souls can be shuffled,
 and all locations in the game which could contain any of those items may have their contents changed.
 
 ## Which items can be in another player's world?
@@ -35,7 +35,7 @@ inventory that is not a trial key and give some souls for deleting the old item.
 
 ## What is this randomizer based on?
 
-This randomizer is based on (forked from) the wonderful work Eveldee did on Little Witch Nobeta - https://github.com/Eveldee/RandomizedWitchNobeta
+This randomizer is based on the wonderful work Eveldee did on Little Witch Nobeta - https://github.com/Eveldee/RandomizedWitchNobeta
 
 ## Some tips for playing Little Witch Nobeta randomized
 
@@ -48,6 +48,4 @@ This randomizer is based on (forked from) the wonderful work Eveldee did on Litt
 <p>If the goal is boss hunter you will need all boss souls before being able to fight Nonota. If you reach her before you have all boss souls collected, a prompt saying "Only an accomplished Boss Hunter may pass." will appear instead.</p>
 
 <h3>Removed things</h3>
-<p>In the secret passage and the underground a gate barrier has been removed to have more doors available for entrance randomization.</p>
-<p>In the secret passage and the underground a gate barrier has been removed to have more doors available for entrance randomization.</p>
 <p>Item drops from the cat and Vanessa have been disabled.</p>

@@ -33,6 +33,7 @@ class LWNWorld(World):
     game: str = "Little Witch Nobeta"
     options_dataclass = LWNOptions
     options: LWNOptions
+    web = LWNWebWorld()
     topology_present = True
 
     # The following two dicts are required for the generation to know which
