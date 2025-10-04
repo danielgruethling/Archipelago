@@ -11,8 +11,8 @@
 This plugin modifies the game using [MelonLoader](https://melonloader.co/download), so it is needed to install MelonLoader to load this plugin, here are the steps to achieve this:
 - Find the installation directory of the game *(Usually in `steamapps/common`, you can find this from the game properties in Steam -> local files -> browse...)*
 - Run the MelonLoader installer and install the newest stable version to your installation directory. As of writing this this should be v0.7.1.
-- Download the randomizer: [**`LWNAP.zip`**](https://github.com/danielgruethling/LittleWitchNobetaAP/releases)
-- Copy all the Mods folder from the archive inside the game directory *(Where there is `LittleWitchNobeta.exe`)*
+- Download the client mod: [**`LWNAP.zip`**](https://github.com/danielgruethling/LittleWitchNobetaAP/releases)
+- Copy the Mods folder from the archive inside the game directory *(Where there is `LittleWitchNobeta.exe`)*
 - Run the game through Steam and enjoy!
 
 Note: When upgrading from BepInEx, if it was installed to your Steam directory delete the BepInEx folder and follow the instructions above to switch to MelonLoader.
