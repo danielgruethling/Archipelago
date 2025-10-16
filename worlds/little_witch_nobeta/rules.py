@@ -50,9 +50,7 @@ def has_gate(state: CollectionState, gate: str, world: "LWNWorld") -> bool:
 def has_goal_requirements(state: CollectionState, world: "LWNWorld") -> bool:
     return (world.options.goal.value == world.options.goal.option_vanilla
             or world.options.goal.value == world.options.goal.option_magic_master
-            and (state.has("Arcane", world.player, 4) and world.options.no_arcane.value == Toggle.option_false
-            or state.has("Arcane", world.player, 5) and world.options.no_arcane.value == Toggle.option_true)
-            and state.has("Fire", world.player, 5)
+            and state.has("Arcane", world.player, 5) and state.has("Fire", world.player, 5)
             and state.has("Ice", world.player, 5) and state.has("Thunder", world.player, 5)
             or world.options.goal.value == world.options.goal.option_boss_hunt
             and state.has("Specter Armor Soul", world.player) and state.has("Tania Soul", world.player)
@@ -416,7 +414,7 @@ def set_location_rules(world: "LWNWorld") -> None:
     if options.barrier_behaviour.value == options.barrier_behaviour.option_randomized:
         set_rule(multiworld.get_location("Underground - After fire magic switch", player),
                  lambda state: state.has("Ice", player))
-    set_rule(multiworld.get_location("Underground - Tania", player),
+    set_rule(multiworld.get_location("Underground - Defeat Tania", player),
              lambda state: has_attack_magic(state, player)
              and has_counter(state, player))
     if world.options.randomize_lore.value == Toggle.option_true:

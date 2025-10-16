@@ -124,7 +124,7 @@ underground_after_fire_magic_switch_barrier_locations: Dict[str, str] = {
 }
 
 underground_tania_locations: Dict[str, str] = {
-    "Underground - Tania": "Bosses",
+    "Underground - Defeat Tania": "Bosses",
     "Underground - Tania shortcut switch on Tania side": "Metal Gate",
     "Underground - 98. Lost Maiden's Soul Shard from Tania": "Lore",
 }
@@ -448,7 +448,7 @@ location_name_groups = {
         "Secret Passage - Enraged Armor",
         "Shrine - Specter Armor",
         "Spirit Realm - Vanessa V2",
-        "Underground - Tania",
+        "Underground - Defeat Tania",
     },
     "Lore": {
         "Abyss - 102. Lost Maiden's Crafted Soul Shard from Nonota",
@@ -478,7 +478,6 @@ location_name_groups = {
         "Dark Tunnel - 47. Blood Orc's Skin Sample from barrel above dark maze",
         "Dark Tunnel - 48. Chief's Skull from right mimic in mimic room",
         "Dark Tunnel - 49. Chief's Skull from straight mimic in mimic room",
-        "Dark Tunnel - 5. Melted Silver Candlestick in front of underground shortcut",
         "Dark Tunnel - 50. Crafted Soul Injector from pot at light switch after getting the hat",
         "Dark Tunnel - 51. Hero's Insignia",
         "Dark Tunnel - 52. Mutated Beast Claw from pot in big hall",
@@ -505,6 +504,7 @@ location_name_groups = {
         "Lava Ruins - 32. Slave Collar from ranged enemy in corner at spewing lava",
         "Lava Ruins - 33. Bestian Palm from Monica",
         "Lava Ruins - 34. Bestian Ear from Monica",
+        "Lava Ruins - 5. Melted Silver Candlestick in front of underground shortcut",
         "Lava Ruins - 99. Child's Soul Shard from Monica",
         "Secret Passage - 11. Broken Queen Doll from enemy behind destructible wall",
         "Secret Passage - 13. Sleeve Dagger",

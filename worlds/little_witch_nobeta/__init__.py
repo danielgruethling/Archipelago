@@ -113,8 +113,11 @@ class LWNWorld(World):
         item_pool: List[LWNItem] = []
 
         # Generate base level for progressive items
+        arcane_spell = self.create_item("Arcane")
         if self.options.no_arcane.value == Toggle.option_true:
-            item_pool.append(self.create_item("Arcane"))
+            item_pool.append(arcane_spell)
+        else:
+            self.multiworld.push_precollected(arcane_spell)
         item_pool.append(self.create_item("Fire"))
         item_pool.append(self.create_item("Ice"))
         item_pool.append(self.create_item("Thunder"))
@@ -175,7 +178,7 @@ class LWNWorld(World):
 
         # Generate remaining filler items
         empty_locations = len(self.multiworld.get_unfilled_locations(self.player))
-        remaining_items_needed = empty_locations - len(item_pool) - 1 - 2  # subtract 2 here for the excluded locations
+        remaining_items_needed = empty_locations - len(item_pool) - 1 - 1  # subtract 1 here for the excluded locations
         # Subtract local boss souls if not randomized
         if self.options.randomize_boss_souls.value == Toggle.option_false:
             remaining_items_needed -= len(boss_souls)
@@ -202,7 +205,7 @@ class LWNWorld(World):
             (self.multiworld.get_location("Secret Passage - Enraged Armor", self.player)
                 .place_locked_item(self.create_item("Enraged Armor Soul")))
 
-            (self.multiworld.get_location("Underground - Tania", self.player)
+            (self.multiworld.get_location("Underground - Defeat Tania", self.player)
                 .place_locked_item(self.create_item("Tania Soul")))
 
             (self.multiworld.get_location("Lava Ruins - Monica", self.player)
@@ -216,8 +219,6 @@ class LWNWorld(World):
 
         # Exclude currently broken locations
         (self.multiworld.get_location("Lava Ruins - Fake floor bait item", self.player)
-         .place_locked_item(self.create_item("Souls")))
-        (self.multiworld.get_location("Underground - Tania", self.player)
          .place_locked_item(self.create_item("Souls")))
 
     def fill_slot_data(self) -> Dict[str, Any]:
