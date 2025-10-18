@@ -133,7 +133,7 @@ def set_region_rules(world: "LWNWorld") -> None:
         lambda state: (has_gate(state, "Secret Passage Dark Tunnel Shortcut Gate", world)
                        or options.shortcut_gate_behaviour.value == options.shortcut_gate_behaviour.option_vanilla)
     multiworld.get_entrance("Underground - Start -> Underground - After wind", player).access_rule = \
-        lambda state: has_wind_or_skip(state, world)
+        lambda state: True
     multiworld.get_entrance("Underground - After wind -> Underground - Grand Hall", player).access_rule = \
         lambda state: (has_barrier(state, "Underground Magic Barrier At Maid Enemy", world)
                        or (options.barrier_behaviour.value == options.barrier_behaviour.option_vanilla
