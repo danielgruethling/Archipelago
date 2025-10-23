@@ -7,7 +7,7 @@ from .options import PerGameCommonOptions, LWNOptions, Toggle
 from .items import (lwn_items, item_name_to_id, attack_magics, boss_souls, useful_items, filler_items,
                     lore_items, barrier_items, gate_items, item_name_groups)
 from .locations import LWNLocation, location_name_groups, location_name_to_id, append_locations
-from .regions import LWNRegion, lwn_regions
+from .regions import LWNRegion, lwn_regions, set_start_region
 from .rules import set_region_rules, set_location_rules
 
 
@@ -96,6 +96,9 @@ class LWNWorld(World):
             region.add_exits(exits)
 
         append_locations(self)
+
+    def connect_entrances(self):
+        set_start_region(self)
 
     def set_rules(self):
 

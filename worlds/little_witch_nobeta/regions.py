@@ -1,5 +1,8 @@
-from typing import Dict, Set
+from typing import Dict, Set, TYPE_CHECKING
 from BaseClasses import Region
+
+if TYPE_CHECKING:
+    from . import LWNWorld
 
 
 class LWNRegion(Region):
@@ -7,7 +10,7 @@ class LWNRegion(Region):
 
 
 lwn_regions: Dict[str, Set[str]] = {
-    "Menu": {"Shrine - Start"},
+    "Menu": set(),
     "Shrine - Start": {"Shrine - After first magic switch"},
     "Shrine - After first magic switch": {"Shrine - Cat Room", "Shrine - Start"},
     "Shrine - Cat Room": {"Shrine - After first magic switch", "Shrine - Armor Hall"},
@@ -63,3 +66,20 @@ lwn_regions: Dict[str, Set[str]] = {
     "Abyss - Lava Ruins Trial magic switch": {"Abyss - Trials Lobby"},
     "Abyss - Nonota": set(),
 }
+
+
+def set_start_region(world: "LWNWorld"):
+    multiworld = world.multiworld
+    player = world.player
+    options = world.options
+
+    menu_region = multiworld.get_region("Menu", player)
+
+    if options.starting_area.value == options.starting_area.option_shrine:
+        menu_region.add_exits({"Shrine - Start"})
+    elif options.starting_area.value == options.starting_area.option_underground:
+        menu_region.add_exits({"Underground - Start"})
+    elif options.starting_area.value == options.starting_area.option_lava_ruins:
+        menu_region.add_exits({"Lava Ruins - Start"})
+    elif options.starting_area.value == options.starting_area.option_dark_tunnel:
+        menu_region.add_exits({"Dark Tunnel - Start"})

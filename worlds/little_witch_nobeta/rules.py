@@ -63,8 +63,6 @@ def set_region_rules(world: "LWNWorld") -> None:
     player = world.player
     options = world.options
 
-    multiworld.get_entrance("Menu -> Shrine - Start", player).access_rule = \
-        lambda state: True
     multiworld.get_entrance("Shrine - Start -> Shrine - After first magic switch", player).access_rule = \
         lambda state: (has_barrier(state, "Shrine First Magic Barrier", world)
                        or options.barrier_behaviour.value == options.barrier_behaviour.option_vanilla)

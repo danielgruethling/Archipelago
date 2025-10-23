@@ -99,6 +99,20 @@ class EntranceRandomization(DefaultOffToggle):
     visibility = Visibility.none
 
 
+class StartingArea(Choice):
+    """
+    Sets starting area, default is starting in Shrine
+    """
+    display_name = "Starting Area"
+    visibility = Visibility.none
+    option_shrine = 0
+    option_underground = 1
+    option_lava_ruins = 2
+    option_dark_tunnel = 3
+
+    default = option_shrine
+
+
 class ShortcutGateBehaviour(Choice):
     """
     Shortcut gate behaviour.
@@ -174,6 +188,7 @@ class LWNOptions(PerGameCommonOptions):
     shortcut_gate_behaviour: ShortcutGateBehaviour
     barrier_behaviour: MagicPuzzleGateBehaviour
     entrance_randomization: EntranceRandomization
+    starting_area: StartingArea
     soul_gain_base_value: SoulGainBaseValue
     soul_gain_factor: SoulGainFactor
     death_link: DeathLink
