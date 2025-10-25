@@ -222,4 +222,4 @@ item_name_groups = {
     "Bag Upgrade": {"Progressive Bag Upgrade"},
 }
 
-item_name_to_id: Dict[str, int] = {name: base_id + index for index, name in enumerate(sorted(lwn_items, key=str.lower))}
+item_name_to_id: Dict[str, int] = {name: base_id + index for index, name in enumerate(sorted(lwn_items))}

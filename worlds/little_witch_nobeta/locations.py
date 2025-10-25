@@ -439,7 +439,7 @@ lwn_locations: Dict[str, str] = {
     **abyss_nonota_locations,
 }
 
-location_name_to_id: Dict[str, int] = {name: base_id + index for index, name in enumerate(sorted(lwn_locations, key=str.lower))}
+location_name_to_id: Dict[str, int] = {name: base_id + index for index, name in enumerate(sorted(lwn_locations))}
 
 location_name_groups = {
     "Bosses": {
