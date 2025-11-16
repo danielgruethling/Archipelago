@@ -2,16 +2,16 @@ from typing import Dict, Set, Any
 
 base_id = 1
 
-attack_magics: Dict[str, str] = {
+magic_items: Dict[str, str] = {
     "Arcane": "Attack Magics",
     "Ice": "Attack Magics",
     "Fire": "Attack Magics",
     "Thunder": "Attack Magics",
+    "Wind": "Double Jump",
+    "Mana Absorption": "Counter",
 }
 
 useful_items: Dict[str, str] = {
-    "Wind": "Double Jump",
-    "Mana Absorption": "Counter",
     "Progressive Bag Upgrade": "Bag Upgrade",
 }
 
@@ -200,7 +200,7 @@ gate_items: Dict[str, str] = {
 }
 
 lwn_items: Dict[str, str] = {
-    **attack_magics,
+    **magic_items,
     **useful_items,
     **boss_souls,
     **filler_items,
@@ -212,7 +212,7 @@ lwn_items: Dict[str, str] = {
 }
 
 item_name_groups = {
-    "Attack Magics": attack_magics.keys(),
+    "Attack Magics": magic_items.keys(),
     "Boss Souls": boss_souls.keys(),
     "Double Jump": {"Wind"},
     "Counter": {"Mana Absorption"},

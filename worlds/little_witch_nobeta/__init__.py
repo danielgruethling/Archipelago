@@ -4,7 +4,7 @@ from typing import Any, Dict, List
 from BaseClasses import Item, ItemClassification, Tutorial, Region
 from worlds.AutoWorld import World, WebWorld
 from .options import PerGameCommonOptions, LWNOptions, Toggle
-from .items import (lwn_items, item_name_to_id, attack_magics, boss_souls, useful_items, filler_items,
+from .items import (lwn_items, item_name_to_id, magic_items, boss_souls, useful_items, filler_items,
                     lore_items, barrier_items, gate_items, item_name_groups)
 from .locations import LWNLocation, location_name_groups, location_name_to_id, append_locations
 from .regions import LWNRegion, lwn_regions, set_start_region
@@ -50,7 +50,7 @@ class LWNWorld(World):
 
     def create_item(self, item: str) -> LWNItem:
         item_class = ItemClassification.filler
-        if item in attack_magics or item in boss_souls:
+        if item in magic_items or item in boss_souls:
             item_class = ItemClassification.progression
         elif item == "Trial Key":
             item_class = ItemClassification.progression
@@ -127,19 +127,17 @@ class LWNWorld(World):
 
         # Generate a progression counter
         counter_spell = self.create_item("Mana Absorption")
-        counter_spell.classification = ItemClassification.progression
         item_pool.append(counter_spell)
 
         # Generate a progression double jump
         wind_spell = self.create_item("Wind")
-        wind_spell.classification = ItemClassification.progression
         if self.options.wind_requirements != self.options.wind_requirements.option_start_with:
             item_pool.append(wind_spell)
         else:
             self.multiworld.push_precollected(wind_spell)
 
         # Generate 4 extra of all progressive and useful items
-        for item in attack_magics.keys():
+        for item in magic_items.keys():
             for _ in range(4):
                 lwn_item = self.create_item(item)
                 item_pool.append(lwn_item)
@@ -231,5 +229,7 @@ class LWNWorld(World):
                             if attr not in dataclasses.fields(PerGameCommonOptions)):
             option = getattr(self.options, option_name)
             slot_data[option_name] = bool(option.value) if isinstance(option, Toggle) else option.value
+
+        slot_data["world_version"] = self.world_version
 
         return slot_data

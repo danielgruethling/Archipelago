@@ -69,17 +69,13 @@ lwn_regions: Dict[str, Set[str]] = {
 
 
 def set_start_region(world: "LWNWorld"):
-    multiworld = world.multiworld
-    player = world.player
     options = world.options
 
-    menu_region = multiworld.get_region("Menu", player)
-
     if options.starting_area.value == options.starting_area.option_shrine:
-        menu_region.add_exits({"Shrine - Start"})
+        world.origin_region_name = "Shrine - Start"
     elif options.starting_area.value == options.starting_area.option_underground:
-        menu_region.add_exits({"Underground - Start"})
+        world.origin_region_name = "Underground - Start"
     elif options.starting_area.value == options.starting_area.option_lava_ruins:
-        menu_region.add_exits({"Lava Ruins - Start"})
+        world.origin_region_name = "Lava Ruins - Start"
     elif options.starting_area.value == options.starting_area.option_dark_tunnel:
-        menu_region.add_exits({"Dark Tunnel - Start"})
+        world.origin_region_name = "Dark Tunnel - Start"
