@@ -4,7 +4,7 @@
 
 - [Little Witch Nobeta](https://store.steampowered.com/app/1049890/Little_Witch_Nobeta/) Steam version of Little Witch Nobeta at the current version.
 - [MelonLoader](https://melonloader.co/download) Download the MelonLoader installer for your distribution.
-- [RandomizedWitchNobetaAP MelonLoader mod](https://github.com/danielgruethling/LittleWitchNobetaAP/releases) Download the LWNAP.zip from the github releases.
+- [LittleWitchNobetaAP MelonLoader mod](https://github.com/danielgruethling/LittleWitchNobetaAP/releases) Download the LWNAP.zip from the github releases.
 
 ## Installation Procedures
 
