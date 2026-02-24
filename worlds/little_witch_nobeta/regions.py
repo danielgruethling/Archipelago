@@ -10,7 +10,6 @@ class LWNRegion(Region):
 
 
 lwn_regions: Dict[str, Set[str]] = {
-    "Menu": set(),
     "Shrine - Start": {"Shrine - After first magic switch"},
     "Shrine - After first magic switch": {"Shrine - Cat Room", "Shrine - Start"},
     "Shrine - Cat Room": {"Shrine - After first magic switch", "Shrine - Armor Hall"},
