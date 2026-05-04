@@ -231,6 +231,11 @@ gate_items: Dict[str, str] = {
     "Abyss First Gate": "Metal Gate",
     "Abyss Trap Gates": "Metal Gate",
 }
+
+abyss_trial_items: Dict[str, str] = {
+    "Abyss Underground Trial Clear": "Abyss Trial Clear",
+    "Abyss Lava Ruins Trial Clear": "Abyss Trial Clear",
+    "Abyss Dark Tunnel Trial Clear": "Abyss Trial Clear",
 }
 
 lwn_items: Dict[str, str] = {
@@ -244,6 +249,7 @@ lwn_items: Dict[str, str] = {
     **lore_items,
     **barrier_items,
     **gate_items,
+    **abyss_trial_items,
     "Teleport": "Teleport",
     "Trial Key": "Trial Key",
 }
@@ -257,6 +263,7 @@ item_name_groups = {
     "Lore": lore_items.keys(),
     "Magic Barrier": barrier_items.keys(),
     "Metal Gate": gate_items.keys(),
+    "Abyss Trial Clear": abyss_trial_items.keys(),
     "Bag Upgrade": {"Progressive Bag Upgrade"},
 }
 

@@ -123,6 +123,8 @@ class LWNWorld(World):
                 item_class = ItemClassification.progression
             else:
                 item_class = ItemClassification.filler
+        elif item in abyss_trial_items:
+            item_class = ItemClassification.progression
 
         return LWNItem(item, item_class, self.item_name_to_id.get(item, None), self.player)
     
@@ -247,6 +249,12 @@ class LWNWorld(World):
             for gate_item_name in gate_items.keys():
                 lwn_item = self.create_item(gate_item_name)
                 item_pool.append(lwn_item)
+        
+        # Generate Abyss Trial Complete items
+        if self.options.abyss_trial_requirement.value == self.options.abyss_trial_requirement.option_randomized_item:
+            for abyss_trial_item_name in abyss_trial_items.keys():
+                lwn_item = self.create_item(abyss_trial_item_name)
+                item_pool.append(lwn_item)
 
         # Generate remaining filler items
         empty_locations = len(self.multiworld.get_unfilled_locations(self.player))
@@ -257,6 +265,11 @@ class LWNWorld(World):
             or self.options.abyss_trial_requirement == self.options.abyss_trial_requirement.option_boss_hunt)
             and self.options.randomize_boss_tokens.value == Toggle.option_false):
             remaining_items_needed -= len(boss_tokens)
+
+        # Subtract local abyss trial complete items if not randomized
+        if (self.options.abyss_trial_requirement.value == self.options.abyss_trial_requirement.option_vanilla):
+            remaining_items_needed -= len(abyss_trial_items)
+
         # Replace percentage of filler items with trap items based on options
         trap_weights = []
         trap_weights += (["Bonk Trap"] * self.options.bonk_trap_weight.value)
@@ -315,6 +328,17 @@ class LWNWorld(World):
 
             (self.multiworld.get_location("Spirit Realm - Vanessa V2", self.player)
                 .place_locked_item(self.create_item("Vanessa V2 Token")))
+            
+        # Place abyss trial requirements when not randomized
+        if self.options.abyss_trial_requirement.value == self.options.abyss_trial_requirement.option_vanilla:
+            (self.multiworld.get_location("Abyss - Underground Trial Complete", self.player)
+                .place_locked_item(self.create_item("Abyss Underground Trial Clear")))
+            
+            (self.multiworld.get_location("Abyss - Lava Ruins Trial Complete", self.player)
+                .place_locked_item(self.create_item("Abyss Lava Ruins Trial Clear")))
+            
+            (self.multiworld.get_location("Abyss - Dark Tunnel Trial Complete", self.player)
+                .place_locked_item(self.create_item("Abyss Dark Tunnel Trial Clear")))
 
         # Exclude currently broken locations
         (self.multiworld.get_location("Lava Ruins - Fake floor bait item", self.player)
