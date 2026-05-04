@@ -152,8 +152,8 @@ class StartWithAbsorption(DefaultOffToggle):
 
 class NoManaRegeneration(DefaultOffToggle):
     """
-    Disables mana regeneration, meaning mana must be recovered from dodges, parries, destroyable items, or consumables.
-    For players looking for more of a challenge with no effect on logic.
+    Disables mana regeneration, meaning mana must be recovered from sources like dodges, parries, consumables, etc.
+    This is for players looking for more of a challenge with no effect on logic.
     """
     display_name = "No mana regeneration"
 
@@ -230,6 +230,8 @@ class WindRequirements(Choice):
     [Start with] Will put one copy of Wind magic in the starting inventory and thus allow double jump from the start.
     [Start without] Will have all 5 Wind spells in the multiworld.
     [Less wind requirements] Skips some logic requirements of Wind magic in favor of trick jumps and damage boosts.
+    This currently includes chests on scaffolding in Lava Ruin and Dark Tunnel, Monica Arena entrance,
+    the Dark Tunnel mimic room chest, and access to the knight enemy in Dawnruin Castle.
     """
     display_name = "Wind Requirements"
     option_start_with = 0
