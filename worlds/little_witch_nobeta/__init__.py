@@ -3,9 +3,10 @@ from typing import Any, Dict, List
 
 from BaseClasses import Item, ItemClassification, Tutorial, Region
 from worlds.AutoWorld import World, WebWorld
+from Options import OptionGroup
 from .options import PerGameCommonOptions, LWNOptions, Toggle
-from .items import (lwn_items, item_name_to_id, magic_items, boss_souls, useful_items, filler_items,
-                    lore_items, barrier_items, gate_items, item_name_groups)
+from .items import (lwn_items, item_name_to_id, magic_items, boss_souls, boss_tokens, useful_items, filler_crystal_items,
+                    filler_souls_items, trap_items, lore_items, barrier_items, gate_items, abyss_trial_items, item_name_groups)
 from .locations import LWNLocation, location_name_groups, location_name_to_id, append_locations
 from .regions import LWNRegion, lwn_regions, set_start_region
 from .rules import set_region_rules, set_location_rules
@@ -22,6 +23,52 @@ class LWNWebWorld(WebWorld):
             "setup/en",
             ["fragger"]
         )
+    ]
+
+    option_groups = [
+        OptionGroup("Goal Options", [
+            options.Goal,
+            options.AbyssTrialRequirement,
+            options.TrialKeys,
+            options.TrialKeyAmount,
+        ]),
+        OptionGroup("Logic Options", [
+            options.WindRequirements,
+            options.RandomizeBossSouls,
+            options.RandomizeBossTokens,
+            options.SkippableBosses,
+            options.ShortcutGateBehaviour,
+            options.MagicPuzzleGateBehaviour,
+            options.RandomizeLore,
+            options.RandomizeBreakableWalls,
+            options.RandomizeJugs,
+            options.RandomizeBarrels,
+            options.RandomizeBrokenDolls,
+            options.RandomizeLightOrb,
+            options.RandomizeCrystalBalls,
+            options.RandomizeCrystals,
+            options.EntranceRandomization,
+            options.StartingArea,
+            options.DisableDarkTunnelThunderWall,
+            options.DisableDarkTunnelBridgeCollapse,
+            options.SkipsInLogic,
+        ]),
+        OptionGroup("Filler Options", [
+            options.FillerCrystalWeight,
+            options.FillerSoulsWeight,
+            options.TrapFillPercentage,
+            options.ManaDrainTrapWeight,
+            options.BonkTrapWeight,
+        ]),
+        OptionGroup("Difficulty Options", [
+            options.Difficulty,
+            options.BossRequirementsDifficulty,
+            options.NoArcane,
+            options.NoManaRegeneration,
+            options.StartWithAbsorption,
+            options.SoulGainBaseValue,
+            options.SoulGainFactor,
+        ])
     ]
 
 
@@ -74,6 +121,15 @@ class LWNWorld(World):
                 item_class = ItemClassification.filler
 
         return LWNItem(item, item_class, self.item_name_to_id.get(item, None), self.player)
+    
+    def generate_early(self):
+        if 'All' in self.options.skips_in_logic:
+            self.options.skips_in_logic.value = set(self.options.skips_in_logic.valid_keys)
+
+        if ((self.options.goal.value == self.options.goal.option_lore_keeper
+             or self.options.abyss_trial_requirement.value == self.options.abyss_trial_requirement.option_lore_keeper)
+             and self.options.randomize_lore.value == self.options.randomize_lore.option_no_lore):
+            self.options.randomize_lore.value = self.options.randomize_lore.option_randomized
 
     def create_event(self, event: str) -> LWNItem:
         return LWNItem(event, ItemClassification.progression, None, self.player)
