@@ -162,13 +162,15 @@ class RandomizeLore(Choice):
     How Lore items (green glowing circles) will be randomized into the item pool.
     [Vanilla] Lore items will all be in their vanilla locations.
     [Randomized] Lore items will be randomized in the item pool, and picking them up will be a check.
-    [No Lore] Lore items will be removed from the item pool, but picking them up will be a check.
-    If this is selected while lore keeper is set as either the goal or abyss trial requirement, it will default to "Randomized". 
+    [Checks Only] Lore items will be removed from the item pool, but picking them up will be a check.
+    [No Lore] Lore items and checks are not included in the world.
+    If Checks or No Lore is selected while lore keeper is set as either the goal or abyss trial requirement, it will default to "Randomized". 
     """
     display_name = "Randomize lore items"
     option_vanilla = 0
     option_randomized = 1
-    option_no_lore = 2
+    option_checks_only = 2
+    option_no_lore = 3
 
     default = option_randomized
 

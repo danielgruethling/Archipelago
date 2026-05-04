@@ -139,7 +139,8 @@ class LWNWorld(World):
 
         if ((self.options.goal.value == self.options.goal.option_lore_keeper
              or self.options.abyss_trial_requirement.value == self.options.abyss_trial_requirement.option_lore_keeper)
-             and self.options.randomize_lore.value == self.options.randomize_lore.option_no_lore):
+             and (self.options.randomize_lore.value == self.options.randomize_lore.option_checks_only
+                  or self.options.randomize_lore.value == self.options.randomize_lore.option_no_lore)):
             self.options.randomize_lore.value = self.options.randomize_lore.option_randomized
 
     def create_event(self, event: str) -> LWNItem:
