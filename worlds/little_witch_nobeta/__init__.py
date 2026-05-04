@@ -109,6 +109,11 @@ class LWNWorld(World):
         elif item in filler_souls_items:
             item_class = ItemClassification.filler
         elif item in lore_items:
+            if (self.options.goal.value == self.options.goal.option_lore_keeper
+                or self.options.abyss_trial_requirement.value == self.options.abyss_trial_requirement.option_lore_keeper):
+                item_class = ItemClassification.progression
+            else:
+                item_class = ItemClassification.filler
         elif item in trap_items:
             item_class = ItemClassification.trap
         elif item in barrier_items:
@@ -233,7 +238,7 @@ class LWNWorld(World):
                 item_pool.append(lwn_item)
 
         # Generate lore items
-        if self.options.randomize_lore.value == Toggle.option_true:
+        if self.options.randomize_lore.value == self.options.randomize_lore.option_randomized:
             for lore_item_name in lore_items.keys():
                 lwn_item = self.create_item(lore_item_name)
                 item_pool.append(lwn_item)
@@ -259,6 +264,10 @@ class LWNWorld(World):
         # Generate remaining filler items
         empty_locations = len(self.multiworld.get_unfilled_locations(self.player))
         remaining_items_needed = empty_locations - len(item_pool) - 1 - 1  # subtract 1 here for the excluded locations
+
+        # Subtract lore items if vanilla placements
+        if self.options.randomize_lore == self.options.randomize_lore.option_vanilla:
+            remaining_items_needed -= len(lore_items)
 
         # Subtract local boss tokens if not randomized
         if ((self.options.goal == self.options.goal.option_boss_hunt
@@ -339,6 +348,15 @@ class LWNWorld(World):
             
             (self.multiworld.get_location("Abyss - Dark Tunnel Trial Complete", self.player)
                 .place_locked_item(self.create_item("Abyss Dark Tunnel Trial Clear")))
+        
+        # Place Lore items in vanilla location when not randomized by matching lore items to its location name
+        if self.options.randomize_lore == self.options.randomize_lore.option_vanilla:
+            all_lore_locations = location_name_groups["Lore"]
+            for item_name in lore_items.keys():
+                lore_location_name = next((loc for loc in all_lore_locations if item_name in loc), None)
+                if lore_location_name:
+                    item = self.create_item(item_name)
+                    self.multiworld.get_location(lore_location_name, self.player).place_locked_item(item)
 
         # Exclude currently broken locations
         (self.multiworld.get_location("Lava Ruins - Fake floor bait item", self.player)
