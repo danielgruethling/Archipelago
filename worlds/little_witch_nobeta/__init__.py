@@ -104,7 +104,9 @@ class LWNWorld(World):
             item_class = ItemClassification.progression
         elif item in useful_items:
             item_class = ItemClassification.useful
-        elif item in filler_items:
+        elif item in filler_crystal_items:
+            item_class = ItemClassification.filler
+        elif item in filler_souls_items:
             item_class = ItemClassification.filler
         elif item in lore_items:
             item_class = ItemClassification.filler
@@ -228,7 +230,7 @@ class LWNWorld(World):
                 lwn_item = self.create_item(barrier_item_name)
                 item_pool.append(lwn_item)
 
-        # Generate barrier items
+        # Generate gate items
         if self.options.shortcut_gate_behaviour.value == self.options.shortcut_gate_behaviour.option_randomized:
             for gate_item_name in gate_items.keys():
                 lwn_item = self.create_item(gate_item_name)
