@@ -109,7 +109,8 @@ class LWNWorld(World):
         elif item in filler_souls_items:
             item_class = ItemClassification.filler
         elif item in lore_items:
-            item_class = ItemClassification.filler
+        elif item in trap_items:
+            item_class = ItemClassification.trap
         elif item in barrier_items:
             if self.options.barrier_behaviour.value \
                     == self.options.barrier_behaviour.option_randomized:
@@ -186,7 +187,10 @@ class LWNWorld(World):
 
         # Generate a progression counter
         counter_spell = self.create_item("Mana Absorption")
-        item_pool.append(counter_spell)
+        if self.options.start_with_absorption == Toggle.option_true:
+            self.multiworld.push_precollected(counter_spell)
+        else:
+            item_pool.append(counter_spell)
 
         # Generate a progression double jump
         wind_spell = self.create_item("Wind")
