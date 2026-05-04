@@ -24,6 +24,14 @@ boss_souls: Dict[str, str] = {
     "Vanessa V2 Soul": "Boss Souls",
 }
 
+boss_tokens: Dict[str, str] = {
+    "Specter Armor Token": "Boss Tokens",
+    "Tania Token": "Boss Tokens",
+    "Monica Token": "Boss Tokens",
+    "Enraged Armor Token": "Boss Tokens",
+    "Vanessa Token": "Boss Tokens",
+    "Vanessa V2 Token": "Boss Tokens",
+}
 
 filler_crystal_items: Dict[str, str] = {
     "Meager Life Crystal": "Filler",
@@ -229,6 +237,7 @@ lwn_items: Dict[str, str] = {
     **magic_items,
     **useful_items,
     **boss_souls,
+    **boss_tokens,
     **filler_crystal_items,
     **filler_souls_items,
     **trap_items,
@@ -242,6 +251,7 @@ lwn_items: Dict[str, str] = {
 item_name_groups = {
     "Attack Magics": magic_items.keys(),
     "Boss Souls": boss_souls.keys(),
+    "Boss Tokens": boss_tokens.keys(),
     "Double Jump": {"Wind"},
     "Counter": {"Mana Absorption"},
     "Lore": lore_items.keys(),

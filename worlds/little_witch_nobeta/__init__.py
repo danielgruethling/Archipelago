@@ -98,7 +98,7 @@ class LWNWorld(World):
 
     def create_item(self, item: str) -> LWNItem:
         item_class = ItemClassification.filler
-        if item in magic_items or item in boss_souls:
+        if item in magic_items or item in boss_souls or item in boss_tokens:
             item_class = ItemClassification.progression
         elif item == "Trial Key":
             item_class = ItemClassification.progression
@@ -216,6 +216,14 @@ class LWNWorld(World):
                 lwn_item = self.create_item(item)
                 item_pool.append(lwn_item)
 
+        # Generate boss tokens
+        if ((self.options.goal == self.options.goal.option_boss_hunt
+            or self.options.abyss_trial_requirement == self.options.abyss_trial_requirement.option_boss_hunt)
+            and self.options.randomize_boss_tokens.value == Toggle.option_true):
+            for item in boss_tokens.keys():
+                lwn_item = self.create_item(item)
+                item_pool.append(lwn_item)
+
         # Generate trial keys
         if self.options.trial_keys.value == Toggle.option_true:
             for _ in range(self.options.trial_key_amount.value):
@@ -244,6 +252,11 @@ class LWNWorld(World):
         empty_locations = len(self.multiworld.get_unfilled_locations(self.player))
         remaining_items_needed = empty_locations - len(item_pool) - 1 - 1  # subtract 1 here for the excluded locations
 
+        # Subtract local boss tokens if not randomized
+        if ((self.options.goal == self.options.goal.option_boss_hunt
+            or self.options.abyss_trial_requirement == self.options.abyss_trial_requirement.option_boss_hunt)
+            and self.options.randomize_boss_tokens.value == Toggle.option_false):
+            remaining_items_needed -= len(boss_tokens)
         # Replace percentage of filler items with trap items based on options
         trap_weights = []
         trap_weights += (["Bonk Trap"] * self.options.bonk_trap_weight.value)
@@ -281,25 +294,27 @@ class LWNWorld(World):
         # Place "Victory" at "Nonota" and set collection as win condition
         self.multiworld.get_location("Abyss - Nonota", self.player).place_locked_item(self.create_event("Victory"))
 
-        # Place boss souls at bosses when not randomized
-        if self.options.randomize_boss_souls.value == Toggle.option_false:
+        # Place boss tokens at bosses when not randomized
+        if ((self.options.goal == self.options.goal.option_boss_hunt
+            or self.options.abyss_trial_requirement == self.options.abyss_trial_requirement.option_boss_hunt)
+            and self.options.randomize_boss_tokens.value == Toggle.option_false):
             (self.multiworld.get_location("Shrine - Specter Armor", self.player)
-                .place_locked_item(self.create_item("Specter Armor Soul")))
+                .place_locked_item(self.create_item("Specter Armor Token")))
 
             (self.multiworld.get_location("Secret Passage - Enraged Armor", self.player)
-                .place_locked_item(self.create_item("Enraged Armor Soul")))
+                .place_locked_item(self.create_item("Enraged Armor Token")))
 
             (self.multiworld.get_location("Underground - Defeat Tania", self.player)
-                .place_locked_item(self.create_item("Tania Soul")))
+                .place_locked_item(self.create_item("Tania Token")))
 
             (self.multiworld.get_location("Lava Ruins - Monica", self.player)
-                .place_locked_item(self.create_item("Monica Soul")))
+                .place_locked_item(self.create_item("Monica Token")))
 
             (self.multiworld.get_location("Dark Tunnel - Vanessa", self.player)
-                .place_locked_item(self.create_item("Vanessa Soul")))
+                .place_locked_item(self.create_item("Vanessa Token")))
 
             (self.multiworld.get_location("Spirit Realm - Vanessa V2", self.player)
-                .place_locked_item(self.create_item("Vanessa V2 Soul")))
+                .place_locked_item(self.create_item("Vanessa V2 Token")))
 
         # Exclude currently broken locations
         (self.multiworld.get_location("Lava Ruins - Fake floor bait item", self.player)
