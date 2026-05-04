@@ -24,17 +24,36 @@ boss_souls: Dict[str, str] = {
     "Vanessa V2 Soul": "Boss Souls",
 }
 
-filler_items: Dict[str, str] = {
-    "HPCure": "Filler",
-    "HPCureMiddle": "Filler",
-    "HPCureBig": "Filler",
-    "MPCure": "Filler",
-    "MPCureMiddle": "Filler",
-    "MPCureBig": "Filler",
-    "Defense": "Filler",
-    "DefenseMiddle": "Filler",
-    "DefenseBig": "Filler",
+
+filler_crystal_items: Dict[str, str] = {
+    "Meager Life Crystal": "Filler",
+    "Faint Life Crystal": "Filler",
+    "Fair Life Crystal": "Filler",
+    "Fine Life Crystal": "Filler",
+    "Meager Magic Crystal": "Filler",
+    "Faint Magic Crystal": "Filler",
+    "Fair Magic Crystal": "Filler",
+    "Fine Magic Crystal": "Filler",
+    "Faint Defense Crystal": "Filler",
+    "Fair Defense Crystal": "Filler",
+    "Fine Defense Crystal": "Filler",
+    "Faint Arcane Crystal": "Filler",
+    "Fair Arcane Crystal": "Filler",
+    "Fine Arcane Crystal": "Filler",
+    "Faint Holy Crystal": "Filler",
+    "Fair Holy Crystal": "Filler",
+    "Fine Holy Crystal": "Filler",
+}
+
+filler_souls_items: Dict[str, str] = {
     "Souls": "Filler",
+    "HP Souls": "Filler",
+    "MP Souls": "Filler",
+}
+
+trap_items: Dict[str, str] = {
+    "Bonk Trap": "Trap",
+    "Mana Drain Trap": "Trap",
 }
 
 lore_items: Dict[str, str] = {
@@ -203,7 +222,9 @@ lwn_items: Dict[str, str] = {
     **magic_items,
     **useful_items,
     **boss_souls,
-    **filler_items,
+    **filler_crystal_items,
+    **filler_souls_items,
+    **trap_items,
     **lore_items,
     **barrier_items,
     **gate_items,

@@ -1,4 +1,5 @@
 import dataclasses
+import math
 from typing import Any, Dict, List
 
 from BaseClasses import Item, ItemClassification, Tutorial, Region
@@ -236,19 +237,39 @@ class LWNWorld(World):
         # Generate remaining filler items
         empty_locations = len(self.multiworld.get_unfilled_locations(self.player))
         remaining_items_needed = empty_locations - len(item_pool) - 1 - 1  # subtract 1 here for the excluded locations
-        # Subtract local boss souls if not randomized
-        if self.options.randomize_boss_souls.value == Toggle.option_false:
-            remaining_items_needed -= len(boss_souls)
+
+        # Replace percentage of filler items with trap items based on options
+        trap_weights = []
+        trap_weights += (["Bonk Trap"] * self.options.bonk_trap_weight.value)
+        trap_weights += (["Mana Drain Trap"] * self.options.mana_drain_trap_weight.value)
+        trap_count = 0 if (len(trap_weights) == 0) else math.ceil(remaining_items_needed * (self.options.trap_fill_percentage.value / 100.0))
+        remaining_items_needed -= trap_count
 
         item_pool += [
-            self.create_item(self.get_filler_item_name())
+            self.create_item(self.random.choice(trap_weights))
+            for _ in range(trap_count)
+        ]
+
+        # Create filler weights array to randomly pick filler type for remaining slots
+        filler_weights = []
+        filler_weights += ([0] * self.options.filler_crystal_weight.value)
+        filler_weights += ([1] * self.options.filler_souls_weight.value)
+        # If total weights is 0, default to 50/50 split
+        if len(filler_weights) == 0:
+            filler_weights += [0, 1]
+        
+        item_pool += [
+            self.create_item(self.get_filler_crystal_item_name() if self.random.choice(filler_weights) == 0 else self.get_filler_souls_item_name())
             for _ in range(remaining_items_needed)
         ]
 
         self.multiworld.itempool += item_pool
 
-    def get_filler_item_name(self) -> str:
-        return self.multiworld.random.choice(list(filler_items))
+    def get_filler_crystal_item_name(self) -> str:
+        return self.multiworld.random.choice(list(filler_crystal_items))
+    
+    def get_filler_souls_item_name(self) -> str:
+        return self.multiworld.random.choice(list(filler_souls_items))
 
     def generate_basic(self):
         # Place "Victory" at "Nonota" and set collection as win condition
