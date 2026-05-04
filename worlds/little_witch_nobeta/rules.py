@@ -224,7 +224,9 @@ def set_region_rules(world: "LWNWorld") -> None:
                    (has_gate("Underground Tania Shortcut Gate On Tania Side")
                        | gate_vanilla))
     world.set_rule(multiworld.get_entrance("Underground - Tania -> Underground - After fire magic switch barrier", player),
-                   has_barrier("Underground Enemy Magic Barrier"))
+                   (has_barrier("Underground Enemy Magic Barrier")
+                       | (barrier_vanilla
+                       & HasAny("Arcane", "Thunder", "Fire"))))
     world.set_rule(multiworld.get_entrance("Underground - Tania -> Lava Ruins - Start", player),
                    ((has_barrier("Underground Tania Arena Barrier")
                        | barrier_vanilla)
@@ -473,7 +475,7 @@ def set_region_rules(world: "LWNWorld") -> None:
                        | (Has("Wind")
                        & [OptionFilter(SkipsInLogic, "Abyss Giant Maid Skip", "contains")])))
     world.set_rule(multiworld.get_entrance("Abyss - After first gate -> Abyss - Trap gate", player),
-                   (has_gate("Abyss Left Trap Gate")
+                   (has_gate("Abyss Trap Gates")
                        | gate_vanilla))
     world.set_rule(multiworld.get_entrance("Abyss - Trap gate -> Abyss - After first gate", player),
                    has_gate("Abyss Trap Gates"))
