@@ -66,8 +66,11 @@ secret_passage_after_first_fire_barrier_locations: Dict[str, str] = {
     "Secret Passage - 38. Dark Elf's Ear Sample from pot at magic barrier": "Lore",
 }
 
-secret_passage_enraged_armor_locations: Dict[str, str] = {
+secret_passage_before_enraged_armor_locations: Dict[str, str] = {
     "Secret Passage - 19. Knight's Halberd from pot before boss": "Lore",
+}
+
+secret_passage_enraged_armor_locations: Dict[str, str] = {
     "Secret Passage - Enraged Armor": "Bosses",
     "Secret Passage - 56. Knight Kingdom Crown from Enraged Armor": "Lore",
     "Secret Passage - Teleport from Enraged Armor": "Teleport",
@@ -125,6 +128,7 @@ underground_after_fire_magic_switch_barrier_locations: Dict[str, str] = {
 
 underground_tania_locations: Dict[str, str] = {
     "Underground - Defeat Tania": "Bosses",
+    "Underground - Tania boss arena barrier": "Barrier",
     "Underground - Tania shortcut switch on Tania side": "Metal Gate",
     "Underground - 98. Lost Maiden's Soul Shard from Tania": "Lore",
 }
@@ -149,6 +153,7 @@ lava_ruins_after_magic_platforms_locations: Dict[str, str] = {
     "Lava Ruins - Fake floor bait item": "Item",
     "Lava Ruins - 23. Cursed Turquoise Necklace from scissor enemy": "Lore",
     "Lava Ruins - Defeat scissor enemy barrier": "Barrier",
+    "Lava Ruins - Lift magic switch at scissor enemy": "Barrier",
 }
 
 lava_ruins_after_scissor_enemy_barrier_locations: Dict[str, str] = {
@@ -164,14 +169,20 @@ lava_ruins_after_fire_barrier_locations: Dict[str, str] = {
     "Lava Ruins - 25. Copper Ingot on path through hole in wall": "Lore",
     "Lava Ruins - 22. Intricate Clock from barrel in lava maze": "Lore",
     "Lava Ruins - Chest in lava maze": "Chest",
+    "Lava Ruins - Activate moving ring": "Barrier",
+}
+
+lava_ruins_after_moving_ring_locations: Dict[str, str] = {
     "Lava Ruins - Jumping puzzle arcane chest at moving ring gauntlet": "Chest",
     "Lava Ruins - Monica shortcut switch": "Metal Gate",
     "Lava Ruins - 21. Silver Coin from barrel at Monica statue": "Lore",
     "Lava Ruins - 24. Glass Lantern from scissor enemy": "Lore",
+    "Lava Ruins - Activate moving ring": "Barrier",
 }
 
 lava_ruins_monica_locations: Dict[str, str] = {
     "Lava Ruins - Monica": "Bosses",
+    "Lava Ruins - Monica boss arena barrier": "Barrier",
     "Lava Ruins - 34. Bestian Ear from Monica": "Lore",
     "Lava Ruins - 33. Bestian Palm from Monica": "Lore",
     "Lava Ruins - 99. Child's Soul Shard from Monica": "Lore",
@@ -214,6 +225,9 @@ dark_tunnel_after_light_switch_barrier_locations: Dict[str, str] = {
     "Dark Tunnel - 57. Lady's Feather Hat from puppeteer": "Lore",
     "Dark Tunnel - 47. Blood Orc's Skin Sample from barrel above dark maze": "Lore",
     "Dark Tunnel - Fire spell chest inside dark maze": "Chest",
+}
+
+dark_tunnel_thunder_barrier_locations: Dict[str, str] = {
     "Dark Tunnel - 48. Chief's Skull from right mimic in mimic room": "Lore",
     "Dark Tunnel - 49. Chief's Skull from straight mimic in mimic room": "Lore",
     "Dark Tunnel - Thunder spell chest in mimic room": "Chest",
@@ -329,12 +343,12 @@ abyss_after_first_gate_locations: Dict[str, str] = {
     "Abyss - Arcane spell chest on pillar": "Chest",
     "Abyss - 84. Witch Worshipper Puppet from pot right of pillars": "Lore",
     "Abyss - Giant maid barrier": "Barrier",
-    "Abyss - Left gate trigger": "Metal Gate",
+    "Abyss - Trap gate trigger": "Metal Gate",
 }
 
-abyss_left_gate_at_trap_locations: Dict[str, str] = {
-    "Abyss - 82. Prostitute's Chiffon from crystal in left trap gate": "Lore",
-    "Abyss - Chest in left trap gate": "Chest",
+abyss_trap_gate_locations: Dict[str, str] = {
+    "Abyss - 82. Prostitute's Chiffon from crystal in trap gate": "Lore",
+    "Abyss - Chest in trap gate": "Chest",
 }
 
 abyss_after_giant_maid_barrier_locations: Dict[str, str] = {
@@ -347,13 +361,14 @@ abyss_trials_lobby_locations: Dict[str, str] = {
 
 abyss_underground_trial_locations: Dict[str, str] = {
     "Abyss - Fire Spell chest underground trial": "Chest",
-    "Abyss - Underground trial unlock enemies magic switch": "Barrier",
+    "Abyss - Underground trial activate scissor enemies magic switch": "Barrier",
     "Abyss - 91. Gaseous Soul Essence from scissor enemy in underground trial": "Lore",
-    "Abyss - Underground trial scissor enemy magic gate": "Barrier",
+    "Abyss - Underground trial scissor enemy barrier": "Barrier",
 }
 
 abyss_underground_trial_magic_switch_locations: Dict[str, str] = {
     "Abyss - Underground trial magic switch": "Barrier",
+    "Abyss - Underground Trial Complete": "Abyss Trial",
     "Abyss - 92. Semi-gaseous Soul Essence in front of underground trial magic switch": "Lore",
 }
 
@@ -365,17 +380,20 @@ abyss_dark_tunnel_trial_locations: Dict[str, str] = {
 
 abyss_dark_tunnel_trial_magic_switch_locations: Dict[str, str] = {
     "Abyss - Dark Tunnel trial magic switch": "Barrier",
+    "Abyss - Dark Tunnel Trial Complete": "Abyss Trial",
     "Abyss - 96. Knight's Soul Shard in front of dark tunnel trial magic switch": "Lore",
 }
 
 abyss_lava_ruins_trial_locations: Dict[str, str] = {
     "Abyss - Ice spell chest lava ruins trial": "Chest",
+    "Abyss - Lava Ruins trial lower lava switch": "Barrier",
     "Abyss - 93. Enchanted Soul Shard from maid enemy in lava ruins trial": "Lore",
     "Abyss - Lava Ruins trial defeat maids enemy barrier": "Barrier",
 }
 
 abyss_lava_ruins_trial_magic_switch_locations: Dict[str, str] = {
     "Abyss - Lava Ruins trial magic switch": "Barrier",
+    "Abyss - Lava Ruins Trial Complete": "Abyss Trial",
     "Abyss - 94. Knight's Soul Shard in front of lava ruins trial magic switch": "Lore",
 }
 
@@ -392,6 +410,7 @@ lwn_locations: Dict[str, str] = {
     **shrine_underground_shortcut_locations,
     **secret_passage_start_locations,
     **secret_passage_after_first_fire_barrier_locations,
+    **secret_passage_before_enraged_armor_locations,
     **secret_passage_enraged_armor_locations,
     **secret_passage_boss_shortcut_locations,
     **secret_passage_dark_tunnel_shortcut_locations,
@@ -406,6 +425,7 @@ lwn_locations: Dict[str, str] = {
     **lava_ruins_after_magic_platforms_locations,
     **lava_ruins_after_scissor_enemy_barrier_locations,
     **lava_ruins_after_fire_barrier_locations,
+    **lava_ruins_after_moving_ring_locations,
     **lava_ruins_monica_locations,
     **lava_ruins_monica_warp_locations,
     **lava_ruins_path_to_dark_tunnel_locations,
@@ -413,6 +433,7 @@ lwn_locations: Dict[str, str] = {
     **dark_tunnel_after_first_magic_barrier_locations,
     **dark_tunnel_after_first_gate_locations,
     **dark_tunnel_after_light_switch_barrier_locations,
+    **dark_tunnel_thunder_barrier_locations,
     **dark_tunnel_after_thunder_barrier_locations,
     **dark_tunnel_after_floating_platforms_locations,
     **dark_tunnel_after_bridge_collapse_locations,
@@ -427,7 +448,7 @@ lwn_locations: Dict[str, str] = {
     **abyss_locations,
     **abyss_after_first_teleport_locations,
     **abyss_after_first_gate_locations,
-    **abyss_left_gate_at_trap_locations,
+    **abyss_trap_gate_locations,
     **abyss_after_giant_maid_barrier_locations,
     **abyss_trials_lobby_locations,
     **abyss_underground_trial_locations,
@@ -454,7 +475,7 @@ location_name_groups = {
         "Abyss - 102. Lost Maiden's Crafted Soul Shard from Nonota",
         "Abyss - 80. Ceremonial Incense at first statue",
         "Abyss - 81. Moonlight Blade from trapped barrel",
-        "Abyss - 82. Prostitute's Chiffon from crystal in left trap gate",
+        "Abyss - 82. Prostitute's Chiffon from crystal in trap gate",
         "Abyss - 83. Castle Blueprint from crystal on brittle ledge",
         "Abyss - 84. Witch Worshipper Puppet from pot right of pillars",
         "Abyss - 85. Polymorphism Scroll from crystal behind gate",
@@ -562,7 +583,7 @@ location_name_groups = {
     },
     "Chest": {
         "Abyss - Arcane spell chest on pillar",
-        "Abyss - Chest in left trap gate",
+        "Abyss - Chest in trap gate",
         "Abyss - Fire Spell chest underground trial",
         "Abyss - Ice spell chest lava ruins trial",
         "Abyss - Thunder spell chest dark tunnel trial",
@@ -609,7 +630,7 @@ location_name_groups = {
     },
     "Metal Gate": {
         "Abyss - First gate switch",
-        "Abyss - Left gate trigger",
+        "Abyss - Trap gate trigger",
         "Dark Tunnel - First gate switch",
         "Lava Ruins - Fake floor shortcut gate switch",
         "Lava Ruins - Monica shortcut switch",
@@ -630,20 +651,23 @@ location_name_groups = {
         "Abyss - Dark tunnel trial maid enemy barrier",
         "Abyss - Giant maid barrier",
         "Abyss - Lava Ruins trial defeat maids enemy barrier",
+        "Abyss - Lava Ruins trial lower lava switch",
         "Abyss - Lava Ruins trial magic switch",
+        "Abyss - Underground trial activate scissor enemies magic switch",
         "Abyss - Underground trial magic switch",
-        "Abyss - Underground trial scissor enemy magic gate",
-        "Abyss - Underground trial unlock enemies magic switch",
+        "Abyss - Underground trial scissor enemy barrier",
         "Dark Tunnel - First magic barrier switch",
         "Dark Tunnel - Floating platform switch one",
         "Dark Tunnel - Floating platform switch three",
         "Dark Tunnel - Floating platform switch two",
         "Dark Tunnel - Light switch after getting the hat",
         "Dark Tunnel - Thunder barrier magic switches",
+        "Lava Ruins - Activate moving ring",
         "Lava Ruins - Defeat scissor enemy barrier",
         "Lava Ruins - Fire magic switch",
         "Lava Ruins - Lift magic switch at scissor enemy",
         "Lava Ruins - Magic platform switch at shotgun enemies",
+        "Lava Ruins - Monica boss arena barrier",
         "Secret Passage - Defeat Enraged Armor barrier",
         "Secret Passage - First fire barrier magic switch",
         "Secret Passage - Second fire barrier magic switch",
@@ -662,6 +686,12 @@ location_name_groups = {
         "Underground - After fire magic switch",
         "Underground - Defeat enemies barrier",
         "Underground - Magic barrier switches at maid enemy",
+        "Underground - Tania boss arena barrier",
+    },
+    "Abyss Trial": {
+        "Abyss - Dark Tunnel Trial Complete",
+        "Abyss - Lava Ruins Trial Complete",
+        "Abyss - Underground Trial Complete",
     },
     "Teleport": {
         "Secret Passage - Teleport from Enraged Armor",
@@ -680,7 +710,7 @@ def add_location_to_region(location_name, location_id, group_name, region, world
           and world.options.barrier_behaviour.value == world.options.barrier_behaviour.option_vanilla):
         return
     elif (group_name == "Lore"
-          and world.options.randomize_lore.value == Toggle.option_false):
+          and world.options.randomize_lore.value == world.options.randomize_lore.option_no_lore):
         return
     region.locations.append(LWNLocation(world.player, location_name, location_id, region))
 
@@ -729,6 +759,12 @@ def append_locations(world: "LWNWorld"):
         location_id = location_name_to_id[location_name]
         group_name = secret_passage_after_first_fire_barrier_locations[location_name]
         region = world.multiworld.get_region("Secret passage - After first fire barrier", world.player)
+        add_location_to_region(location_name, location_id, group_name, region, world)
+
+    for location_name in secret_passage_before_enraged_armor_locations:
+        location_id = location_name_to_id[location_name]
+        group_name = secret_passage_before_enraged_armor_locations[location_name]
+        region = world.multiworld.get_region("Secret Passage - Before Enraged Armor", world.player)
         add_location_to_region(location_name, location_id, group_name, region, world)
 
     for location_name in secret_passage_enraged_armor_locations:
@@ -815,6 +851,12 @@ def append_locations(world: "LWNWorld"):
         region = world.multiworld.get_region("Lava Ruins - After Fire Barrier", world.player)
         add_location_to_region(location_name, location_id, group_name, region, world)
 
+    for location_name in lava_ruins_after_moving_ring_locations:
+        location_id = location_name_to_id[location_name]
+        group_name = lava_ruins_after_moving_ring_locations[location_name]
+        region = world.multiworld.get_region("Lava Ruins - After Moving Ring", world.player)
+        add_location_to_region(location_name, location_id, group_name, region, world)
+
     for location_name in lava_ruins_monica_locations:
         location_id = location_name_to_id[location_name]
         group_name = lava_ruins_monica_locations[location_name]
@@ -855,6 +897,12 @@ def append_locations(world: "LWNWorld"):
         location_id = location_name_to_id[location_name]
         group_name = dark_tunnel_after_light_switch_barrier_locations[location_name]
         region = world.multiworld.get_region("Dark Tunnel - After light switch barrier", world.player)
+        add_location_to_region(location_name, location_id, group_name, region, world)
+
+    for location_name in dark_tunnel_thunder_barrier_locations:
+        location_id = location_name_to_id[location_name]
+        group_name = dark_tunnel_thunder_barrier_locations[location_name]
+        region = world.multiworld.get_region("Dark Tunnel - Thunder barrier", world.player)
         add_location_to_region(location_name, location_id, group_name, region, world)
 
     for location_name in dark_tunnel_after_thunder_barrier_locations:
@@ -941,10 +989,10 @@ def append_locations(world: "LWNWorld"):
         region = world.multiworld.get_region("Abyss - After first gate", world.player)
         add_location_to_region(location_name, location_id, group_name, region, world)
 
-    for location_name in abyss_left_gate_at_trap_locations:
+    for location_name in abyss_trap_gate_locations:
         location_id = location_name_to_id[location_name]
-        group_name = abyss_left_gate_at_trap_locations[location_name]
-        region = world.multiworld.get_region("Abyss - Left gate at trap", world.player)
+        group_name = abyss_trap_gate_locations[location_name]
+        region = world.multiworld.get_region("Abyss - Trap gate", world.player)
         add_location_to_region(location_name, location_id, group_name, region, world)
 
     for location_name in abyss_after_giant_maid_barrier_locations:
