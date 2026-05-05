@@ -54,6 +54,7 @@ def has_gate(gate: str):
 
 
 barrier_vanilla = [OptionFilter(MagicPuzzleGateBehaviour, MagicPuzzleGateBehaviour.option_vanilla)]
+barrier_randomized = [OptionFilter(ShortcutGateBehaviour, ShortcutGateBehaviour.option_randomized)]
 gate_vanilla = [OptionFilter(ShortcutGateBehaviour, ShortcutGateBehaviour.option_vanilla)]
 boss_req_easy = True_() & [OptionFilter(BossRequirementsDifficulty, BossRequirementsDifficulty.option_easy)]
 boss_req_normal = True_() & [OptionFilter(BossRequirementsDifficulty, BossRequirementsDifficulty.option_normal)]
@@ -439,13 +440,8 @@ def set_region_rules(world: "LWNWorld") -> None:
                        | gate_vanilla))
     world.set_rule(multiworld.get_entrance("Spirit Realm - After elevator -> Spirit Realm - After teleport", player),
                    (has_barrier("Spirit Realm Teleporter")
-                       | ((has_barrier("Spirit Realm Magic Switch Barrier")
-                       | (has_fire_or_thunder
-                       & has_barrier("Spirit Realm Fire Deactivation")
                        | (HasAny("Ice", "Thunder")
-                       & barrier_vanilla)
-                       | has_barrier("Spirit Realm Fire Deactivation")))
-                       & has_fire_or_thunder)))
+                       & barrier_vanilla)))
     world.set_rule(multiworld.get_entrance("Spirit Realm - After elevator -> Spirit Realm - After second Seal", player),
                    True_())
     world.set_rule(multiworld.get_entrance("Spirit Realm - After teleport -> Spirit Realm - After elevator", player),
@@ -840,21 +836,27 @@ def set_location_rules(world: "LWNWorld") -> None:
         world.set_rule(multiworld.get_location("Spirit Realm - Fire control magic switch", player),
                  (HasAny("Ice", "Thunder")
                  & barrier_vanilla)
+                 | (Has("Ice")
+                 & barrier_randomized)
                  | has_barrier("Spirit Realm Fire Deactivation"))
     if options.barrier_behaviour.value == options.barrier_behaviour.option_randomized:
         world.set_rule(multiworld.get_location("Spirit Realm - Magic switch barrier switch", player),
-                 has_barrier("Spirit Realm Fire Deactivation")
-                 | (HasAny("Ice", "Thunder")
+                 (HasAny("Ice", "Thunder")
                  & barrier_vanilla)
+                 | (Has("Ice")
+                 & barrier_randomized)
                  | has_barrier("Spirit Realm Fire Deactivation"))
     if options.barrier_behaviour.value == options.barrier_behaviour.option_randomized:
         world.set_rule(multiworld.get_location("Spirit Realm - Teleporter magic switch", player),
-                 has_barrier("Spirit Realm Magic Switch Barrier")
+                 (Has("Thunder")
+                 & has_barrier("Spirit Realm Magic Switch Barrier")
+                 & ((Has("Ice")
+                 & barrier_randomized)
+                 | has_barrier("Spirit Realm Fire Deactivation")))
                  | (has_fire_or_thunder
                  & has_barrier("Spirit Realm Fire Deactivation")
                  | (HasAny("Ice", "Thunder")
-                 & barrier_vanilla)
-                 | has_barrier("Spirit Realm Fire Deactivation")))
+                 & barrier_vanilla)))
     world.set_rule(multiworld.get_location("Spirit Realm - Vanessa V2", player),
              (boss_souls_vanilla
              | Has("Vanessa V2 Soul"))
