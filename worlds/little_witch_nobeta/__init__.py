@@ -54,13 +54,6 @@ class LWNWebWorld(WebWorld):
             options.DisableDarkTunnelBridgeCollapse,
             options.SkipsInLogic,
         ]),
-        OptionGroup("Filler Options", [
-            options.FillerCrystalWeight,
-            options.FillerSoulsWeight,
-            options.TrapFillPercentage,
-            options.ManaDrainTrapWeight,
-            options.BonkTrapWeight,
-        ]),
         OptionGroup("Difficulty Options", [
             options.Difficulty,
             options.BossRequirementsDifficulty,
@@ -69,7 +62,14 @@ class LWNWebWorld(WebWorld):
             options.StartWithAbsorption,
             options.SoulGainBaseValue,
             options.SoulGainFactor,
-        ])
+        ]),
+        OptionGroup("Filler Options", [
+            options.FillerCrystalWeight,
+            options.FillerSoulsWeight,
+            options.TrapFillPercentage,
+            options.ManaDrainTrapWeight,
+            options.BonkTrapWeight,
+        ]),
     ]
 
 
