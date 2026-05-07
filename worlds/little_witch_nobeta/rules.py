@@ -252,24 +252,45 @@ def set_region_rules(world: "LWNWorld") -> None:
     world.set_rule(multiworld.get_entrance("Lava Ruins - Start -> Lava Ruins - Monica warp", player),
                    has_gate("Lava Ruins Monica Warp Gate"))
     world.set_rule(multiworld.get_entrance("Lava Ruins - Start -> Lava Ruins - Path to dark tunnel", player),
-                   (True_()
+                   (HasAny("Wind", "Fire", "Thunder")
                        & [OptionFilter(SkipsInLogic, "Lava Ruins Monica Skip", "contains")]))
     world.set_rule(multiworld.get_entrance("Lava Ruins - After magic platforms -> Lava Ruins - After scissor enemy barrier", player),
                    (has_barrier("Lava Ruins Scissor Enemy Barrier")
-                       | (HasGroup("Attack Magics")
-                       & barrier_vanilla)))
+                       | barrier_vanilla))
     world.set_rule(multiworld.get_entrance("Lava Ruins - After magic platforms -> Lava Ruins - Start", player),
                    True_())
-    world.set_rule(multiworld.get_entrance("Lava Ruins - After scissor enemy barrier -> Lava Ruins - After magic platforms", player),
-                   has_barrier("Lava Ruins Scissor Enemy Lift"))
+    world.set_rule(multiworld.get_entrance("Lava Ruins - After magic platforms -> Lava Ruins - Scissor Enemy Room", player),
+                   True_())
+    world.set_rule(multiworld.get_entrance("Lava Ruins - Scissor Enemy Room -> Lava Ruins - After magic platforms", player),
+                   (has_barrier("Lava Ruins Scissor Enemy Lift")
+                       | (barrier_vanilla
+                       & Has("Arcane"))))
+    world.set_rule(multiworld.get_entrance("Lava Ruins - Scissor Enemy Room -> Lava Ruins - After scissor enemy barrier", player),
+                   (has_barrier("Lava Ruins Scissor Enemy Barrier")
+                       | barrier_vanilla))
+    world.set_rule(multiworld.get_entrance("Lava Ruins - Scissor Enemy Room -> Lava Ruins - Lift Magic Switch Room", player),
+                   (has_barrier("Lava Ruins Scissor Enemy Barrier")
+                       | barrier_vanilla))
+    world.set_rule(multiworld.get_entrance("Lava Ruins - Scissor Enemy Room -> Lava Ruins - Scissor Enemy Battle", player),
+                   True_())
     world.set_rule(multiworld.get_entrance("Lava Ruins - After scissor enemy barrier -> Lava Ruins - After Fire Barrier", player),
                    (has_barrier("Lava Ruins Fire Magic Barrier")
                        | (has_fire_or_thunder
                        & barrier_vanilla)))
     world.set_rule(multiworld.get_entrance("Lava Ruins - After scissor enemy barrier -> Lava Ruins - After Moving Ring", player),
                    has_gate("Lava Ruins Monica Shortcut Gate"))
+    world.set_rule(multiworld.get_entrance("Lava Ruins - After scissor enemy barrier -> Lava Ruins - Scissor Enemy Room", player),
+                   (has_barrier("Lava Ruins Scissor Enemy Barrier")
+                       | (barrier_vanilla
+                       & Has("Arcane"))))
+    world.set_rule(multiworld.get_entrance("Lava Ruins - After scissor enemy barrier -> Lava Ruins - Lift Magic Switch Room", player),
+                   Has("Arcane"))
+    world.set_rule(multiworld.get_entrance("Lava Ruins - After scissor enemy barrier -> Lava Ruins - Scissor Enemy Battle", player),
+                   HasAny("Arcane", "Ice", "Thunder"))
     world.set_rule(multiworld.get_entrance("Lava Ruins - After Fire Barrier -> Lava Ruins - After scissor enemy barrier", player),
                    has_barrier("Lava Ruins Fire Magic Barrier"))
+    world.set_rule(multiworld.get_entrance("Lava Ruins - After Fire Barrier -> Lava Ruins - Lava Ring Activation", player),
+                   True_())
     world.set_rule(multiworld.get_entrance("Lava Ruins - After Fire Barrier -> Lava Ruins - After Moving Ring", player),
                    (has_barrier("Lava Ruins Moving Ring")
                        | barrier_vanilla))
@@ -281,6 +302,8 @@ def set_region_rules(world: "LWNWorld") -> None:
                        | gate_vanilla))
     world.set_rule(multiworld.get_entrance("Lava Ruins - After Moving Ring -> Lava Ruins - Monica", player),
                    has_wind_or_damage_boost)
+    world.set_rule(multiworld.get_entrance("Lava Ruins - After Moving Ring -> Lava Ruins - Lava Ring Activation", player),
+                   True_())
     world.set_rule(multiworld.get_entrance("Lava Ruins - Monica -> Lava Ruins - After Fire Barrier", player),
                    True_())
     world.set_rule(multiworld.get_entrance("Lava Ruins - Monica -> Lava Ruins - Monica warp", player),
@@ -634,11 +657,10 @@ def set_location_rules(world: "LWNWorld") -> None:
              has_wind_or_damage_boost)
     if options.barrier_behaviour.value == options.barrier_behaviour.option_randomized:
         world.set_rule(multiworld.get_location("Lava Ruins - Defeat scissor enemy barrier", player),
-                 HasGroup("Attack Magics"))
+                 True_())
     if options.barrier_behaviour.value == options.barrier_behaviour.option_randomized:
         world.set_rule(multiworld.get_location("Lava Ruins - Lift magic switch at scissor enemy", player),
-                 has_barrier("Lava Ruins Scissor Enemy Barrier")
-                 | Has("Arcane"))
+                 True_())
     if options.barrier_behaviour.value == options.barrier_behaviour.option_randomized:
         world.set_rule(multiworld.get_location("Lava Ruins - Fire magic switch", player),
                  has_fire_or_thunder)

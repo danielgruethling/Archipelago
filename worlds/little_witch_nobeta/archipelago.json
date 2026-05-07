@@ -1,1 +1,9 @@
-{"game": "Little Witch Nobeta", "authors": ["fragger"], "world_version": "0.2.2", "minimum_ap_version": "0.6.4"}
+{
+  "game": "Little Witch Nobeta",
+  "authors": [
+    "fragger",
+    "espalchemist"
+  ],
+  "world_version": "0.3.0",
+  "minimum_ap_version": "0.6.4"
+}

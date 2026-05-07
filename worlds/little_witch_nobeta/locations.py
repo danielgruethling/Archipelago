@@ -151,13 +151,21 @@ lava_ruins_after_magic_platforms_locations: Dict[str, str] = {
     "Lava Ruins - 28. Cage on path to starting area shortcut gate": "Lore",
     "Lava Ruins - Fake floor shortcut gate switch": "Metal Gate",
     "Lava Ruins - Fake floor bait item": "Item",
+}
+
+lava_ruins_scissor_enemy_room_locations: Dict[str, str] = {
     "Lava Ruins - 23. Cursed Turquoise Necklace from scissor enemy": "Lore",
+}
+
+lava_ruins_scissor_enemy_battle_locations: Dict[str, str] = {
     "Lava Ruins - Defeat scissor enemy barrier": "Barrier",
+}
+
+lava_ruins_lift_magic_switch_room_locations: Dict[str, str] = {
     "Lava Ruins - Lift magic switch at scissor enemy": "Barrier",
 }
 
 lava_ruins_after_scissor_enemy_barrier_locations: Dict[str, str] = {
-    "Lava Ruins - Lift magic switch at scissor enemy": "Barrier",
     "Lava Ruins - 32. Slave Collar from ranged enemy in corner at spewing lava": "Lore",
     "Lava Ruins - Chest in spewing lava room": "Chest",
     "Lava Ruins - Fire spell chest at double staircase": "Chest",
@@ -169,6 +177,9 @@ lava_ruins_after_fire_barrier_locations: Dict[str, str] = {
     "Lava Ruins - 25. Copper Ingot on path through hole in wall": "Lore",
     "Lava Ruins - 22. Intricate Clock from barrel in lava maze": "Lore",
     "Lava Ruins - Chest in lava maze": "Chest",
+}
+
+lava_ruins_lava_ring_activation_locations: Dict[str, str] = {
     "Lava Ruins - Activate moving ring": "Barrier",
 }
 
@@ -177,7 +188,6 @@ lava_ruins_after_moving_ring_locations: Dict[str, str] = {
     "Lava Ruins - Monica shortcut switch": "Metal Gate",
     "Lava Ruins - 21. Silver Coin from barrel at Monica statue": "Lore",
     "Lava Ruins - 24. Glass Lantern from scissor enemy": "Lore",
-    "Lava Ruins - Activate moving ring": "Barrier",
 }
 
 lava_ruins_monica_locations: Dict[str, str] = {
@@ -423,8 +433,12 @@ lwn_locations: Dict[str, str] = {
     **underground_tania_locations,
     **lava_ruins_start_locations,
     **lava_ruins_after_magic_platforms_locations,
+    **lava_ruins_scissor_enemy_room_locations,
+    **lava_ruins_scissor_enemy_battle_locations,
+    **lava_ruins_lift_magic_switch_room_locations,
     **lava_ruins_after_scissor_enemy_barrier_locations,
     **lava_ruins_after_fire_barrier_locations,
+    **lava_ruins_lava_ring_activation_locations,
     **lava_ruins_after_moving_ring_locations,
     **lava_ruins_monica_locations,
     **lava_ruins_monica_warp_locations,
@@ -839,6 +853,24 @@ def append_locations(world: "LWNWorld"):
         region = world.multiworld.get_region("Lava Ruins - After magic platforms", world.player)
         add_location_to_region(location_name, location_id, group_name, region, world)
 
+    for location_name in lava_ruins_scissor_enemy_room_locations:
+        location_id = location_name_to_id[location_name]
+        group_name = lava_ruins_scissor_enemy_room_locations[location_name]
+        region = world.multiworld.get_region("Lava Ruins - Scissor Enemy Room", world.player)
+        add_location_to_region(location_name, location_id, group_name, region, world)
+
+    for location_name in lava_ruins_scissor_enemy_battle_locations:
+        location_id = location_name_to_id[location_name]
+        group_name = lava_ruins_scissor_enemy_battle_locations[location_name]
+        region = world.multiworld.get_region("Lava Ruins - Scissor Enemy Battle", world.player)
+        add_location_to_region(location_name, location_id, group_name, region, world)
+
+    for location_name in lava_ruins_lift_magic_switch_room_locations:
+        location_id = location_name_to_id[location_name]
+        group_name = lava_ruins_lift_magic_switch_room_locations[location_name]
+        region = world.multiworld.get_region("Lava Ruins - Lift Magic Switch Room", world.player)
+        add_location_to_region(location_name, location_id, group_name, region, world)
+
     for location_name in lava_ruins_after_scissor_enemy_barrier_locations:
         location_id = location_name_to_id[location_name]
         group_name = lava_ruins_after_scissor_enemy_barrier_locations[location_name]
@@ -849,6 +881,12 @@ def append_locations(world: "LWNWorld"):
         location_id = location_name_to_id[location_name]
         group_name = lava_ruins_after_fire_barrier_locations[location_name]
         region = world.multiworld.get_region("Lava Ruins - After Fire Barrier", world.player)
+        add_location_to_region(location_name, location_id, group_name, region, world)
+
+    for location_name in lava_ruins_lava_ring_activation_locations:
+        location_id = location_name_to_id[location_name]
+        group_name = lava_ruins_lava_ring_activation_locations[location_name]
+        region = world.multiworld.get_region("Lava Ruins - Lava Ring Activation", world.player)
         add_location_to_region(location_name, location_id, group_name, region, world)
 
     for location_name in lava_ruins_after_moving_ring_locations:
