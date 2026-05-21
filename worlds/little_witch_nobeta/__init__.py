@@ -1,11 +1,13 @@
 import dataclasses
+import math
 from typing import Any, Dict, List
 
 from BaseClasses import Item, ItemClassification, Tutorial, Region
 from worlds.AutoWorld import World, WebWorld
+from Options import OptionGroup
 from .options import PerGameCommonOptions, LWNOptions, Toggle
-from .items import (lwn_items, item_name_to_id, magic_items, boss_souls, useful_items, filler_items,
-                    lore_items, barrier_items, gate_items, item_name_groups)
+from .items import (lwn_items, item_name_to_id, magic_items, boss_souls, boss_tokens, useful_items, filler_crystal_items,
+                    filler_souls_items, trap_items, lore_items, barrier_items, gate_items, abyss_trial_items, item_name_groups)
 from .locations import LWNLocation, location_name_groups, location_name_to_id, append_locations
 from .regions import LWNRegion, lwn_regions, set_start_region
 from .rules import set_region_rules, set_location_rules
@@ -22,6 +24,52 @@ class LWNWebWorld(WebWorld):
             "setup/en",
             ["fragger"]
         )
+    ]
+
+    option_groups = [
+        OptionGroup("Goal Options", [
+            options.Goal,
+            options.AbyssTrialRequirement,
+            options.TrialKeys,
+            options.TrialKeyAmount,
+        ]),
+        OptionGroup("Logic Options", [
+            options.WindRequirements,
+            options.RandomizeBossSouls,
+            options.RandomizeBossTokens,
+            options.SkippableBosses,
+            options.ShortcutGateBehaviour,
+            options.MagicPuzzleGateBehaviour,
+            options.RandomizeLore,
+            options.RandomizeBreakableWalls,
+            options.RandomizeJugs,
+            options.RandomizeBarrels,
+            options.RandomizeBrokenDolls,
+            options.RandomizeLightOrb,
+            options.RandomizeCrystalBalls,
+            options.RandomizeCrystals,
+            options.EntranceRandomization,
+            options.StartingArea,
+            options.DisableDarkTunnelThunderWall,
+            options.DisableDarkTunnelBridgeCollapse,
+            options.SkipsInLogic,
+        ]),
+        OptionGroup("Difficulty Options", [
+            options.Difficulty,
+            options.BossRequirementsDifficulty,
+            options.NoArcane,
+            options.NoManaRegeneration,
+            options.StartWithAbsorption,
+            options.SoulGainBaseValue,
+            options.SoulGainFactor,
+        ]),
+        OptionGroup("Filler Options", [
+            options.FillerCrystalWeight,
+            options.FillerSoulsWeight,
+            options.TrapFillPercentage,
+            options.ManaDrainTrapWeight,
+            options.BonkTrapWeight,
+        ]),
     ]
 
 
@@ -50,16 +98,24 @@ class LWNWorld(World):
 
     def create_item(self, item: str) -> LWNItem:
         item_class = ItemClassification.filler
-        if item in magic_items or item in boss_souls:
+        if item in magic_items or item in boss_souls or item in boss_tokens:
             item_class = ItemClassification.progression
         elif item == "Trial Key":
             item_class = ItemClassification.progression
         elif item in useful_items:
             item_class = ItemClassification.useful
-        elif item in filler_items:
+        elif item in filler_crystal_items:
+            item_class = ItemClassification.filler
+        elif item in filler_souls_items:
             item_class = ItemClassification.filler
         elif item in lore_items:
-            item_class = ItemClassification.filler
+            if (self.options.goal.value == self.options.goal.option_lore_keeper
+                or self.options.abyss_trial_requirement.value == self.options.abyss_trial_requirement.option_lore_keeper):
+                item_class = ItemClassification.progression
+            else:
+                item_class = ItemClassification.filler
+        elif item in trap_items:
+            item_class = ItemClassification.trap
         elif item in barrier_items:
             if self.options.barrier_behaviour.value \
                     == self.options.barrier_behaviour.option_randomized:
@@ -72,8 +128,20 @@ class LWNWorld(World):
                 item_class = ItemClassification.progression
             else:
                 item_class = ItemClassification.filler
+        elif item in abyss_trial_items:
+            item_class = ItemClassification.progression
 
         return LWNItem(item, item_class, self.item_name_to_id.get(item, None), self.player)
+    
+    def generate_early(self):
+        if 'All' in self.options.skips_in_logic:
+            self.options.skips_in_logic.value = set(self.options.skips_in_logic.valid_keys)
+
+        if ((self.options.goal.value == self.options.goal.option_lore_keeper
+             or self.options.abyss_trial_requirement.value == self.options.abyss_trial_requirement.option_lore_keeper)
+             and (self.options.randomize_lore.value == self.options.randomize_lore.option_checks_only
+                  or self.options.randomize_lore.value == self.options.randomize_lore.option_no_lore)):
+            self.options.randomize_lore.value = self.options.randomize_lore.option_randomized
 
     def create_event(self, event: str) -> LWNItem:
         return LWNItem(event, ItemClassification.progression, None, self.player)
@@ -127,7 +195,10 @@ class LWNWorld(World):
 
         # Generate a progression counter
         counter_spell = self.create_item("Mana Absorption")
-        item_pool.append(counter_spell)
+        if self.options.start_with_absorption == Toggle.option_true:
+            self.multiworld.push_precollected(counter_spell)
+        else:
+            item_pool.append(counter_spell)
 
         # Generate a progression double jump
         wind_spell = self.create_item("Wind")
@@ -153,6 +224,14 @@ class LWNWorld(World):
                 lwn_item = self.create_item(item)
                 item_pool.append(lwn_item)
 
+        # Generate boss tokens
+        if ((self.options.goal == self.options.goal.option_boss_hunt
+            or self.options.abyss_trial_requirement == self.options.abyss_trial_requirement.option_boss_hunt)
+            and self.options.randomize_boss_tokens.value == Toggle.option_true):
+            for item in boss_tokens.keys():
+                lwn_item = self.create_item(item)
+                item_pool.append(lwn_item)
+
         # Generate trial keys
         if self.options.trial_keys.value == Toggle.option_true:
             for _ in range(self.options.trial_key_amount.value):
@@ -160,7 +239,7 @@ class LWNWorld(World):
                 item_pool.append(lwn_item)
 
         # Generate lore items
-        if self.options.randomize_lore.value == Toggle.option_true:
+        if self.options.randomize_lore.value == self.options.randomize_lore.option_randomized:
             for lore_item_name in lore_items.keys():
                 lwn_item = self.create_item(lore_item_name)
                 item_pool.append(lwn_item)
@@ -171,52 +250,114 @@ class LWNWorld(World):
                 lwn_item = self.create_item(barrier_item_name)
                 item_pool.append(lwn_item)
 
-        # Generate barrier items
+        # Generate gate items
         if self.options.shortcut_gate_behaviour.value == self.options.shortcut_gate_behaviour.option_randomized:
             for gate_item_name in gate_items.keys():
                 lwn_item = self.create_item(gate_item_name)
+                item_pool.append(lwn_item)
+        
+        # Generate Abyss Trial Complete items
+        if self.options.abyss_trial_requirement.value == self.options.abyss_trial_requirement.option_randomized_item:
+            for abyss_trial_item_name in abyss_trial_items.keys():
+                lwn_item = self.create_item(abyss_trial_item_name)
                 item_pool.append(lwn_item)
 
         # Generate remaining filler items
         empty_locations = len(self.multiworld.get_unfilled_locations(self.player))
         remaining_items_needed = empty_locations - len(item_pool) - 1 - 1  # subtract 1 here for the excluded locations
-        # Subtract local boss souls if not randomized
-        if self.options.randomize_boss_souls.value == Toggle.option_false:
-            remaining_items_needed -= len(boss_souls)
+
+        # Subtract lore items if vanilla placements
+        if self.options.randomize_lore == self.options.randomize_lore.option_vanilla:
+            remaining_items_needed -= len(lore_items)
+
+        # Subtract local boss tokens if not randomized
+        if ((self.options.goal == self.options.goal.option_boss_hunt
+            or self.options.abyss_trial_requirement == self.options.abyss_trial_requirement.option_boss_hunt)
+            and self.options.randomize_boss_tokens.value == Toggle.option_false):
+            remaining_items_needed -= len(boss_tokens)
+
+        # Subtract local abyss trial complete items if not randomized
+        if (self.options.abyss_trial_requirement.value == self.options.abyss_trial_requirement.option_vanilla):
+            remaining_items_needed -= len(abyss_trial_items)
+
+        # Replace percentage of filler items with trap items based on options
+        trap_weights = []
+        trap_weights += (["Bonk Trap"] * self.options.bonk_trap_weight.value)
+        trap_weights += (["Mana Drain Trap"] * self.options.mana_drain_trap_weight.value)
+        trap_count = 0 if (len(trap_weights) == 0) else math.ceil(remaining_items_needed * (self.options.trap_fill_percentage.value / 100.0))
+        remaining_items_needed -= trap_count
 
         item_pool += [
-            self.create_item(self.get_filler_item_name())
+            self.create_item(self.random.choice(trap_weights))
+            for _ in range(trap_count)
+        ]
+
+        # Create filler weights array to randomly pick filler type for remaining slots
+        filler_weights = []
+        filler_weights += ([0] * self.options.filler_crystal_weight.value)
+        filler_weights += ([1] * self.options.filler_souls_weight.value)
+        # If total weights is 0, default to 50/50 split
+        if len(filler_weights) == 0:
+            filler_weights += [0, 1]
+        
+        item_pool += [
+            self.create_item(self.get_filler_crystal_item_name() if self.random.choice(filler_weights) == 0 else self.get_filler_souls_item_name())
             for _ in range(remaining_items_needed)
         ]
 
         self.multiworld.itempool += item_pool
 
-    def get_filler_item_name(self) -> str:
-        return self.multiworld.random.choice(list(filler_items))
+    def get_filler_crystal_item_name(self) -> str:
+        return self.multiworld.random.choice(list(filler_crystal_items))
+    
+    def get_filler_souls_item_name(self) -> str:
+        return self.multiworld.random.choice(list(filler_souls_items))
 
     def generate_basic(self):
         # Place "Victory" at "Nonota" and set collection as win condition
         self.multiworld.get_location("Abyss - Nonota", self.player).place_locked_item(self.create_event("Victory"))
 
-        # Place boss souls at bosses when not randomized
-        if self.options.randomize_boss_souls.value == Toggle.option_false:
+        # Place boss tokens at bosses when not randomized
+        if ((self.options.goal == self.options.goal.option_boss_hunt
+            or self.options.abyss_trial_requirement == self.options.abyss_trial_requirement.option_boss_hunt)
+            and self.options.randomize_boss_tokens.value == Toggle.option_false):
             (self.multiworld.get_location("Shrine - Specter Armor", self.player)
-                .place_locked_item(self.create_item("Specter Armor Soul")))
+                .place_locked_item(self.create_item("Specter Armor Token")))
 
             (self.multiworld.get_location("Secret Passage - Enraged Armor", self.player)
-                .place_locked_item(self.create_item("Enraged Armor Soul")))
+                .place_locked_item(self.create_item("Enraged Armor Token")))
 
             (self.multiworld.get_location("Underground - Defeat Tania", self.player)
-                .place_locked_item(self.create_item("Tania Soul")))
+                .place_locked_item(self.create_item("Tania Token")))
 
             (self.multiworld.get_location("Lava Ruins - Monica", self.player)
-                .place_locked_item(self.create_item("Monica Soul")))
+                .place_locked_item(self.create_item("Monica Token")))
 
             (self.multiworld.get_location("Dark Tunnel - Vanessa", self.player)
-                .place_locked_item(self.create_item("Vanessa Soul")))
+                .place_locked_item(self.create_item("Vanessa Token")))
 
             (self.multiworld.get_location("Spirit Realm - Vanessa V2", self.player)
-                .place_locked_item(self.create_item("Vanessa V2 Soul")))
+                .place_locked_item(self.create_item("Vanessa V2 Token")))
+            
+        # Place abyss trial requirements when not randomized
+        if self.options.abyss_trial_requirement.value == self.options.abyss_trial_requirement.option_vanilla:
+            (self.multiworld.get_location("Abyss - Underground Trial Complete", self.player)
+                .place_locked_item(self.create_item("Abyss Underground Trial Clear")))
+            
+            (self.multiworld.get_location("Abyss - Lava Ruins Trial Complete", self.player)
+                .place_locked_item(self.create_item("Abyss Lava Ruins Trial Clear")))
+            
+            (self.multiworld.get_location("Abyss - Dark Tunnel Trial Complete", self.player)
+                .place_locked_item(self.create_item("Abyss Dark Tunnel Trial Clear")))
+        
+        # Place Lore items in vanilla location when not randomized by matching lore items to its location name
+        if self.options.randomize_lore == self.options.randomize_lore.option_vanilla:
+            all_lore_locations = location_name_groups["Lore"]
+            for item_name in lore_items.keys():
+                lore_location_name = next((loc for loc in all_lore_locations if item_name in loc), None)
+                if lore_location_name:
+                    item = self.create_item(item_name)
+                    self.multiworld.get_location(lore_location_name, self.player).place_locked_item(item)
 
         # Exclude currently broken locations
         (self.multiworld.get_location("Lava Ruins - Fake floor bait item", self.player)

@@ -24,17 +24,44 @@ boss_souls: Dict[str, str] = {
     "Vanessa V2 Soul": "Boss Souls",
 }
 
-filler_items: Dict[str, str] = {
-    "HPCure": "Filler",
-    "HPCureMiddle": "Filler",
-    "HPCureBig": "Filler",
-    "MPCure": "Filler",
-    "MPCureMiddle": "Filler",
-    "MPCureBig": "Filler",
-    "Defense": "Filler",
-    "DefenseMiddle": "Filler",
-    "DefenseBig": "Filler",
+boss_tokens: Dict[str, str] = {
+    "Specter Armor Token": "Boss Tokens",
+    "Tania Token": "Boss Tokens",
+    "Monica Token": "Boss Tokens",
+    "Enraged Armor Token": "Boss Tokens",
+    "Vanessa Token": "Boss Tokens",
+    "Vanessa V2 Token": "Boss Tokens",
+}
+
+filler_crystal_items: Dict[str, str] = {
+    "Meager Life Crystal": "Filler",
+    "Faint Life Crystal": "Filler",
+    "Fair Life Crystal": "Filler",
+    "Fine Life Crystal": "Filler",
+    "Meager Magic Crystal": "Filler",
+    "Faint Magic Crystal": "Filler",
+    "Fair Magic Crystal": "Filler",
+    "Fine Magic Crystal": "Filler",
+    "Faint Defense Crystal": "Filler",
+    "Fair Defense Crystal": "Filler",
+    "Fine Defense Crystal": "Filler",
+    "Faint Arcane Crystal": "Filler",
+    "Fair Arcane Crystal": "Filler",
+    "Fine Arcane Crystal": "Filler",
+    "Faint Holy Crystal": "Filler",
+    "Fair Holy Crystal": "Filler",
+    "Fine Holy Crystal": "Filler",
+}
+
+filler_souls_items: Dict[str, str] = {
     "Souls": "Filler",
+    "HP Souls": "Filler",
+    "MP Souls": "Filler",
+}
+
+trap_items: Dict[str, str] = {
+    "Bonk Trap": "Trap",
+    "Mana Drain Trap": "Trap",
 }
 
 lore_items: Dict[str, str] = {
@@ -150,15 +177,17 @@ barrier_items: Dict[str, str] = {
     "Secret Passage Entrance Magic Barrier": "Magic Barrier",
     "Secret Passage First Fire Barrier": "Magic Barrier",
     "Secret Passage Second Fire Barrier": "Magic Barrier",
-    "Shrine Secret Area Shortcut Gate": "Magic Barrier",
     "Defeat Enraged Armor Barrier": "Magic Barrier",
     "Underground Magic Barrier At Maid Enemy": "Magic Barrier",
     "Underground Fire Barrier Magic Barrier": "Magic Barrier",
     "Underground Enemy Magic Barrier": "Magic Barrier",
+    "Underground Tania Arena Barrier": "Magic Barrier",
     "Lava Ruins Magic Platforms": "Magic Barrier",
     "Lava Ruins Scissor Enemy Barrier": "Magic Barrier",
     "Lava Ruins Scissor Enemy Lift": "Magic Barrier",
     "Lava Ruins Fire Magic Barrier": "Magic Barrier",
+    "Lava Ruins Moving Ring": "Magic Barrier",
+    "Lava Ruins Monica Arena Barrier": "Magic Barrier",
     "Dark Tunnel First Magic Barrier": "Magic Barrier",
     "Dark Tunnel Light Switch Barrier": "Magic Barrier",
     "Dark Tunnel Thunder Barrier": "Magic Barrier",
@@ -166,47 +195,61 @@ barrier_items: Dict[str, str] = {
     "Dark Tunnel Floating Platform Two": "Magic Barrier",
     "Dark Tunnel Floating Platform Three": "Magic Barrier",
     "Spirit Realm Arcane Barrier": "Magic Barrier",
+    "Spirit Realm Platform Shortcut": "Magic Barrier",
     "Spirit Realm First Seal Magic Barrier": "Magic Barrier",
     "Spirit Realm Second Seal Magic Barrier": "Magic Barrier",
     "Spirit Realm Elevator": "Magic Barrier",
     "Spirit Realm Teleporter": "Magic Barrier",
+    "Spirit Realm Fire Deactivation": "Magic Barrier",
+    "Spirit Realm Magic Switch Barrier": "Magic Barrier",
     "Abyss After Giant Maid Barrier": "Magic Barrier",
     "Abyss Underground Trial Magic Switch": "Magic Barrier",
-    "Abyss After Scissor Enemy Barrier": "Magic Barrier",
+    "Abyss Underground Trial Exit Barrier": "Magic Barrier",
+    "Abyss Underground Trial After Scissor Enemy Barrier": "Magic Barrier",
     "Abyss Lava Ruins Trial Magic Switch": "Magic Barrier",
+    "Abyss Lava Ruins Trial Lower Lava": "Magic Barrier",
     "Abyss Dark Tunnel Trial Magic Switch": "Magic Barrier",
     "Abyss Dark Tunnel Trial Maid Enemy Barrier": "Magic Barrier",
     "Abyss Lava Ruins Trial Maid Enemy Barrier": "Magic Barrier",
-    "Spirit Realm Fire Deactivation": "Magic Barrier",
-    "Spirit Realm Magic Switch Barrier": "Magic Barrier",
 }
 
 gate_items: Dict[str, str] = {
     "Shrine Secret Boss Shortcut Gate": "Metal Gate",
+    "Shrine Secret Area Shortcut Gate": "Metal Gate",
     "Shrine Underground Shortcut Gate": "Metal Gate",
     "Secret Passage Dark Tunnel Shortcut Gate": "Metal Gate",
     "Underground Lava Ruins Shortcut Gate": "Metal Gate",
     "Underground Tania Shortcut Gate On Grand Hall Side": "Metal Gate",
     "Underground Tania Shortcut Gate On Tania Side": "Metal Gate",
+    "Lava Ruins Fake Floor Shortcut Gate": "Metal Gate",
+    "Lava Ruins Monica Shortcut Gate": "Metal Gate",
     "Lava Ruins Monica Warp Gate": "Metal Gate",
     "Dark Tunnel First Gate": "Metal Gate",
+    "Spirit Realm Wind Spell Chest Gate": "Metal Gate",
+    "Spirit Realm Ice Spell Chest Gate": "Metal Gate",
     "Spirit Realm Statue Shortcut Gate": "Metal Gate",
     "Abyss First Gate": "Metal Gate",
-    "Abyss Left Trap Gate": "Metal Gate",
-    "Spirit Realm - Wind Spell Chest Gate": "Metal Gate",
-    "Lava Ruins Fake Floor Shortcut Gate": "Metal Gate",
-    "Spirit Realm - Ice spell Chest Gate": "Metal Gate",
-    "Lava Ruins Monica Shortcut Gate": "Metal Gate",
+    "Abyss Trap Gates": "Metal Gate",
+}
+
+abyss_trial_items: Dict[str, str] = {
+    "Abyss Underground Trial Clear": "Abyss Trial Clear",
+    "Abyss Lava Ruins Trial Clear": "Abyss Trial Clear",
+    "Abyss Dark Tunnel Trial Clear": "Abyss Trial Clear",
 }
 
 lwn_items: Dict[str, str] = {
     **magic_items,
     **useful_items,
     **boss_souls,
-    **filler_items,
+    **boss_tokens,
+    **filler_crystal_items,
+    **filler_souls_items,
+    **trap_items,
     **lore_items,
     **barrier_items,
     **gate_items,
+    **abyss_trial_items,
     "Teleport": "Teleport",
     "Trial Key": "Trial Key",
 }
@@ -214,11 +257,13 @@ lwn_items: Dict[str, str] = {
 item_name_groups = {
     "Attack Magics": magic_items.keys(),
     "Boss Souls": boss_souls.keys(),
+    "Boss Tokens": boss_tokens.keys(),
     "Double Jump": {"Wind"},
     "Counter": {"Mana Absorption"},
     "Lore": lore_items.keys(),
     "Magic Barrier": barrier_items.keys(),
     "Metal Gate": gate_items.keys(),
+    "Abyss Trial Clear": abyss_trial_items.keys(),
     "Bag Upgrade": {"Progressive Bag Upgrade"},
 }
 
