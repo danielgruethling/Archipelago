@@ -2,7 +2,10 @@ from .bases import LWNTestBase
 
 
 class TestVanillaGoal(LWNTestBase):
-    options = { "goal": "vanilla" }
+    options = {
+        "goal": "vanilla",
+        "barrier_behaviour": "vanilla"
+    }
 
     def test_vanilla_goal(self) -> None:
         self.assertAccessDependency(["Abyss - Nonota"],

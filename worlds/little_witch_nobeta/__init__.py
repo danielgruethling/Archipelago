@@ -1,16 +1,17 @@
 import dataclasses
 import math
-from typing import Any, Dict, List
+from typing import Any, Dict, List, ClassVar, Union
+from settings import FilePath, Group
 
 from BaseClasses import Item, ItemClassification, Tutorial, Region
 from worlds.AutoWorld import World, WebWorld
-from Options import OptionGroup
-from .options import PerGameCommonOptions, LWNOptions, Toggle
+from .options import PerGameCommonOptions, LWNOptions, Toggle, lwn_option_groups
 from .items import (lwn_items, item_name_to_id, magic_items, boss_souls, boss_tokens, useful_items, filler_crystal_items,
                     filler_souls_items, trap_items, lore_items, barrier_items, gate_items, abyss_trial_items, item_name_groups)
 from .locations import LWNLocation, location_name_groups, location_name_to_id, append_locations
 from .regions import LWNRegion, lwn_regions, set_start_region
 from .rules import set_region_rules, set_location_rules
+from .universal_tracker import lwn_tracker_world
 
 
 class LWNWebWorld(WebWorld):
@@ -26,62 +27,27 @@ class LWNWebWorld(WebWorld):
         )
     ]
 
-    option_groups = [
-        OptionGroup("Goal Options", [
-            options.Goal,
-            options.AbyssTrialRequirement,
-            options.TrialKeys,
-            options.TrialKeyAmount,
-        ]),
-        OptionGroup("Logic Options", [
-            options.WindRequirements,
-            options.RandomizeBossSouls,
-            options.RandomizeBossTokens,
-            options.SkippableBosses,
-            options.ShortcutGateBehaviour,
-            options.MagicPuzzleGateBehaviour,
-            options.RandomizeLore,
-            options.RandomizeBreakableWalls,
-            options.RandomizeJugs,
-            options.RandomizeBarrels,
-            options.RandomizeBrokenDolls,
-            options.RandomizeLightOrb,
-            options.RandomizeCrystalBalls,
-            options.RandomizeCrystals,
-            options.EntranceRandomization,
-            options.StartingArea,
-            options.DisableDarkTunnelThunderWall,
-            options.DisableDarkTunnelBridgeCollapse,
-            options.SkipsInLogic,
-        ]),
-        OptionGroup("Difficulty Options", [
-            options.Difficulty,
-            options.BossRequirementsDifficulty,
-            options.NoArcane,
-            options.NoManaRegeneration,
-            options.StartWithAbsorption,
-            options.SoulGainBaseValue,
-            options.SoulGainFactor,
-        ]),
-        OptionGroup("Filler Options", [
-            options.FillerCrystalWeight,
-            options.FillerSoulsWeight,
-            options.TrapFillPercentage,
-            options.ManaDrainTrapWeight,
-            options.BonkTrapWeight,
-        ]),
-    ]
+    option_groups = lwn_option_groups
 
 
 class LWNItem(Item):
     game: str = "Little Witch Nobeta"
+
+class LWNSettings(Group):
+    class UTPackPath(FilePath):
+        required = False  # You can comment this to force users to have the poptracker map
+        ut_dialog_name = "Select Poptracker pack"  # Optional: customize the dialog message
+
+    ut_pack_path: Union[UTPackPath, str] = UTPackPath()
 
 
 class LWNWorld(World):
     game: str = "Little Witch Nobeta"
     options_dataclass = LWNOptions
     options: LWNOptions
+    settings: ClassVar[LWNSettings]
     web = LWNWebWorld()
+    tracker_world: ClassVar = lwn_tracker_world
     topology_present = True
 
     # The following two dicts are required for the generation to know which
@@ -371,6 +337,6 @@ class LWNWorld(World):
             option = getattr(self.options, option_name)
             slot_data[option_name] = bool(option.value) if isinstance(option, Toggle) else option.value
 
-        slot_data["world_version"] = self.world_version
+        slot_data["world_version"] = self.world_version.as_simple_string()
 
         return slot_data

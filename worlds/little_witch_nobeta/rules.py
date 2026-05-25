@@ -67,7 +67,6 @@ skip_boss_enabled = True_() & [OptionFilter(SkippableBosses, True)]
 def set_region_rules(world: "LWNWorld") -> None:
     multiworld = world.multiworld
     player = world.player
-    options = world.options
 
     world.set_rule(multiworld.get_entrance("Shrine - Start -> Shrine - After first magic switch", player),
                    (has_barrier("Shrine First Magic Barrier")

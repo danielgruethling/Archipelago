@@ -730,21 +730,24 @@ def add_location_to_region(location_name, location_id, group_name, region, world
 
 
 def append_locations(world: "LWNWorld"):
-    if world.options.starting_area == world.options.starting_area.option_shrine:
+    if world.options.starting_area == world.options.starting_area.option_shrine\
+            or world.options.barrier_behaviour.value == world.options.barrier_behaviour.option_randomized:
         for location_name in shrine_start_locations:
             location_id = location_name_to_id[location_name]
             group_name = shrine_start_locations[location_name]
             region = world.multiworld.get_region("Shrine - Start", world.player)
             add_location_to_region(location_name, location_id, group_name, region, world)
 
-    if world.options.starting_area == world.options.starting_area.option_shrine:
+    if world.options.starting_area == world.options.starting_area.option_shrine\
+            or world.options.barrier_behaviour.value == world.options.barrier_behaviour.option_randomized:
         for location_name in shrine_after_first_magic_switch_locations:
             location_id = location_name_to_id[location_name]
             group_name = shrine_after_first_magic_switch_locations[location_name]
             region = world.multiworld.get_region("Shrine - After first magic switch", world.player)
             add_location_to_region(location_name, location_id, group_name, region, world)
 
-    if world.options.starting_area == world.options.starting_area.option_shrine:
+    if world.options.starting_area == world.options.starting_area.option_shrine\
+            or world.options.barrier_behaviour.value == world.options.barrier_behaviour.option_randomized:
         for location_name in shrine_cat_room_locations:
             location_id = location_name_to_id[location_name]
             group_name = shrine_cat_room_locations[location_name]

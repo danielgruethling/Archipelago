@@ -1,6 +1,6 @@
 from dataclasses import dataclass
 
-from Options import Choice, Toggle, DefaultOnToggle, Range, PerGameCommonOptions, Visibility, OptionSet
+from Options import Choice, Toggle, DefaultOnToggle, Range, PerGameCommonOptions, Visibility, OptionSet, OptionGroup
 
 DefaultOffToggle = Toggle
 
@@ -38,37 +38,6 @@ class AbyssTrialRequirement(Choice):
     option_lore_keeper = 4
 
     default = option_vanilla
-
-class TrialKeys(DefaultOffToggle):
-    """
-    This setting will add keys to the item pool which are needed to open the teleports to each Abyss trial.
-    Opening a trial is done by dropping a key on a trial path.
-    Three keys are needed to end the game. Putting more keys in the item pool will speed up progression.
-    """
-    display_name = "Trial keys"
-
-class TrialKeyAmount(Range):
-    """
-    Amount of trial keys added to the item pool. Suggested amount is 5.
-    """
-    display_name = "Trial key amount"
-    range_start = 3
-    range_end = 7
-    default = 5
-
-class Difficulty(Choice):
-    """
-    The Difficulty of the game.
-    [Standard] This is the new default difficulty. Nobeta auto-regenerates life here and the game is easier in general.
-    [Advanced] This is the suggested difficulty to use by the developers. If you want
-    a challenge like in other soulslike games choose this difficulty.
-    """
-    visibility = Visibility.none
-    display_name = "Difficulty"
-    option_standard = 0
-    option_advanced = 1
-
-    default = option_standard
 
 class BossRequirementsDifficulty(Choice):
     """
@@ -279,7 +248,6 @@ class StartingArea(Choice):
     Sets starting area, default is starting in Shrine
     """
     display_name = "Starting Area"
-    visibility = Visibility.none
     option_shrine = 0
     option_underground = 1
     option_lava_ruins = 2
@@ -380,18 +348,59 @@ class DeathLink(DefaultOffToggle):
     player dies you die as well.
     """
     display_name = "Deathlink"
+
+
+lwn_option_groups = [
+    OptionGroup("Goal Options", [
+        Goal,
+        AbyssTrialRequirement,
+    ]),
+    OptionGroup("Logic Options", [
+        WindRequirements,
+        RandomizeBossSouls,
+        RandomizeBossTokens,
+        SkippableBosses,
+        ShortcutGateBehaviour,
+        MagicPuzzleGateBehaviour,
+        RandomizeLore,
+        RandomizeBreakableWalls,
+        RandomizeJugs,
+        RandomizeBarrels,
+        RandomizeBrokenDolls,
+        RandomizeLightOrb,
+        RandomizeCrystalBalls,
+        RandomizeCrystals,
+        EntranceRandomization,
+        StartingArea,
+        DisableDarkTunnelThunderWall,
+        DisableDarkTunnelBridgeCollapse,
+        SkipsInLogic,
+    ]),
+    OptionGroup("Difficulty Options", [
+        BossRequirementsDifficulty,
+        NoArcane,
+        NoManaRegeneration,
+        StartWithAbsorption,
+        SoulGainBaseValue,
+        SoulGainFactor,
+    ]),
+    OptionGroup("Filler Options", [
+        FillerCrystalWeight,
+        FillerSoulsWeight,
+        TrapFillPercentage,
+        ManaDrainTrapWeight,
+        BonkTrapWeight,
+    ]),
+]
     
 
 @dataclass
 class LWNOptions(PerGameCommonOptions):
     goal: Goal
-    difficulty: Difficulty
     boss_requirements_difficulty: BossRequirementsDifficulty
     randomize_boss_souls: RandomizeBossSouls
     randomize_boss_tokens: RandomizeBossTokens
     skippable_bosses: SkippableBosses
-    trial_keys: TrialKeys
-    trial_key_amount: TrialKeyAmount
     abyss_trial_requirement: AbyssTrialRequirement
     no_arcane: NoArcane
     start_with_absorption: StartWithAbsorption
