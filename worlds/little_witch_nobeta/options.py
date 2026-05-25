@@ -39,6 +39,23 @@ class AbyssTrialRequirement(Choice):
 
     default = option_vanilla
 
+class TrialKeys(DefaultOffToggle):
+    """
+    This setting will add keys to the item pool which are needed to open the teleports to each Abyss trial.
+    Opening a trial is done by dropping a key on a trial path.
+    Three keys are needed to end the game. Putting more keys in the item pool will speed up progression.
+    """
+    display_name = "Trial keys"
+
+class TrialKeyAmount(Range):
+    """
+    Amount of trial keys added to the item pool. Suggested amount is 5.
+    """
+    display_name = "Trial key amount"
+    range_start = 3
+    range_end = 7
+    default = 5
+
 class BossRequirementsDifficulty(Choice):
     """
     Logic requirements for being able to beat a boss.
@@ -401,6 +418,8 @@ class LWNOptions(PerGameCommonOptions):
     randomize_boss_souls: RandomizeBossSouls
     randomize_boss_tokens: RandomizeBossTokens
     skippable_bosses: SkippableBosses
+    trial_keys: TrialKeys
+    trial_key_amount: TrialKeyAmount
     abyss_trial_requirement: AbyssTrialRequirement
     no_arcane: NoArcane
     start_with_absorption: StartWithAbsorption
