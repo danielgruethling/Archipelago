@@ -38,7 +38,7 @@ has_abyss_trial_requirements = ((HasAllCounts({"Arcane": 5, "Fire": 5, "Thunder"
                          & [OptionFilter(AbyssTrialRequirement, AbyssTrialRequirement.option_magic_master)])
                          | (HasAll("Specter Armor Token", "Tania Token", "Monica Token", "Enraged Armor Token",
                                    "Vanessa Token", "Vanessa V2 Token") & [OptionFilter(AbyssTrialRequirement, AbyssTrialRequirement.option_boss_hunt)])
-                         | (HasGroupUnique("Lore", 102) & [OptionFilter(AbyssTrialRequirement, AbyssTrialRequirement.option_lore_keeper), OptionFilter(RandomizeLore, RandomizeLore.option_vanilla), OptionFilter(StartingArea, StartingArea.option_shrine, operator="ne")])
+                         | (HasGroupUnique("Lore", 99) & [OptionFilter(AbyssTrialRequirement, AbyssTrialRequirement.option_lore_keeper), OptionFilter(RandomizeLore, RandomizeLore.option_vanilla), OptionFilter(StartingArea, StartingArea.option_shrine, operator="ne")])
                          | (HasGroupUnique("Lore", 102) & [OptionFilter(AbyssTrialRequirement, AbyssTrialRequirement.option_lore_keeper), OptionFilter(RandomizeLore, RandomizeLore.option_vanilla)])
                          | (HasGroupUnique("Lore", 103) & [OptionFilter(AbyssTrialRequirement, AbyssTrialRequirement.option_lore_keeper), OptionFilter(RandomizeLore, RandomizeLore.option_randomized)])
                          | (Has("Abyss Underground Trial Clear") & Has("Abyss Lava Ruins Trial Clear") & Has("Abyss Dark Tunnel Trial Clear") & [OptionFilter(AbyssTrialRequirement, AbyssTrialRequirement.option_randomized_item)])
