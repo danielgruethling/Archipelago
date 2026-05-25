@@ -14,7 +14,7 @@ from .options import (
     DisableDarkTunnelThunderWall,
     DisableDarkTunnelBridgeCollapse,
     RandomizeBossSouls,
-    SkippableBosses,
+    SkippableBosses, StartingArea,
 )
 from rule_builder.rules import Has, HasAny, HasAll, HasAllCounts, HasGroup, HasGroupUnique, CanReachRegion, True_
 from rule_builder.options import OptionFilter
@@ -30,6 +30,7 @@ has_goal_requirements = ((HasAllCounts({"Arcane": 5, "Fire": 5, "Thunder": 5, "I
                          & [OptionFilter(Goal, Goal.option_magic_master)])
                          | (HasAll("Specter Armor Token", "Tania Token", "Monica Token", "Enraged Armor Token",
                                    "Vanessa Token", "Vanessa V2 Token") & [OptionFilter(Goal, Goal.option_boss_hunt)])
+                         | (HasGroupUnique("Lore", 99) & [OptionFilter(Goal, Goal.option_lore_keeper), OptionFilter(RandomizeLore, RandomizeLore.option_vanilla), OptionFilter(StartingArea, StartingArea.option_shrine, operator="ne")])
                          | (HasGroupUnique("Lore", 102) & [OptionFilter(Goal, Goal.option_lore_keeper), OptionFilter(RandomizeLore, RandomizeLore.option_vanilla)])
                          | (HasGroupUnique("Lore", 103) & [OptionFilter(Goal, Goal.option_lore_keeper), OptionFilter(RandomizeLore, RandomizeLore.option_randomized)])
                          | [OptionFilter(Goal, Goal.option_vanilla)])

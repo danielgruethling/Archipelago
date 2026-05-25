@@ -234,7 +234,11 @@ class LWNWorld(World):
 
         # Subtract lore items if vanilla placements
         if self.options.randomize_lore == self.options.randomize_lore.option_vanilla:
-            remaining_items_needed -= len(lore_items)
+            if (self.options.starting_area != self.options.starting_area.option_shrine
+                    and self.options.barrier_behaviour != self.options.barrier_behaviour.option_randomized):
+                remaining_items_needed -= (len(lore_items) - 3)
+            else:
+                remaining_items_needed -= len(lore_items)
 
         # Subtract local boss tokens if not randomized
         if ((self.options.goal == self.options.goal.option_boss_hunt
@@ -243,7 +247,7 @@ class LWNWorld(World):
             remaining_items_needed -= len(boss_tokens)
 
         # Subtract local abyss trial complete items if not randomized
-        if (self.options.abyss_trial_requirement.value == self.options.abyss_trial_requirement.option_vanilla):
+        if self.options.abyss_trial_requirement.value == self.options.abyss_trial_requirement.option_vanilla:
             remaining_items_needed -= len(abyss_trial_items)
 
         # Replace percentage of filler items with trap items based on options
@@ -322,6 +326,13 @@ class LWNWorld(World):
             for item_name in lore_items.keys():
                 lore_location_name = next((loc for loc in all_lore_locations if item_name in loc), None)
                 if lore_location_name:
+                    if (self.options.starting_area != self.options.starting_area.option_shrine
+                        and self.options.barrier_behaviour != self.options.barrier_behaviour.option_randomized
+                        and lore_location_name
+                            in {"Shrine - 1. Crafted Soul Reader from pot in side alcove",
+                                "Shrine - 3. Copper Coin in Grand Hall statue barrel",
+                                "Shrine - 6. Broken Cross Spear from first ranged Enemy"}):
+                        continue
                     item = self.create_item(item_name)
                     self.multiworld.get_location(lore_location_name, self.player).place_locked_item(item)
 
