@@ -311,13 +311,13 @@ class LWNWorld(World):
             
         # Place abyss trial requirements when not randomized
         if self.options.abyss_trial_requirement.value == self.options.abyss_trial_requirement.option_vanilla:
-            (self.multiworld.get_location("Abyss - Underground Trial Complete", self.player)
+            (self.multiworld.get_location("Abyss - Underground trial complete", self.player)
                 .place_locked_item(self.create_item("Abyss Underground Trial Clear")))
             
-            (self.multiworld.get_location("Abyss - Lava Ruins Trial Complete", self.player)
+            (self.multiworld.get_location("Abyss - Lava Ruins trial complete", self.player)
                 .place_locked_item(self.create_item("Abyss Lava Ruins Trial Clear")))
             
-            (self.multiworld.get_location("Abyss - Dark Tunnel Trial Complete", self.player)
+            (self.multiworld.get_location("Abyss - Dark Tunnel trial complete", self.player)
                 .place_locked_item(self.create_item("Abyss Dark Tunnel Trial Clear")))
         
         # Place Lore items in vanilla location when not randomized by matching lore items to its location name
