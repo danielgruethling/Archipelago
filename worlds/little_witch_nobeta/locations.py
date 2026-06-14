@@ -378,7 +378,7 @@ abyss_underground_trial_locations: Dict[str, str] = {
 
 abyss_underground_trial_magic_switch_locations: Dict[str, str] = {
     "Abyss - Underground trial magic switch": "Barrier",
-    "Abyss - Underground Trial Complete": "Abyss Trial",
+    "Abyss - Underground trial complete": "Abyss Trial",
     "Abyss - 92. Semi-gaseous Soul Essence in front of underground trial magic switch": "Lore",
 }
 
@@ -390,7 +390,7 @@ abyss_dark_tunnel_trial_locations: Dict[str, str] = {
 
 abyss_dark_tunnel_trial_magic_switch_locations: Dict[str, str] = {
     "Abyss - Dark Tunnel trial magic switch": "Barrier",
-    "Abyss - Dark Tunnel Trial Complete": "Abyss Trial",
+    "Abyss - Dark Tunnel trial complete": "Abyss Trial",
     "Abyss - 96. Knight's Soul Shard in front of dark tunnel trial magic switch": "Lore",
 }
 
@@ -403,7 +403,7 @@ abyss_lava_ruins_trial_locations: Dict[str, str] = {
 
 abyss_lava_ruins_trial_magic_switch_locations: Dict[str, str] = {
     "Abyss - Lava Ruins trial magic switch": "Barrier",
-    "Abyss - Lava Ruins Trial Complete": "Abyss Trial",
+    "Abyss - Lava Ruins trial complete": "Abyss Trial",
     "Abyss - 94. Knight's Soul Shard in front of lava ruins trial magic switch": "Lore",
 }
 
@@ -703,9 +703,9 @@ location_name_groups = {
         "Underground - Tania boss arena barrier",
     },
     "Abyss Trial": {
-        "Abyss - Dark Tunnel Trial Complete",
-        "Abyss - Lava Ruins Trial Complete",
-        "Abyss - Underground Trial Complete",
+        "Abyss - Dark Tunnel trial complete",
+        "Abyss - Lava Ruins trial complete",
+        "Abyss - Underground trial complete",
     },
     "Teleport": {
         "Secret Passage - Teleport from Enraged Armor",

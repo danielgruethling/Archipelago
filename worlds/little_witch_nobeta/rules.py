@@ -935,7 +935,7 @@ def set_location_rules(world: "LWNWorld") -> None:
     if options.barrier_behaviour.value == options.barrier_behaviour.option_randomized:
         world.set_rule(multiworld.get_location("Abyss - Underground trial magic switch", player),
                  has_fire_or_thunder)
-    world.set_rule(multiworld.get_location("Abyss - Underground Trial Complete", player),
+    world.set_rule(multiworld.get_location("Abyss - Underground trial complete", player),
              has_fire_or_thunder)
     world.set_rule(multiworld.get_location("Abyss - Thunder spell chest dark tunnel trial", player),
              has_wind_or_skip)
@@ -948,8 +948,11 @@ def set_location_rules(world: "LWNWorld") -> None:
     if options.barrier_behaviour.value == options.barrier_behaviour.option_randomized:
         world.set_rule(multiworld.get_location("Abyss - Dark Tunnel trial magic switch", player),
                  has_fire_or_thunder)
-    world.set_rule(multiworld.get_location("Abyss - Dark Tunnel Trial Complete", player),
+    world.set_rule(multiworld.get_location("Abyss - Dark Tunnel trial complete", player),
              has_fire_or_thunder)
+    world.set_rule(multiworld.get_location("Abyss - Ice spell chest lava ruins trial", player),
+             has_barrier("Abyss Lava Ruins Trial Lower Lava")
+             | barrier_vanilla)
     if world.options.randomize_lore.value != world.options.randomize_lore.option_no_lore:
         world.set_rule(multiworld.get_location("Abyss - 93. Enchanted Soul Shard from maid enemy in lava ruins trial", player),
                  (has_fire_or_thunder
@@ -965,7 +968,7 @@ def set_location_rules(world: "LWNWorld") -> None:
     if options.barrier_behaviour.value == options.barrier_behaviour.option_randomized:
         world.set_rule(multiworld.get_location("Abyss - Lava Ruins trial magic switch", player),
                  has_fire_or_thunder)
-    world.set_rule(multiworld.get_location("Abyss - Lava Ruins Trial Complete", player),
+    world.set_rule(multiworld.get_location("Abyss - Lava Ruins trial complete", player),
              has_fire_or_thunder)
     if world.options.randomize_lore.value != world.options.randomize_lore.option_no_lore:
         world.set_rule(multiworld.get_location("Abyss - 102. Lost Maiden's Crafted Soul Shard from Nonota", player),
