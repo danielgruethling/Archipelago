@@ -342,8 +342,10 @@ def set_region_rules(world: "LWNWorld") -> None:
     world.set_rule(multiworld.get_entrance("Dark Tunnel - Start -> Lava Ruins - Path to dark tunnel", player),
                    True_())
     world.set_rule(multiworld.get_entrance("Dark Tunnel - Start -> Dark Tunnel - After first gate", player),
-                   (Has("Wind")
-                       | [OptionFilter(SkipsInLogic, "Dark Tunnel Hat Skip", "contains")]))
+                   (has_gate("Dark Tunnel First Gate")
+                       | gate_vanilla
+                       | (Has("Wind")
+                       & [OptionFilter(SkipsInLogic, "Dark Tunnel Hat Skip", "contains")])))
     world.set_rule(multiworld.get_entrance("Dark Tunnel - After first magic barrier -> Dark Tunnel - Start", player),
                    has_barrier("Dark Tunnel First Magic Barrier"))
     world.set_rule(multiworld.get_entrance("Dark Tunnel - After first magic barrier -> Dark Tunnel - After first gate", player),
@@ -379,6 +381,8 @@ def set_region_rules(world: "LWNWorld") -> None:
                        | Has("Wind")
                        | (Has("Thunder")
                        & barrier_vanilla)))
+    world.set_rule(multiworld.get_entrance("Dark Tunnel - After thunder barrier -> Dark Tunnel - Floating platform switches", player),
+                   Has("Thunder"))
     world.set_rule(multiworld.get_entrance("Dark Tunnel - After floating platforms -> Dark Tunnel - After thunder barrier", player),
                    ((has_barrier("Dark Tunnel Floating Platform One")
                        & has_barrier("Dark Tunnel Floating Platform Two")
@@ -386,6 +390,8 @@ def set_region_rules(world: "LWNWorld") -> None:
                        | Has("Wind")
                        | barrier_vanilla))
     world.set_rule(multiworld.get_entrance("Dark Tunnel - After floating platforms -> Dark Tunnel - After bridge collapse", player),
+                   True_())
+    world.set_rule(multiworld.get_entrance("Dark Tunnel - After floating platforms -> Dark Tunnel - Floating platform switches", player),
                    True_())
     world.set_rule(multiworld.get_entrance("Dark Tunnel - After bridge collapse -> Spirit Realm - Start", player),
                    (skip_boss_enabled
@@ -425,7 +431,7 @@ def set_region_rules(world: "LWNWorld") -> None:
                    True_())
     world.set_rule(multiworld.get_entrance("Spirit Realm - Seal -> Spirit Realm - After first Seal", player),
                    (has_barrier("Spirit Realm First Seal Magic Barrier")
-                       | (boss_req_none
+                       | ((boss_req_none
                        | (boss_req_absorption
                        & Has("Mana Absorption"))
                        | (boss_req_normal
@@ -433,7 +439,7 @@ def set_region_rules(world: "LWNWorld") -> None:
                        & Has("Mana Absorption"))
                        | (boss_req_easy
                        & HasGroup("Attack Magics", 5)
-                       & Has("Mana Absorption"))
+                       & Has("Mana Absorption")))
                        & barrier_vanilla)))
     world.set_rule(multiworld.get_entrance("Spirit Realm - After first Seal -> Spirit Realm - Seal", player),
                    has_barrier("Spirit Realm First Seal Magic Barrier"))
@@ -441,7 +447,7 @@ def set_region_rules(world: "LWNWorld") -> None:
                    (has_barrier("Spirit Realm Second Seal Magic Barrier")
                        | (Has("Wind")
                        & [OptionFilter(SkipsInLogic, "Spirit Realm Seal Barrier Skip", "contains")])
-                       | (boss_req_none
+                       | ((boss_req_none
                        | (boss_req_absorption
                        & Has("Mana Absorption"))
                        | (boss_req_normal
@@ -449,7 +455,7 @@ def set_region_rules(world: "LWNWorld") -> None:
                        & Has("Mana Absorption"))
                        | (boss_req_easy
                        & HasGroup("Attack Magics", 5)
-                       & Has("Mana Absorption"))
+                       & Has("Mana Absorption")))
                        & barrier_vanilla)))
     world.set_rule(multiworld.get_entrance("Spirit Realm - After second Seal -> Spirit Realm - After first Seal", player),
                    has_barrier("Spirit Realm Second Seal Magic Barrier"))
@@ -748,18 +754,6 @@ def set_location_rules(world: "LWNWorld") -> None:
     if options.barrier_behaviour.value == options.barrier_behaviour.option_randomized:
         world.set_rule(multiworld.get_location("Dark Tunnel - Thunder barrier magic switches", player),
                  Has("Thunder"))
-    if options.barrier_behaviour.value == options.barrier_behaviour.option_randomized:
-        world.set_rule(multiworld.get_location("Dark Tunnel - Floating platform switch one", player),
-                 Has("Thunder")
-                 | CanReachRegion("Dark Tunnel - After floating platforms"))
-    if options.barrier_behaviour.value == options.barrier_behaviour.option_randomized:
-        world.set_rule(multiworld.get_location("Dark Tunnel - Floating platform switch two", player),
-                 Has("Thunder")
-                 | CanReachRegion("Dark Tunnel - After floating platforms"))
-    if options.barrier_behaviour.value == options.barrier_behaviour.option_randomized:
-        world.set_rule(multiworld.get_location("Dark Tunnel - Floating platform switch three", player),
-                 Has("Thunder")
-                 | CanReachRegion("Dark Tunnel - After floating platforms"))
     if world.options.randomize_lore.value != world.options.randomize_lore.option_no_lore:
         world.set_rule(multiworld.get_location("Dark Tunnel - 71. Apocalypse Knight Record from knight enemy", player),
                  has_wind_or_damage_boost)

@@ -249,6 +249,9 @@ dark_tunnel_after_thunder_barrier_locations: Dict[str, str] = {
     "Dark Tunnel - 51. Hero's Insignia": "Lore",
     "Dark Tunnel - Chest in alcove": "Chest",
     "Dark Tunnel - 54. Banner of the Lance Hero from lightning enemy": "Lore",
+}
+
+dark_tunnel_floating_platform_switches_locations: Dict[str, str] = {
     "Dark Tunnel - Floating platform switch one": "Barrier",
     "Dark Tunnel - Floating platform switch two": "Barrier",
     "Dark Tunnel - Floating platform switch three": "Barrier",
@@ -449,6 +452,7 @@ lwn_locations: Dict[str, str] = {
     **dark_tunnel_after_light_switch_barrier_locations,
     **dark_tunnel_thunder_barrier_locations,
     **dark_tunnel_after_thunder_barrier_locations,
+    **dark_tunnel_floating_platform_switches_locations,
     **dark_tunnel_after_floating_platforms_locations,
     **dark_tunnel_after_bridge_collapse_locations,
     **spirit_realm_start_locations,
@@ -950,6 +954,12 @@ def append_locations(world: "LWNWorld"):
         location_id = location_name_to_id[location_name]
         group_name = dark_tunnel_after_thunder_barrier_locations[location_name]
         region = world.multiworld.get_region("Dark Tunnel - After thunder barrier", world.player)
+        add_location_to_region(location_name, location_id, group_name, region, world)
+
+    for location_name in dark_tunnel_floating_platform_switches_locations:
+        location_id = location_name_to_id[location_name]
+        group_name = dark_tunnel_floating_platform_switches_locations[location_name]
+        region = world.multiworld.get_region("Dark Tunnel - Floating platform switches", world.player)
         add_location_to_region(location_name, location_id, group_name, region, world)
 
     for location_name in dark_tunnel_after_floating_platforms_locations:
