@@ -297,7 +297,7 @@ class LWNWorld(World):
             (self.multiworld.get_location("Secret Passage - Enraged Armor", self.player)
                 .place_locked_item(self.create_item("Enraged Armor Token")))
 
-            (self.multiworld.get_location("Underground - Defeat Tania", self.player)
+            (self.multiworld.get_location("Underground - Defeat tania", self.player)
                 .place_locked_item(self.create_item("Tania Token")))
 
             (self.multiworld.get_location("Lava Ruins - Monica", self.player)

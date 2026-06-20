@@ -127,7 +127,7 @@ underground_after_fire_magic_switch_barrier_locations: Dict[str, str] = {
 }
 
 underground_tania_locations: Dict[str, str] = {
-    "Underground - Defeat Tania": "Bosses",
+    "Underground - Defeat tania": "Bosses",
     "Underground - Tania boss arena barrier": "Barrier",
     "Underground - Tania shortcut switch on Tania side": "Metal Gate",
     "Underground - 98. Lost Maiden's Soul Shard from Tania": "Lore",
@@ -487,7 +487,7 @@ location_name_groups = {
         "Secret Passage - Enraged Armor",
         "Shrine - Specter Armor",
         "Spirit Realm - Vanessa V2",
-        "Underground - Defeat Tania",
+        "Underground - Defeat tania",
     },
     "Lore": {
         "Abyss - 102. Lost Maiden's Crafted Soul Shard from Nonota",

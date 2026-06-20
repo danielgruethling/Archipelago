@@ -622,7 +622,7 @@ def set_location_rules(world: "LWNWorld") -> None:
     if options.barrier_behaviour.value == options.barrier_behaviour.option_randomized:
         world.set_rule(multiworld.get_location("Underground - After fire magic switch", player),
                  Has("Ice"))
-    world.set_rule(multiworld.get_location("Underground - Defeat Tania", player),
+    world.set_rule(multiworld.get_location("Underground - Defeat tania", player),
              (boss_souls_vanilla
              | Has("Tania Soul"))
              & (boss_req_none
