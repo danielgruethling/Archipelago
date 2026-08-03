@@ -80,7 +80,9 @@ def set_region_rules(world: "LWNWorld") -> None:
     world.set_rule(multiworld.get_entrance("Shrine - After first magic switch -> Shrine - Start", player),
                    has_barrier("Shrine First Magic Barrier"))
     world.set_rule(multiworld.get_entrance("Shrine - Cat Room -> Shrine - After first magic switch", player),
-                   has_barrier("Shrine Second Magic Barrier"))
+                   (has_barrier("Shrine Second Magic Barrier")
+                       & (has_barrier("Shrine Meet Cat Magic Barrier")
+                       | barrier_vanilla)))
     world.set_rule(multiworld.get_entrance("Shrine - Cat Room -> Shrine - Armor Hall", player),
                    (has_barrier("Shrine Meet Cat Magic Barrier")
                        | barrier_vanilla))
@@ -95,7 +97,7 @@ def set_region_rules(world: "LWNWorld") -> None:
     world.set_rule(multiworld.get_entrance("Shrine - Armor Hall -> Shrine - Underground shortcut", player),
                    has_gate("Shrine Underground Shortcut Gate"))
     world.set_rule(multiworld.get_entrance("Shrine - Armor Hall -> Shrine - Cat Room", player),
-                   has_barrier("Shrine Meet Cat Magic Barrier"))
+                   True_())
     world.set_rule(multiworld.get_entrance("Shrine - Armor Hall -> Underground - Start", player),
                    (skip_boss_enabled
                        | ((boss_souls_vanilla
@@ -112,23 +114,27 @@ def set_region_rules(world: "LWNWorld") -> None:
                        | gate_vanilla))
     world.set_rule(multiworld.get_entrance("Shrine - Underground shortcut -> Underground - Shrine shortcut", player),
                    True_())
-    world.set_rule(multiworld.get_entrance("Secret passage - Start -> Shrine - Armor Hall", player),
-                   has_barrier("Secret Passage Entrance Magic Barrier"))
-    world.set_rule(multiworld.get_entrance("Secret passage - Start -> Secret passage - After first fire barrier", player),
+    world.set_rule(multiworld.get_entrance("Secret passage - Start -> Secret passage - First fire barrier switch room", player),
+                   True_())
+    world.set_rule(multiworld.get_entrance("Secret passage - First fire barrier switch room -> Secret passage - After first fire barrier", player),
                    (has_barrier("Secret Passage First Fire Barrier")
                        | (has_fire_or_thunder
                        & barrier_vanilla)))
-    world.set_rule(multiworld.get_entrance("Secret passage - After first fire barrier -> Secret passage - Start", player),
+    world.set_rule(multiworld.get_entrance("Secret passage - After first fire barrier -> Secret passage - First fire barrier switch room", player),
                    has_barrier("Secret Passage First Fire Barrier"))
-    world.set_rule(multiworld.get_entrance("Secret passage - After first fire barrier -> Secret Passage - Dark Tunnel shortcut", player),
-                   has_gate("Secret Passage Dark Tunnel Shortcut Gate"))
-    world.set_rule(multiworld.get_entrance("Secret passage - After first fire barrier -> Shrine - Armor Hall", player),
-                   (has_gate("Shrine Secret Area Shortcut Gate")
-                       | gate_vanilla))
+    world.set_rule(multiworld.get_entrance("Secret passage - After first fire barrier -> Secret passage - After secret passage gate", player),
+                   True_())
     world.set_rule(multiworld.get_entrance("Secret passage - After first fire barrier -> Secret Passage - Before Enraged Armor", player),
                    (has_barrier("Secret Passage Second Fire Barrier")
                        | (has_fire_or_thunder
                        & barrier_vanilla)))
+    world.set_rule(multiworld.get_entrance("Secret passage - After secret passage gate -> Secret passage - After first fire barrier", player),
+                   has_fire_or_thunder)
+    world.set_rule(multiworld.get_entrance("Secret passage - After secret passage gate -> Secret Passage - Dark Tunnel shortcut", player),
+                   has_gate("Secret Passage Dark Tunnel Shortcut Gate"))
+    world.set_rule(multiworld.get_entrance("Secret passage - After secret passage gate -> Shrine - Armor Hall", player),
+                   (has_gate("Shrine Secret Area Shortcut Gate")
+                       | gate_vanilla))
     world.set_rule(multiworld.get_entrance("Secret Passage - Before Enraged Armor -> Secret passage - After first fire barrier", player),
                    (has_barrier("Secret Passage Second Fire Barrier")
                        | (has_fire_or_thunder
@@ -264,14 +270,14 @@ def set_region_rules(world: "LWNWorld") -> None:
                    True_())
     world.set_rule(multiworld.get_entrance("Lava Ruins - Scissor Enemy Room -> Lava Ruins - After magic platforms", player),
                    (has_barrier("Lava Ruins Scissor Enemy Lift")
-                       | (barrier_vanilla
-                       & Has("Arcane"))))
+                       | barrier_vanilla))
     world.set_rule(multiworld.get_entrance("Lava Ruins - Scissor Enemy Room -> Lava Ruins - After scissor enemy barrier", player),
                    (has_barrier("Lava Ruins Scissor Enemy Barrier")
                        | barrier_vanilla))
     world.set_rule(multiworld.get_entrance("Lava Ruins - Scissor Enemy Room -> Lava Ruins - Lift Magic Switch Room", player),
                    (has_barrier("Lava Ruins Scissor Enemy Barrier")
-                       | barrier_vanilla))
+                       | barrier_vanilla
+                       | HasAny("Arcane", "Thunder")))
     world.set_rule(multiworld.get_entrance("Lava Ruins - Scissor Enemy Room -> Lava Ruins - Scissor Enemy Battle", player),
                    True_())
     world.set_rule(multiworld.get_entrance("Lava Ruins - After scissor enemy barrier -> Lava Ruins - After Fire Barrier", player),
@@ -342,10 +348,8 @@ def set_region_rules(world: "LWNWorld") -> None:
     world.set_rule(multiworld.get_entrance("Dark Tunnel - Start -> Lava Ruins - Path to dark tunnel", player),
                    True_())
     world.set_rule(multiworld.get_entrance("Dark Tunnel - Start -> Dark Tunnel - After first gate", player),
-                   (has_gate("Dark Tunnel First Gate")
-                       | gate_vanilla
-                       | (Has("Wind")
-                       & [OptionFilter(SkipsInLogic, "Dark Tunnel Hat Skip", "contains")])))
+                   (Has("Wind")
+                       & [OptionFilter(SkipsInLogic, "Dark Tunnel Hat Skip", "contains")]))
     world.set_rule(multiworld.get_entrance("Dark Tunnel - After first magic barrier -> Dark Tunnel - Start", player),
                    has_barrier("Dark Tunnel First Magic Barrier"))
     world.set_rule(multiworld.get_entrance("Dark Tunnel - After first magic barrier -> Dark Tunnel - After first gate", player),
@@ -622,7 +626,7 @@ def set_location_rules(world: "LWNWorld") -> None:
     if options.barrier_behaviour.value == options.barrier_behaviour.option_randomized:
         world.set_rule(multiworld.get_location("Underground - After fire magic switch", player),
                  Has("Ice"))
-    world.set_rule(multiworld.get_location("Underground - Defeat tania", player),
+    world.set_rule(multiworld.get_location("Underground - Tania", player),
              (boss_souls_vanilla
              | Has("Tania Soul"))
              & (boss_req_none
@@ -672,7 +676,9 @@ def set_location_rules(world: "LWNWorld") -> None:
         world.set_rule(multiworld.get_location("Lava Ruins - Fire magic switch", player),
                  has_fire_or_thunder)
     world.set_rule(multiworld.get_location("Lava Ruins - Jumping puzzle arcane chest at moving ring gauntlet", player),
-             Has("Wind"))
+             (has_barrier("Lava Ruins Moving Ring")
+             | barrier_vanilla)
+             & Has("Wind"))
     world.set_rule(multiworld.get_location("Lava Ruins - Monica", player),
              (boss_souls_vanilla
              | Has("Monica Soul"))
