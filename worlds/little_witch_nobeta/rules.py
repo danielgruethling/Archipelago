@@ -5,6 +5,8 @@ from .options import (
     MagicPuzzleGateBehaviour,
     ShortcutGateBehaviour,
     WindRequirements,
+    CondensedMagic,
+    MaxMagicLevel,
     TrialKeys,
     Goal,
     AbyssTrialRequirement,
@@ -18,6 +20,7 @@ from .options import (
 )
 from rule_builder.rules import Has, HasAny, HasAll, HasAllCounts, HasGroup, HasGroupUnique, CanReachRegion, True_
 from rule_builder.options import OptionFilter
+from rule_builder.field_resolvers import FromOption
 
 if TYPE_CHECKING:
     from . import LWNWorld
@@ -26,7 +29,14 @@ if TYPE_CHECKING:
 has_fire_or_thunder = HasAny("Fire", "Thunder")
 has_wind_or_skip = Has("Wind") | [OptionFilter(WindRequirements, WindRequirements.option_less_wind_requirements)]
 has_wind_or_damage_boost = Has("Wind") | (Has("Fire") & [OptionFilter(WindRequirements, WindRequirements.option_less_wind_requirements)])
-has_goal_requirements = ((HasAllCounts({"Arcane": 5, "Fire": 5, "Thunder": 5, "Ice": 5})
+has_magic_master_requirements = (HasAllCounts({"Arcane": 1, "Fire": 1, "Thunder": 1, "Ice": 1})
+                        & [OptionFilter(CondensedMagic, CondensedMagic.option_true)]
+                        | (Has("Arcane", count = FromOption(MaxMagicLevel))
+                            & Has("Fire", count = FromOption(MaxMagicLevel))
+                            & Has("Thunder", count = FromOption(MaxMagicLevel))
+                            & Has("Ice", count = FromOption(MaxMagicLevel)))
+                        & [OptionFilter(CondensedMagic, CondensedMagic.option_false)])
+has_goal_requirements = ((has_magic_master_requirements
                          & [OptionFilter(Goal, Goal.option_magic_master)])
                          | (HasAll("Specter Armor Token", "Tania Token", "Monica Token", "Enraged Armor Token",
                                    "Vanessa Token", "Vanessa V2 Token") & [OptionFilter(Goal, Goal.option_boss_hunt)])
@@ -34,7 +44,7 @@ has_goal_requirements = ((HasAllCounts({"Arcane": 5, "Fire": 5, "Thunder": 5, "I
                          | (HasGroupUnique("Lore", 102) & [OptionFilter(Goal, Goal.option_lore_keeper), OptionFilter(RandomizeLore, RandomizeLore.option_vanilla)])
                          | (HasGroupUnique("Lore", 103) & [OptionFilter(Goal, Goal.option_lore_keeper), OptionFilter(RandomizeLore, RandomizeLore.option_randomized)])
                          | [OptionFilter(Goal, Goal.option_vanilla)])
-has_abyss_trial_requirements = ((HasAllCounts({"Arcane": 5, "Fire": 5, "Thunder": 5, "Ice": 5})
+has_abyss_trial_requirements = ((has_magic_master_requirements
                          & [OptionFilter(AbyssTrialRequirement, AbyssTrialRequirement.option_magic_master)])
                          | (HasAll("Specter Armor Token", "Tania Token", "Monica Token", "Enraged Armor Token",
                                    "Vanessa Token", "Vanessa V2 Token") & [OptionFilter(AbyssTrialRequirement, AbyssTrialRequirement.option_boss_hunt)])
@@ -150,7 +160,7 @@ def set_region_rules(world: "LWNWorld") -> None:
                        & HasGroup("Attack Magics")
                        & Has("Mana Absorption"))
                        | (boss_req_easy
-                       & HasGroup("Attack Magics", 5)
+                       & HasGroupUnique("Attack Magics", 3)
                        & Has("Mana Absorption")))
                        & barrier_vanilla)))
     world.set_rule(multiworld.get_entrance("Secret Passage - Enraged Armor -> Secret Passage - Before Enraged Armor", player),
@@ -164,7 +174,7 @@ def set_region_rules(world: "LWNWorld") -> None:
                        & HasGroup("Attack Magics")
                        & Has("Mana Absorption"))
                        | (boss_req_easy
-                       & HasGroup("Attack Magics", 5)
+                       & HasGroupUnique("Attack Magics", 3)
                        & Has("Mana Absorption"))))))
     world.set_rule(multiworld.get_entrance("Secret Passage - Boss Shortcut -> Shrine - Armor Hall", player),
                    (has_gate("Shrine Secret Boss Shortcut Gate")
@@ -248,7 +258,7 @@ def set_region_rules(world: "LWNWorld") -> None:
                        & HasGroup("Attack Magics")
                        & Has("Mana Absorption"))
                        | (boss_req_easy
-                       & HasGroup("Attack Magics", 3)
+                       & HasGroupUnique("Attack Magics", 2)
                        & Has("Mana Absorption")))))))
     world.set_rule(multiworld.get_entrance("Lava Ruins - Start -> Lava Ruins - After magic platforms", player),
                    (has_barrier("Lava Ruins Magic Platforms")
@@ -325,7 +335,7 @@ def set_region_rules(world: "LWNWorld") -> None:
                        & HasGroup("Attack Magics")
                        & Has("Mana Absorption"))
                        | (boss_req_easy
-                       & HasGroup("Attack Magics", 4)
+                       & HasGroupUnique("Attack Magics", 2)
                        & Has("Mana Absorption")))))
     world.set_rule(multiworld.get_entrance("Lava Ruins - Monica warp -> Lava Ruins - Path to dark tunnel", player),
                    (has_gate("Lava Ruins Monica Warp Gate")
@@ -408,7 +418,7 @@ def set_region_rules(world: "LWNWorld") -> None:
                        & HasGroup("Attack Magics")
                        & Has("Mana Absorption"))
                        | (boss_req_easy
-                       & HasGroup("Attack Magics", 5)
+                       & HasGroupUnique("Attack Magics", 2)
                        & Has("Mana Absorption"))))))
     world.set_rule(multiworld.get_entrance("Dark Tunnel - After bridge collapse -> Secret Passage - Dark Tunnel shortcut", player),
                    True_())
@@ -442,7 +452,7 @@ def set_region_rules(world: "LWNWorld") -> None:
                        & HasGroup("Attack Magics")
                        & Has("Mana Absorption"))
                        | (boss_req_easy
-                       & HasGroup("Attack Magics", 5)
+                       & HasGroupUnique("Attack Magics", 3)
                        & Has("Mana Absorption")))
                        & barrier_vanilla)))
     world.set_rule(multiworld.get_entrance("Spirit Realm - After first Seal -> Spirit Realm - Seal", player),
@@ -458,7 +468,7 @@ def set_region_rules(world: "LWNWorld") -> None:
                        & HasGroup("Attack Magics")
                        & Has("Mana Absorption"))
                        | (boss_req_easy
-                       & HasGroup("Attack Magics", 5)
+                       & HasGroupUnique("Attack Magics", 3)
                        & Has("Mana Absorption")))
                        & barrier_vanilla)))
     world.set_rule(multiworld.get_entrance("Spirit Realm - After second Seal -> Spirit Realm - After first Seal", player),
@@ -491,7 +501,7 @@ def set_region_rules(world: "LWNWorld") -> None:
                        & HasGroup("Attack Magics")
                        & Has("Mana Absorption"))
                        | (boss_req_easy
-                       & HasGroup("Attack Magics", 5)
+                       & HasGroupUnique("Attack Magics", 3)
                        & Has("Mana Absorption"))))))
     world.set_rule(multiworld.get_entrance("Abyss -> Abyss - After first teleport", player),
                    True_())
@@ -578,7 +588,7 @@ def set_location_rules(world: "LWNWorld") -> None:
              & HasGroup("Attack Magics")
              & Has("Mana Absorption"))
              | (boss_req_easy
-             & HasGroup("Attack Magics", 5)
+             & HasGroupUnique("Attack Magics", 3)
              & Has("Mana Absorption"))))
     if world.options.randomize_lore.value != world.options.randomize_lore.option_no_lore:
         world.set_rule(multiworld.get_location("Secret Passage - 56. Knight Kingdom Crown from Enraged Armor", player),
@@ -591,7 +601,7 @@ def set_location_rules(world: "LWNWorld") -> None:
                  & HasGroup("Attack Magics")
                  & Has("Mana Absorption"))
                  | (boss_req_easy
-                 & HasGroup("Attack Magics", 5)
+                 & HasGroupUnique("Attack Magics", 3)
                  & Has("Mana Absorption"))))
     world.set_rule(multiworld.get_location("Secret Passage - Teleport from Enraged Armor", player),
              (boss_souls_vanilla
@@ -603,7 +613,7 @@ def set_location_rules(world: "LWNWorld") -> None:
              & HasGroup("Attack Magics")
              & Has("Mana Absorption"))
              | (boss_req_easy
-             & HasGroup("Attack Magics", 5)
+             & HasGroupUnique("Attack Magics", 3)
              & Has("Mana Absorption"))))
     if options.barrier_behaviour.value == options.barrier_behaviour.option_randomized:
         world.set_rule(multiworld.get_location("Secret Passage - Defeat Enraged Armor barrier", player),
@@ -616,7 +626,7 @@ def set_location_rules(world: "LWNWorld") -> None:
                  & HasGroup("Attack Magics")
                  & Has("Mana Absorption"))
                  | (boss_req_easy
-                 & HasGroup("Attack Magics", 5)
+                 & HasGroupUnique("Attack Magics", 3)
                  & Has("Mana Absorption"))))
     world.set_rule(multiworld.get_location("Underground - Arcane chest at bridge jumping puzzle", player),
              has_wind_or_skip)
@@ -636,7 +646,7 @@ def set_location_rules(world: "LWNWorld") -> None:
              & HasGroup("Attack Magics")
              & Has("Mana Absorption"))
              | (boss_req_easy
-             & HasGroup("Attack Magics", 3)
+             & HasGroupUnique("Attack Magics", 2)
              & Has("Mana Absorption"))))
     if options.barrier_behaviour.value == options.barrier_behaviour.option_randomized:
         world.set_rule(multiworld.get_location("Underground - Tania boss arena barrier", player),
@@ -649,7 +659,7 @@ def set_location_rules(world: "LWNWorld") -> None:
                  & HasGroup("Attack Magics")
                  & Has("Mana Absorption"))
                  | (boss_req_easy
-                 & HasGroup("Attack Magics", 3)
+                 & HasGroupUnique("Attack Magics", 2)
                  & Has("Mana Absorption"))))
     if world.options.randomize_lore.value != world.options.randomize_lore.option_no_lore:
         world.set_rule(multiworld.get_location("Underground - 98. Lost Maiden's Soul Shard from Tania", player),
@@ -662,7 +672,7 @@ def set_location_rules(world: "LWNWorld") -> None:
                  & HasGroup("Attack Magics")
                  & Has("Mana Absorption"))
                  | (boss_req_easy
-                 & HasGroup("Attack Magics", 3)
+                 & HasGroupUnique("Attack Magics", 2)
                  & Has("Mana Absorption"))))
     world.set_rule(multiworld.get_location("Lava Ruins - Chest on scaffolding", player),
              has_wind_or_damage_boost)
@@ -689,7 +699,7 @@ def set_location_rules(world: "LWNWorld") -> None:
              & HasGroup("Attack Magics")
              & Has("Mana Absorption"))
              | (boss_req_easy
-             & HasGroup("Attack Magics", 4)
+             & HasGroupUnique("Attack Magics", 2)
              & Has("Mana Absorption"))))
     if options.barrier_behaviour.value == options.barrier_behaviour.option_randomized:
         world.set_rule(multiworld.get_location("Lava Ruins - Monica boss arena barrier", player),
@@ -702,7 +712,7 @@ def set_location_rules(world: "LWNWorld") -> None:
                  & HasGroup("Attack Magics")
                  & Has("Mana Absorption"))
                  | (boss_req_easy
-                 & HasGroup("Attack Magics", 4)
+                 & HasGroupUnique("Attack Magics", 2)
                  & Has("Mana Absorption"))))
     if world.options.randomize_lore.value != world.options.randomize_lore.option_no_lore:
         world.set_rule(multiworld.get_location("Lava Ruins - 34. Bestian Ear from Monica", player),
@@ -715,7 +725,7 @@ def set_location_rules(world: "LWNWorld") -> None:
                  & HasGroup("Attack Magics")
                  & Has("Mana Absorption"))
                  | (boss_req_easy
-                 & HasGroup("Attack Magics", 4)
+                 & HasGroupUnique("Attack Magics", 2)
                  & Has("Mana Absorption"))))
     if world.options.randomize_lore.value != world.options.randomize_lore.option_no_lore:
         world.set_rule(multiworld.get_location("Lava Ruins - 33. Bestian Palm from Monica", player),
@@ -728,7 +738,7 @@ def set_location_rules(world: "LWNWorld") -> None:
                  & HasGroup("Attack Magics")
                  & Has("Mana Absorption"))
                  | (boss_req_easy
-                 & HasGroup("Attack Magics", 4)
+                 & HasGroupUnique("Attack Magics", 2)
                  & Has("Mana Absorption"))))
     if world.options.randomize_lore.value != world.options.randomize_lore.option_no_lore:
         world.set_rule(multiworld.get_location("Lava Ruins - 99. Child's Soul Shard from Monica", player),
@@ -741,7 +751,7 @@ def set_location_rules(world: "LWNWorld") -> None:
                  & HasGroup("Attack Magics")
                  & Has("Mana Absorption"))
                  | (boss_req_easy
-                 & HasGroup("Attack Magics", 4)
+                 & HasGroupUnique("Attack Magics", 2)
                  & Has("Mana Absorption"))))
     if world.options.randomize_lore.value != world.options.randomize_lore.option_no_lore:
         world.set_rule(multiworld.get_location("Dark Tunnel - 39. Dark Elf's Short Bow from barrel on scaffolding", player),
@@ -778,7 +788,7 @@ def set_location_rules(world: "LWNWorld") -> None:
              & HasGroup("Attack Magics")
              & Has("Mana Absorption"))
              | (boss_req_easy
-             & HasGroup("Attack Magics", 5)
+             & HasGroupUnique("Attack Magics", 2)
              & Has("Mana Absorption"))))
     if world.options.randomize_lore.value != world.options.randomize_lore.option_no_lore:
         world.set_rule(multiworld.get_location("Dark Tunnel - 100. King's Final Honor from Vanessa", player),
@@ -791,7 +801,7 @@ def set_location_rules(world: "LWNWorld") -> None:
                  & HasGroup("Attack Magics")
                  & Has("Mana Absorption"))
                  | (boss_req_easy
-                 & HasGroup("Attack Magics", 5)
+                 & HasGroupUnique("Attack Magics", 2)
                  & Has("Mana Absorption"))))
     if world.options.randomize_lore.value != world.options.randomize_lore.option_no_lore:
         world.set_rule(multiworld.get_location("Dark Tunnel - 78. Ancient Throne Rune from Vanessa", player),
@@ -804,7 +814,7 @@ def set_location_rules(world: "LWNWorld") -> None:
                  & HasGroup("Attack Magics")
                  & Has("Mana Absorption"))
                  | (boss_req_easy
-                 & HasGroup("Attack Magics", 5)
+                 & HasGroupUnique("Attack Magics", 2)
                  & Has("Mana Absorption"))))
     if world.options.randomize_lore.value != world.options.randomize_lore.option_no_lore:
         world.set_rule(multiworld.get_location("Dark Tunnel - 77. The Throne from Vanessa", player),
@@ -817,7 +827,7 @@ def set_location_rules(world: "LWNWorld") -> None:
                  & HasGroup("Attack Magics")
                  & Has("Mana Absorption"))
                  | (boss_req_easy
-                 & HasGroup("Attack Magics", 5)
+                 & HasGroupUnique("Attack Magics", 2)
                  & Has("Mana Absorption"))))
     world.set_rule(multiworld.get_location("Spirit Realm - Ice spell chest in right side alcove", player),
              Has("Wind"))
@@ -839,7 +849,7 @@ def set_location_rules(world: "LWNWorld") -> None:
                  & HasGroup("Attack Magics")
                  & Has("Mana Absorption"))
                  | (boss_req_easy
-                 & HasGroup("Attack Magics", 5)
+                 & HasGroupUnique("Attack Magics", 3)
                  & Has("Mana Absorption")))
     if options.barrier_behaviour.value == options.barrier_behaviour.option_randomized:
         world.set_rule(multiworld.get_location("Spirit Realm - Second Seal magic barrier", player),
@@ -850,7 +860,7 @@ def set_location_rules(world: "LWNWorld") -> None:
                  & HasGroup("Attack Magics")
                  & Has("Mana Absorption"))
                  | (boss_req_easy
-                 & HasGroup("Attack Magics", 5)
+                 & HasGroupUnique("Attack Magics", 3)
                  & Has("Mana Absorption")))
     if options.barrier_behaviour.value == options.barrier_behaviour.option_randomized:
         world.set_rule(multiworld.get_location("Spirit Realm - Elevator magic switch", player),
@@ -890,7 +900,7 @@ def set_location_rules(world: "LWNWorld") -> None:
              & HasGroup("Attack Magics")
              & Has("Mana Absorption"))
              | (boss_req_easy
-             & HasGroup("Attack Magics", 5)
+             & HasGroupUnique("Attack Magics", 3)
              & Has("Mana Absorption"))))
     if world.options.randomize_lore.value != world.options.randomize_lore.option_no_lore:
         world.set_rule(multiworld.get_location("Spirit Realm - 101. Proud King's Crafted Soul Shard from Vanessa V2", player),
@@ -903,7 +913,7 @@ def set_location_rules(world: "LWNWorld") -> None:
                  & HasGroup("Attack Magics")
                  & Has("Mana Absorption"))
                  | (boss_req_easy
-                 & HasGroup("Attack Magics", 5)
+                 & HasGroupUnique("Attack Magics", 3)
                  & Has("Mana Absorption"))))
     world.set_rule(multiworld.get_location("Spirit Realm - Thunder spell from Vanessa V2", player),
              (boss_souls_vanilla
@@ -915,7 +925,7 @@ def set_location_rules(world: "LWNWorld") -> None:
              & HasGroup("Attack Magics")
              & Has("Mana Absorption"))
              | (boss_req_easy
-             & HasGroup("Attack Magics", 5)
+             & HasGroupUnique("Attack Magics", 3)
              & Has("Mana Absorption"))))
     if world.options.randomize_lore.value != world.options.randomize_lore.option_no_lore:
         world.set_rule(multiworld.get_location("Abyss - 83. Castle Blueprint from crystal on brittle ledge", player),
@@ -980,7 +990,7 @@ def set_location_rules(world: "LWNWorld") -> None:
                  & HasGroup("Attack Magics")
                  & Has("Mana Absorption"))
                  | (boss_req_easy
-                 & HasGroup("Attack Magics", 7)
+                 & HasGroupUnique("Attack Magics", 4)
                  & Has("Mana Absorption"))))
     world.set_rule(multiworld.get_location("Abyss - Nonota", player),
              has_goal_requirements
@@ -991,5 +1001,5 @@ def set_location_rules(world: "LWNWorld") -> None:
              & HasGroup("Attack Magics")
              & Has("Mana Absorption"))
              | (boss_req_easy
-             & HasGroup("Attack Magics", 7)
+             & HasGroupUnique("Attack Magics", 4)
              & Has("Mana Absorption"))))
