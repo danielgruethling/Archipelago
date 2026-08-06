@@ -9,7 +9,7 @@ class Goal(Choice):
     """
     The Goal of the game.
     [Vanilla] Reaching and beating Nonota will end the game.
-    [Magic Master] All attack magics (arcane, ice, fire and thunder) must be level 5 before Nonota can be reached.
+    [Magic Master] All attack magics (arcane, ice, fire and thunder) must be at the max set level before Nonota can be reached.
     [Boss Hunt] All boss tokens gained by defeating bosses need to be collected before Nonota can be reached.
     [Lore Keeper] All lore items must be collected before Nonota can be reached.
     """
@@ -26,7 +26,7 @@ class AbyssTrialRequirement(Choice):
     Requirement to open the final teleport in Abyss to reach Nonota.
     [Vanilla] The three switches at the end of each trial must be destroyed.
     [Randomized Item] Requires three trial clear items, which are placed in the item pool.
-    [Magic Master] All attack magics (arcane, ice, fire and thunder) must be level 5.
+    [Magic Master] All attack magics (arcane, ice, fire and thunder) must be at the max set level.
     [Boss Hunt] All boss tokens gained by defeating bosses need to be collected.
     [Lore Keeper] All lore items must be collected.
     """
@@ -228,6 +228,24 @@ class WindRequirements(Choice):
 
     default = option_start_without
 
+class CondensedMagic(DefaultOffToggle):
+    """
+    Turns each magic type into a single item which grants up to the max magic level.
+    If start with arcane or absorption is enabled, those will also start at max level.
+    This is for players who prefer checks with higher stakes.
+    """
+    display_name = "Condensed Magic"
+
+class MaxMagicLevel(Range):
+    """
+    The maximum level for each magic type. A lower number means less magic items in the pool and a less powerful Nobeta.
+    Magic Master goals will only require up to this max level, and condensed magic will grant up to this level as well.
+    """
+    display_name = "Max Magic Level"
+    range_start = 1
+    range_end = 5
+    default = 5
+
 class SkipsInLogic(OptionSet):
     """
     List of in-bound and glitchless skips to be considered in logic.
@@ -374,6 +392,7 @@ lwn_option_groups = [
     ]),
     OptionGroup("Logic Options", [
         WindRequirements,
+        CondensedMagic,
         RandomizeBossSouls,
         RandomizeBossTokens,
         SkippableBosses,
@@ -395,6 +414,7 @@ lwn_option_groups = [
     ]),
     OptionGroup("Difficulty Options", [
         BossRequirementsDifficulty,
+        MaxMagicLevel,
         NoArcane,
         NoManaRegeneration,
         StartWithAbsorption,
@@ -433,6 +453,8 @@ class LWNOptions(PerGameCommonOptions):
     randomize_crystal_balls: RandomizeCrystalBalls
     randomize_crystals: RandomizeCrystals
     wind_requirements: WindRequirements
+    condensed_magic: CondensedMagic
+    max_magic_level: MaxMagicLevel
     skips_in_logic: SkipsInLogic
     entrance_randomization: EntranceRandomization
     starting_area: StartingArea

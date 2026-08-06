@@ -49,6 +49,9 @@ shrine_underground_shortcut_locations: Dict[str, str] = {
 
 secret_passage_start_locations: Dict[str, str] = {
     "Secret Passage - 35. Dwarven Metalwork in pot after first drop": "Lore",
+}
+
+secret_passage_first_fire_barrier_switch_room_locations: Dict[str, str] = {
     "Secret Passage - 36. High Elf's Mana Ring in pot beside destructible wall": "Lore",
     "Secret Passage - 11. Broken Queen Doll from enemy behind destructible wall": "Lore",
     "Secret Passage - Absorption spell chest behind destructible wall": "Chest",
@@ -58,12 +61,15 @@ secret_passage_start_locations: Dict[str, str] = {
 secret_passage_after_first_fire_barrier_locations: Dict[str, str] = {
     "Secret Passage - 37. Forest Elf's Vest from enemy before hole in floor": "Lore",
     "Secret Passage - Wind spell chest in alcove during fall": "Chest",
+    "Secret Passage - 38. Dark Elf's Ear Sample from pot at magic barrier": "Lore",
+}
+
+secret_passage_after_secret_passage_gate_locations: Dict[str, str] = {
     "Secret Passage - Ice spell chest behind breakable wall after fall": "Chest",
     "Secret Passage - 4. Unknown House Banner from big enemy at spiral stairs": "Lore",
     "Secret Passage - Secret area shortcut gate switch": "Metal Gate",
     "Secret Passage - Fire spell chest at second fire barrier magic switch": "Chest",
     "Secret Passage - Second fire barrier magic switch": "Barrier",
-    "Secret Passage - 38. Dark Elf's Ear Sample from pot at magic barrier": "Lore",
 }
 
 secret_passage_before_enraged_armor_locations: Dict[str, str] = {
@@ -127,7 +133,7 @@ underground_after_fire_magic_switch_barrier_locations: Dict[str, str] = {
 }
 
 underground_tania_locations: Dict[str, str] = {
-    "Underground - Defeat tania": "Bosses",
+    "Underground - Tania": "Bosses",
     "Underground - Tania boss arena barrier": "Barrier",
     "Underground - Tania shortcut switch on Tania side": "Metal Gate",
     "Underground - 98. Lost Maiden's Soul Shard from Tania": "Lore",
@@ -422,7 +428,9 @@ lwn_locations: Dict[str, str] = {
     **shrine_armor_hall_locations,
     **shrine_underground_shortcut_locations,
     **secret_passage_start_locations,
+    **secret_passage_first_fire_barrier_switch_room_locations,
     **secret_passage_after_first_fire_barrier_locations,
+    **secret_passage_after_secret_passage_gate_locations,
     **secret_passage_before_enraged_armor_locations,
     **secret_passage_enraged_armor_locations,
     **secret_passage_boss_shortcut_locations,
@@ -487,7 +495,7 @@ location_name_groups = {
         "Secret Passage - Enraged Armor",
         "Shrine - Specter Armor",
         "Spirit Realm - Vanessa V2",
-        "Underground - Defeat tania",
+        "Underground - Tania",
     },
     "Lore": {
         "Abyss - 102. Lost Maiden's Crafted Soul Shard from Nonota",
@@ -776,10 +784,22 @@ def append_locations(world: "LWNWorld"):
         region = world.multiworld.get_region("Secret passage - Start", world.player)
         add_location_to_region(location_name, location_id, group_name, region, world)
 
+    for location_name in secret_passage_first_fire_barrier_switch_room_locations:
+        location_id = location_name_to_id[location_name]
+        group_name = secret_passage_first_fire_barrier_switch_room_locations[location_name]
+        region = world.multiworld.get_region("Secret passage - First fire barrier switch room", world.player)
+        add_location_to_region(location_name, location_id, group_name, region, world)
+
     for location_name in secret_passage_after_first_fire_barrier_locations:
         location_id = location_name_to_id[location_name]
         group_name = secret_passage_after_first_fire_barrier_locations[location_name]
         region = world.multiworld.get_region("Secret passage - After first fire barrier", world.player)
+        add_location_to_region(location_name, location_id, group_name, region, world)
+
+    for location_name in secret_passage_after_secret_passage_gate_locations:
+        location_id = location_name_to_id[location_name]
+        group_name = secret_passage_after_secret_passage_gate_locations[location_name]
+        region = world.multiworld.get_region("Secret passage - After secret passage gate", world.player)
         add_location_to_region(location_name, location_id, group_name, region, world)
 
     for location_name in secret_passage_before_enraged_armor_locations:

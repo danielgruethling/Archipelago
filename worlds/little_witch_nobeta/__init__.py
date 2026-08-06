@@ -173,12 +173,14 @@ class LWNWorld(World):
         else:
             self.multiworld.push_precollected(wind_spell)
 
-        # Generate 4 extra of all progressive and useful items
-        for item in magic_items.keys():
-            for _ in range(4):
-                lwn_item = self.create_item(item)
-                item_pool.append(lwn_item)
+        # Generate duplicate magic items up to max magic level
+        if self.options.condensed_magic == Toggle.option_false:
+            for item in magic_items.keys():
+                for _ in range(self.options.max_magic_level.value - 1):
+                    lwn_item = self.create_item(item)
+                    item_pool.append(lwn_item)
 
+        # Generate 4 extra of all useful items
         for item in useful_items.keys():
             for _ in range(4):
                 lwn_item = self.create_item(item)
@@ -297,7 +299,7 @@ class LWNWorld(World):
             (self.multiworld.get_location("Secret Passage - Enraged Armor", self.player)
                 .place_locked_item(self.create_item("Enraged Armor Token")))
 
-            (self.multiworld.get_location("Underground - Defeat tania", self.player)
+            (self.multiworld.get_location("Underground - Tania", self.player)
                 .place_locked_item(self.create_item("Tania Token")))
 
             (self.multiworld.get_location("Lava Ruins - Monica", self.player)
