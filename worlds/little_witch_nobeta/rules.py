@@ -522,11 +522,11 @@ def set_region_rules(world: "LWNWorld") -> None:
     world.set_rule(multiworld.get_entrance("Abyss - After giant maid barrier -> Abyss - Trials Lobby", player),
                    True_())
     world.set_rule(multiworld.get_entrance("Abyss - Trials Lobby -> Abyss - Underground Trial", player),
-                   Has("Trial Key", count=3, options=[OptionFilter(TrialKeys, Toggle.option_true)], filtered_resolution=True))
+                   Has("Underground Trial Key", options=[OptionFilter(TrialKeys, Toggle.option_true)], filtered_resolution=True))
     world.set_rule(multiworld.get_entrance("Abyss - Trials Lobby -> Abyss - Lava Ruins Trial", player),
-                   Has("Trial Key", count=3, options=[OptionFilter(TrialKeys, Toggle.option_true)], filtered_resolution=True))
+                   Has("Lava Ruins Trial Key", options=[OptionFilter(TrialKeys, Toggle.option_true)], filtered_resolution=True))
     world.set_rule(multiworld.get_entrance("Abyss - Trials Lobby -> Abyss - Dark Tunnel Trial", player),
-                   Has("Trial Key", count=3, options=[OptionFilter(TrialKeys, Toggle.option_true)], filtered_resolution=True))
+                   Has("Dark Tunnel Trial Key", options=[OptionFilter(TrialKeys, Toggle.option_true)], filtered_resolution=True))
     world.set_rule(multiworld.get_entrance("Abyss - Trials Lobby -> Abyss - Nonota", player),
                    has_abyss_trial_requirements)
     world.set_rule(multiworld.get_entrance("Abyss - Underground Trial -> Abyss - Underground Trial magic switch", player),

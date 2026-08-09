@@ -64,9 +64,10 @@ class LWNWorld(World):
 
     def create_item(self, item: str) -> LWNItem:
         item_class = ItemClassification.filler
+        item_group = lwn_items[item]
         if item in magic_items or item in boss_souls or item in boss_tokens:
             item_class = ItemClassification.progression
-        elif item == "Trial Key":
+        elif item_group == "Trial Key":
             item_class = ItemClassification.progression
         elif item in useful_items:
             item_class = ItemClassification.useful
@@ -202,9 +203,12 @@ class LWNWorld(World):
 
         # Generate trial keys
         if self.options.trial_keys.value == Toggle.option_true:
-            for _ in range(self.options.trial_key_amount.value):
-                lwn_item = self.create_item("Trial Key")
-                item_pool.append(lwn_item)
+            lwn_item = self.create_item("Underground Trial Key")
+            item_pool.append(lwn_item)
+            lwn_item = self.create_item("Lava Ruins Trial Key")
+            item_pool.append(lwn_item)
+            lwn_item = self.create_item("Dark Tunnel Trial Key")
+            item_pool.append(lwn_item)
 
         # Generate lore items
         if self.options.randomize_lore.value == self.options.randomize_lore.option_randomized:

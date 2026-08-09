@@ -251,7 +251,9 @@ lwn_items: Dict[str, str] = {
     **gate_items,
     **abyss_trial_items,
     "Teleport": "Teleport",
-    "Trial Key": "Trial Key",
+    "Underground Trial Key": "Trial Key",
+    "Lava Ruins Trial Key": "Trial Key",
+    "Dark Tunnel Trial Key": "Trial Key",
 }
 
 item_name_groups = {

@@ -42,19 +42,9 @@ class AbyssTrialRequirement(Choice):
 class TrialKeys(DefaultOffToggle):
     """
     This setting will add keys to the item pool which are needed to open the teleports to each Abyss trial.
-    Opening a trial is done by dropping a key on a trial path.
-    Three keys are needed to end the game. Putting more keys in the item pool will speed up progression.
+    Three keys are needed to end the game.
     """
     display_name = "Trial keys"
-
-class TrialKeyAmount(Range):
-    """
-    Amount of trial keys added to the item pool. Suggested amount is 5.
-    """
-    display_name = "Trial key amount"
-    range_start = 3
-    range_end = 7
-    default = 5
 
 class BossRequirementsDifficulty(Choice):
     """
@@ -106,7 +96,7 @@ class ShortcutGateBehaviour(Choice):
     option_always_open = 1
     option_randomized = 2
 
-    default = option_randomized
+    default = option_vanilla
 
 class MagicPuzzleGateBehaviour(Choice):
     """
@@ -121,7 +111,7 @@ class MagicPuzzleGateBehaviour(Choice):
     option_always_open = 1
     option_randomized = 2
 
-    default = option_randomized
+    default = option_vanilla
     
 class NoArcane(DefaultOffToggle):
     """
@@ -158,7 +148,7 @@ class RandomizeLore(Choice):
     option_checks_only = 2
     option_no_lore = 3
 
-    default = option_randomized
+    default = option_vanilla
 
 class RandomizeBreakableWalls(DefaultOffToggle):
     """
@@ -439,7 +429,6 @@ class LWNOptions(PerGameCommonOptions):
     randomize_boss_tokens: RandomizeBossTokens
     skippable_bosses: SkippableBosses
     trial_keys: TrialKeys
-    trial_key_amount: TrialKeyAmount
     abyss_trial_requirement: AbyssTrialRequirement
     no_arcane: NoArcane
     start_with_absorption: StartWithAbsorption
