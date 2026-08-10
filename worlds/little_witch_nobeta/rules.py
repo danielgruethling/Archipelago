@@ -100,7 +100,7 @@ def set_region_rules(world: "LWNWorld") -> None:
                    (has_barrier("Secret Passage Entrance Magic Barrier")
                        | (has_fire_or_thunder
                        & barrier_vanilla)))
-    world.set_rule(multiworld.get_entrance("Shrine - Armor Hall -> Secret passage - After first fire barrier", player),
+    world.set_rule(multiworld.get_entrance("Shrine - Armor Hall -> Secret passage - After secret passage gate", player),
                    has_gate("Shrine Secret Area Shortcut Gate"))
     world.set_rule(multiworld.get_entrance("Shrine - Armor Hall -> Secret Passage - Boss Shortcut", player),
                    has_gate("Shrine Secret Boss Shortcut Gate"))
@@ -756,15 +756,6 @@ def set_location_rules(world: "LWNWorld") -> None:
     if world.options.randomize_lore.value != world.options.randomize_lore.option_no_lore:
         world.set_rule(multiworld.get_location("Dark Tunnel - 39. Dark Elf's Short Bow from barrel on scaffolding", player),
                  has_wind_or_damage_boost)
-    if world.options.randomize_lore.value != world.options.randomize_lore.option_no_lore:
-        world.set_rule(multiworld.get_location("Dark Tunnel - 45. Golden Coin from first mimic", player),
-                 Has("Fire"))
-    if world.options.randomize_lore.value != world.options.randomize_lore.option_no_lore:
-        world.set_rule(multiworld.get_location("Dark Tunnel - 48. Chief's Skull from right mimic in mimic room", player),
-                 Has("Fire"))
-    if world.options.randomize_lore.value != world.options.randomize_lore.option_no_lore:
-        world.set_rule(multiworld.get_location("Dark Tunnel - 49. Chief's Skull from straight mimic in mimic room", player),
-                 Has("Fire"))
     world.set_rule(multiworld.get_location("Dark Tunnel - Thunder spell chest in mimic room", player),
              has_wind_or_damage_boost)
     if options.barrier_behaviour.value == options.barrier_behaviour.option_randomized:
@@ -932,7 +923,7 @@ def set_location_rules(world: "LWNWorld") -> None:
                  Has("Wind"))
     if options.barrier_behaviour.value == options.barrier_behaviour.option_randomized:
         world.set_rule(multiworld.get_location("Abyss - Giant maid barrier", player),
-                 HasGroup("Attack Magics"))
+                 HasAny("Arcane", "Thunder"))
     if options.barrier_behaviour.value == options.barrier_behaviour.option_randomized:
         world.set_rule(multiworld.get_location("Abyss - Underground trial activate scissor enemies magic switch", player),
                  has_fire_or_thunder)
