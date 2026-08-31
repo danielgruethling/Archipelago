@@ -1,6 +1,7 @@
 import dataclasses
 import math
-from typing import Any, Dict, List, ClassVar, Union
+from typing import Any, List, ClassVar, Union
+
 from settings import FilePath, Group
 
 from BaseClasses import Item, ItemClassification, Tutorial, Region
@@ -48,6 +49,7 @@ class LWNWorld(World):
     settings: ClassVar[LWNSettings]
     web = LWNWebWorld()
     tracker_world: ClassVar = lwn_tracker_world
+    ut_can_gen_without_yaml = True
     topology_present = True
 
     # The following two dicts are required for the generation to know which
@@ -101,6 +103,18 @@ class LWNWorld(World):
         return LWNItem(item, item_class, self.item_name_to_id.get(item, None), self.player)
     
     def generate_early(self):
+        re_gen_passthrough = getattr(self.multiworld, "re_gen_passthrough", {})
+        if re_gen_passthrough and self.game in re_gen_passthrough:
+            # Get the passed through slot data from the real generation
+            slot_data: dict[str, Any] = re_gen_passthrough[self.game]
+
+            # Set all your options here instead of getting them from the yaml
+            for key, value in slot_data.items():
+                opt = getattr(self.options, key, None)
+                if opt is not None:
+                    # You can also set .value directly but that won't work if you have OptionSets
+                    setattr(self.options, key, opt.from_any(value))
+
         if 'All' in self.options.skips_in_logic:
             self.options.skips_in_logic.value = set(self.options.skips_in_logic.valid_keys)
 
@@ -346,7 +360,7 @@ class LWNWorld(World):
         (self.multiworld.get_location("Lava Ruins - Fake floor bait item", self.player)
          .place_locked_item(self.create_item("Souls")))
 
-    def fill_slot_data(self) -> Dict[str, Any]:
+    def fill_slot_data(self) -> dict[str, Any]:
         slot_data = dict()
 
         for option_name in (attr.name for attr in dataclasses.fields(LWNOptions)
@@ -356,4 +370,12 @@ class LWNWorld(World):
 
         slot_data["world_version"] = self.world_version.as_simple_string()
 
+        return slot_data
+
+    # for the universal tracker, doesn't get called in standard gen
+    # docs: https://github.com/FarisTheAncient/Archipelago/blob/tracker/worlds/tracker/docs/re-gen-passthrough.md
+    @staticmethod
+    def interpret_slot_data(slot_data: dict[str, Any]) -> dict[str, Any]:
+        # returning slot_data so it regens, giving it back in multiworld.re_gen_passthrough
+        # we are using re_gen_passthrough over modifying the world here due to complexities with ER
         return slot_data

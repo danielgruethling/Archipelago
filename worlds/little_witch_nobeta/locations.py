@@ -730,10 +730,10 @@ location_name_groups = {
 
 def add_location_to_region(location_name, location_id, group_name, region, world):
     if (group_name == "Metal Gate"
-            and world.options.shortcut_gate_behaviour.value == world.options.shortcut_gate_behaviour.option_vanilla):
+            and world.options.shortcut_gate_behaviour.value != world.options.shortcut_gate_behaviour.option_randomized):
         return
     elif (group_name == "Barrier"
-          and world.options.barrier_behaviour.value == world.options.barrier_behaviour.option_vanilla):
+          and world.options.barrier_behaviour.value != world.options.barrier_behaviour.option_randomized):
         return
     elif (group_name == "Lore"
           and world.options.randomize_lore.value == world.options.randomize_lore.option_no_lore):
